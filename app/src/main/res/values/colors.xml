@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E43415</color>
+    <color name="colorPrimaryDark">#B62910</color>
+    <color name="colorLogin">#FA4C06</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="background">#FFFFFF</color>
+    <color name="buttonText">#FFFFFF</color>
+    <color name="darkGrey">#888888</color>
+    <color name="lightGrey">#BBBBBB</color>
+    <color name="linkedinColor">#007BB6</color>
+</resources>

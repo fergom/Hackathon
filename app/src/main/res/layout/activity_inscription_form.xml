@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_inscription_form"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    tools:context="com.a480.fernando.hackathon.InscriptionFormActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:paddingTop="50dp"
+            android:text="@string/linkedin_inscription"
+            android:textAlignment="center"
+            android:textColor="@color/linkedinColor"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/linkedin_logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:text="o rellena el formulario"
+            android:textColor="@color/darkGrey"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/form_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/inscription_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:hint="@string/name"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
+                android:id="@+id/inscription_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/surname"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <Spinner
+                android:id="@+id/inscription_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner"/>
+
+            <Spinner
+                android:id="@+id/inscription_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner"/>
+
+            <Spinner
+                android:id="@+id/inscription_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner"/>
+
+            <EditText
+                android:id="@+id/inscription_cp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/postal_code"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
+                android:id="@+id/inscription_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/phone"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
+                android:id="@+id/inscription_website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/website"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textSize="24sp"
+                android:textColor="@color/darkGrey"
+                android:text="@string/inscription_are_u_company"/>
+
+            <EditText
+                android:id="@+id/inscription_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:hint="@string/company_name"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
+                android:id="@+id/inscription_nif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:hint="@string/nif"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <Spinner
+                android:id="@+id/inscription_sector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner"/>
+
+            <Spinner
+                android:id="@+id/inscription_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner"/>
+
+            <Spinner
+                android:id="@+id/inscription_department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".9"
+                    android:paddingLeft="20dp"
+                    android:text="@string/check_in"
+                    android:textSize="20sp"
+                    android:textColor="@color/darkGrey"/>
+
+                <CheckBox
+                    android:id="@+id/inscription_fact"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1"
+                    android:paddingRight="20dp"
+                    android:buttonTint="@color/darkGrey"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/accept_inscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="acceptInscription"
+            android:text="@string/accept"
+            android:textColor="@color/buttonText" />
+    </LinearLayout>
+
+
+
+</ScrollView>
