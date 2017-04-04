@@ -86,4 +86,6 @@
     <string name="visit_our_website">VISITA NUESTRA WEB</string>
     <string name="for_hackathon_participants">Para los inscritos al Hackathon</string>
     <string name="special_offer">Oferta especial</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
 </resources>

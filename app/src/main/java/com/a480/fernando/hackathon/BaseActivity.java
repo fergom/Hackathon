@@ -39,10 +39,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String nif = getUserNif();
+        String email = getUserEmail();
 
-        if (nif != null) {
-            user = userDao.getUser(nif);
+        if (email != null) {
+            user = userDao.getUser(email);
         }
     }
 
@@ -207,7 +207,7 @@ public class BaseActivity extends AppCompatActivity {
         return user;
     }
 
-    public String getUserNif() {
+    public String getUserEmail() {
         return AppSharedPreferences.getUser(getApplicationContext());
     }
 

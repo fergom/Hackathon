@@ -14,10 +14,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginCredentials(View view) {
-        EditText nifEditText = (EditText) findViewById(R.id.login_nif);
-        String nif = nifEditText.getText().toString();
+        EditText emailEditText = (EditText) findViewById(R.id.login_email);
+        EditText passwordEditText = (EditText) findViewById(R.id.login_password);
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
         // Aquí se comprobará si las credenciales son correctas
-        AppSharedPreferences.setUser(getApplicationContext(), nif);
+        AppSharedPreferences.setUser(getApplicationContext(), email);
         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
         startActivity(intent);
     }

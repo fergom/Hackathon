@@ -8,8 +8,8 @@ import com.a480.fernando.hackathon.model.User;
 
 public class UserDao extends Dao {
 
-    public User getUser(String nif) {
-        return bbdd.getUserByNif(nif);
+    public User getUser(String email) {
+        return bbdd.getUserByEmail(email);
     }
 
 }

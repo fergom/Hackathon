@@ -24,9 +24,9 @@ public class BBDD {
         chargeServices();
     }
 
-    public User getUserByNif(String nif) {
+    public User getUserByEmail(String email) {
         for(User user: users) {
-            if(user.getNif().equals(nif)) {
+            if(user.getEmail().equals(email)) {
                 return user;
             }
         }
@@ -52,6 +52,7 @@ public class BBDD {
 
     private void chargeUsers() {
         User user = new User();
+        user.setEmail("fernando.gomez@cuatroochenta.com");
         user.setFact(true);
         user.setDepartment("Software");
         user.setPosition("Jefe");

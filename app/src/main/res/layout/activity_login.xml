@@ -13,16 +13,32 @@
     tools:context="com.a480.fernando.hackathon.LoginActivity">
 
     <EditText
-        android:id="@+id/login_nif"
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:layout_marginTop="20dp"
-        android:hint="@string/nif"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:textSize="20sp"
         android:textColor="@color/darkGrey"
         android:textColorHint="@color/lightGrey"
-        android:background="@drawable/edittext"/>
+        android:background="@drawable/edittext"
+        android:maxLines="1"/>
+
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        android:textColor="@color/darkGrey"
+        android:textColorHint="@color/lightGrey"
+        android:background="@drawable/edittext"
+        android:maxLines="1"/>
 
     <Button
         android:id="@+id/login"

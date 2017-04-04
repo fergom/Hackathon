@@ -15,13 +15,11 @@ public class HomeActivity extends BaseActivity {
         navigation = (DrawerLayout) findViewById(R.id.activity_home);
         setToolBar("Home");
         setJustifiedText();
+
         if(user != null) {
             findViewById(R.id.login).setVisibility(View.GONE);
-            findViewById(R.id.inscription).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.login).setVisibility(View.VISIBLE);
-            findViewById(R.id.inscription).setVisibility(View.VISIBLE);
         }
+
     }
 
     private void setJustifiedText() {
