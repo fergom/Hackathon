@@ -88,7 +88,7 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
     public boolean onMarkerClick(Marker marker) {
         Service service = null;
         if(this.selectedServiceName != null) {
-            service = this.serviceDao.getServiceByName(this.selectedServiceName);
+            service = this.mapsDao.getServiceByName(this.selectedServiceName);
             for(MarkerOptions mark: this.markers) {
                 if(mark.getTitle().equals(this.selectedServiceName)) {
                     this.map.addMarker(createMarker(service, getIcon(service.getType())));
@@ -96,7 +96,7 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
             }
         }
         this.selectedServiceName = marker.getTitle();
-        service = this.serviceDao.getServiceByName(this.selectedServiceName);
+        service = this.mapsDao.getServiceByName(this.selectedServiceName);
         setBottomInformation(service);
         marker.setIcon(BitmapDescriptorFactory.fromResource(getActiveIcon(service.getType())));
         return false;
@@ -111,7 +111,7 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
     private void loadLocations() {
         int icon;
         MarkerOptions marker;
-        for(Service service: serviceDao.getServices()) {
+        for(Service service: mapsDao.getServices()) {
             if(selectedServiceName != null && service.getName().equals(selectedServiceName)) {
                 icon = getActiveIcon(service.getType());
                 this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(service.getLatitude(),service.getLongitude()) , nearZoom));

@@ -41,7 +41,7 @@ public class ServicesActivity extends BaseActivity {
     private void loadServices() {
         servicesListView = (ListView) findViewById(R.id.services_list);
 
-        serviceAdapter = new ServiceAdapter(serviceDao.getServices(), getApplicationContext());
+        serviceAdapter = new ServiceAdapter(mapsDao.getServices(), getApplicationContext());
         servicesListView.setAdapter(serviceAdapter);
         servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

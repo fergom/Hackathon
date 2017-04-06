@@ -1,6 +1,5 @@
 package com.a480.fernando.hackathon;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,9 +32,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ServiceRouteActivity extends BaseActivity implements OnMapReadyCallback {
+public class FacilityRouteActivity extends BaseActivity implements OnMapReadyCallback {
 
-    private Service service;
+    private Service facility;
     private GoogleMap map;
     private LocationManager locationManager;
     private float defaultZoom = 14.0f;
@@ -43,30 +42,30 @@ public class ServiceRouteActivity extends BaseActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_route);
+        setContentView(R.layout.activity_facility_route);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        this.service = this.mapsDao.getServiceByName(getIntent().getStringExtra(AppConstant.SERVICE_NAME));
+        this.facility = this.mapsDao.getFacilityByName(getIntent().getStringExtra(AppConstant.FACILITY_NAME));
 
-        setCloseToolBar("Ruta a " + service.getName());
+        setCloseToolBar("Ruta a " + facility.getName());
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.route_service_map);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.route_facility_map);
         mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 finish();
             }
         } else {
             statusCheck();
             this.map.setMyLocationEnabled(true);
-            this.map.addMarker(new MarkerOptions().position(new LatLng(service.getLatitude(), service.getLongitude())).title(service.getName()).icon(BitmapDescriptorFactory.fromResource(getIcon(service.getType()))));
+            this.map.addMarker(new MarkerOptions().position(new LatLng(facility.getLatitude(), facility.getLongitude())).title(facility.getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.location)));
             locationManager.requestLocationUpdates("gps", 1000, 0, new LocationListener() {
 
                 boolean firstTime = true;
@@ -77,7 +76,7 @@ public class ServiceRouteActivity extends BaseActivity implements OnMapReadyCall
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), defaultZoom));
                         firstTime = false;
                     }
-                    String urlRoute = getMapsApiDirectionsUrl(new LatLng(location.getLatitude(), location.getLongitude()), new LatLng(service.getLatitude(), service.getLongitude()));
+                    String urlRoute = getMapsApiDirectionsUrl(new LatLng(location.getLatitude(), location.getLongitude()), new LatLng(facility.getLatitude(), facility.getLongitude()));
                     ReadTask downloadTask = new ReadTask();
                     downloadTask.execute(urlRoute);
                 }
@@ -182,16 +181,6 @@ public class ServiceRouteActivity extends BaseActivity implements OnMapReadyCall
             }
 
         }
-    }
-
-    private int getIcon(String serviceType) {
-        switch (serviceType) {
-            case AppConstant.HOTELS:
-                return R.drawable.hotel_selected_icon;
-            case AppConstant.OTHERS:
-                return R.drawable.other_service_selected_icon;
-        }
-        return 0;
     }
 
     // Si el GPS no está activado se muestra un mensaje para activarlo

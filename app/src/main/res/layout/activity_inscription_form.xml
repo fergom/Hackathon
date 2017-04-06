@@ -53,10 +53,49 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/inscription_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
+                android:id="@+id/inscription_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
+                android:id="@+id/inscription_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword"
+                android:hint="@string/repeat_password"
+                android:textSize="20sp"
+                android:textColor="@color/darkGrey"
+                android:textColorHint="@color/lightGrey"
+                android:background="@drawable/edittext"/>
+
+            <EditText
                 android:id="@+id/inscription_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:hint="@string/name"
                 android:textSize="20sp"
                 android:textColor="@color/darkGrey"

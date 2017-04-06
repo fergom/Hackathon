@@ -47,7 +47,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".ServiceMapDetailActivity" />
-        <activity android:name=".ServiceRouteActivity"></activity>
+        <activity android:name=".ServiceRouteActivity" />
+        <activity android:name=".FacilitiesActivity" />
+        <activity android:name=".FacilitiesMapActivity" />
+        <activity android:name=".FacilityMapDetailActivity" />
+        <activity android:name=".FacilityRouteActivity" />
     </application>
 
 </manifest>

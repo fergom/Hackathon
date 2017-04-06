@@ -26,7 +26,7 @@ public class ServiceMapDetailActivity extends BaseActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_map_detail);
 
-        this.service = this.serviceDao.getServiceByName(getIntent().getStringExtra(AppConstant.SERVICE_NAME));
+        this.service = this.mapsDao.getServiceByName(getIntent().getStringExtra(AppConstant.SERVICE_NAME));
 
         TextView name = (TextView) findViewById(R.id.service_name_detail);
         TextView address = (TextView) findViewById(R.id.service_address_detail);

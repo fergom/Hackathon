@@ -11,12 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.a480.fernando.hackathon.dao.ServiceDao;
+import com.a480.fernando.hackathon.dao.MapsDao;
 import com.a480.fernando.hackathon.dao.UserDao;
 import com.a480.fernando.hackathon.model.User;
 
@@ -32,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected NavigationView navigationView;
     protected UserDao userDao = new UserDao();
-    protected ServiceDao serviceDao = new ServiceDao();
+    final static protected MapsDao mapsDao = new MapsDao();
     protected User user;
     protected DrawerLayout navigation;
 
@@ -42,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         String email = getUserEmail();
 
         if (email != null) {
-            user = userDao.getUser(email);
+            user = userDao.getUser();
         }
     }
 
@@ -88,9 +85,11 @@ public class BaseActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.inflateHeaderView(R.layout.navigation);
         if(user == null) {
+            navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.VISIBLE);
             navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.GONE);
             navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
         } else {
+            navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.GONE);
             navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.VISIBLE);
             navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
             TextView nameMenu = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.name_menu);
@@ -118,6 +117,9 @@ public class BaseActivity extends AppCompatActivity {
     public void navigationItemClicked(View view) {
         Intent intent = null;
         switch(view.getId()) {
+            case R.id.navigation_login:
+                intent = new Intent(BaseActivity.this, LoginActivity.class);
+                break;
             case R.id.profile:
                 intent = new Intent(BaseActivity.this, ProfileActivity.class);
                 break;
@@ -149,7 +151,7 @@ public class BaseActivity extends AppCompatActivity {
                 intent = new Intent(BaseActivity.this, HomeActivity.class);
                 break;
             case R.id.maps:
-                intent = new Intent(BaseActivity.this, HomeActivity.class);
+                intent = new Intent(BaseActivity.this, FacilitiesActivity.class);
                 break;
             case R.id.services:
                 intent = new Intent(BaseActivity.this, ServicesActivity.class);
@@ -172,39 +174,6 @@ public class BaseActivity extends AppCompatActivity {
     public void inscription(View view) {
         Intent intent = new Intent(BaseActivity.this, InscriptionInfoActivity.class);
         startActivity(intent);
-    }
-
-    public User createUser() {
-        User user = new User();
-        EditText name = (EditText) findViewById(R.id.inscription_name);
-        user.setName(name.getText().toString());
-        EditText surname = (EditText) findViewById(R.id.inscription_surname);
-        user.setSurname(surname.getText().toString());
-        Spinner country = (Spinner) findViewById(R.id.inscription_country);
-        user.setCountry(country.getSelectedItem().toString());
-        Spinner state = (Spinner) findViewById(R.id.inscription_state);
-        user.setState(state.getSelectedItem().toString());
-        Spinner city = (Spinner) findViewById(R.id.inscription_city);
-        user.setCity(city.getSelectedItem().toString());
-        EditText postalCode = (EditText) findViewById(R.id.inscription_cp);
-        user.setPostalCode(postalCode.getText().toString());
-        EditText phoneNumber = (EditText) findViewById(R.id.inscription_phone);
-        user.setPhoneNumber(phoneNumber.getText().toString());
-        EditText website = (EditText) findViewById(R.id.inscription_website);
-        user.setWebsite(website.getText().toString());
-        EditText companyName = (EditText) findViewById(R.id.inscription_company);
-        user.setCompanyName(companyName.getText().toString());
-        EditText nif = (EditText) findViewById(R.id.inscription_nif);
-        user.setNif(nif.getText().toString());
-        Spinner sector = (Spinner) findViewById(R.id.inscription_sector);
-        user.setSector(sector.getSelectedItem().toString());
-        Spinner position = (Spinner) findViewById(R.id.inscription_position);
-        user.setPosition(position.getSelectedItem().toString());
-        Spinner department = (Spinner) findViewById(R.id.inscription_department);
-        user.setDepartment(department.getSelectedItem().toString());
-        CheckBox fact = (CheckBox) findViewById(R.id.inscription_fact);
-        user.setFact(fact.isChecked());
-        return user;
     }
 
     public String getUserEmail() {

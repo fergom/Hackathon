@@ -1,9 +1,7 @@
 package com.a480.fernando.hackathon;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
 import android.webkit.WebView;
 
 public class HomeActivity extends BaseActivity {
@@ -16,10 +14,6 @@ public class HomeActivity extends BaseActivity {
         setToolBar("Home");
         setJustifiedText();
 
-        if(user != null) {
-            findViewById(R.id.login).setVisibility(View.GONE);
-        }
-
     }
 
     private void setJustifiedText() {
@@ -28,11 +22,6 @@ public class HomeActivity extends BaseActivity {
         description = description.replace("\n","<br>");
         WebView webView = (WebView) findViewById(R.id.web_view_home);
         webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");
-    }
-
-    public void login(View view) {
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        startActivity(intent);
     }
 
 }

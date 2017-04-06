@@ -146,6 +146,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:id="@+id/navigation_login"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@color/background"
+        android:onClick="navigationItemClicked">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/login"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:text="INICIAR SESIÓN"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/main_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

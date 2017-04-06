@@ -67,7 +67,24 @@ public class BBDD {
         user.setState("Comunidad Valenciana");
         user.setSurname("Gómez");
         user.setWebsite("http://cuatroochenta.com");
+        User user1 = new User();
+        user1.setEmail("al286313@uji.es");
+        user1.setFact(true);
+        user1.setDepartment("Software");
+        user1.setPosition("Jefe");
+        user1.setSector("Android");
+        user1.setCity("Castellón de la Plana");
+        user1.setCompanyName("Cuatroochenta");
+        user1.setCountry("España");
+        user1.setName("Fernando");
+        user1.setNif("20487835X");
+        user1.setPhoneNumber("655283422");
+        user1.setPostalCode("12004");
+        user1.setState("Comunidad Valenciana");
+        user1.setSurname("Gómez");
+        user1.setWebsite("http://cuatroochenta.com");
         users.add(user);
+        users.add(user1);
     }
 
     private void chargeServices() {
