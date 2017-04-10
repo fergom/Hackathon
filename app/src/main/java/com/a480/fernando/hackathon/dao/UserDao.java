@@ -2,6 +2,7 @@ package com.a480.fernando.hackathon.dao;
 
 import android.util.Log;
 
+import com.a480.fernando.hackathon.CallbackActivity;
 import com.a480.fernando.hackathon.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,15 +23,28 @@ public class UserDao extends Dao {
 
     public UserDao() { }
 
-    public void login() {
-
+    public void onAuthenticated(CallbackActivity callback) {
         userRef = myRef.child("/" + auth.getCurrentUser().getUid());
-
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                HashMap<String, String> value = (HashMap<String, String>) dataSnapshot.getValue();
-                user.setName(value.get("name"));
+                HashMap<String, Object> value = (HashMap<String, Object>) dataSnapshot.getValue();
+                user.setName(value.get("name").toString());
+                user.setSurname(value.get("surname").toString());
+                user.setEmail(value.get("email").toString());
+                user.setCountry(value.get("country").toString());
+                user.setState(value.get("state").toString());
+                user.setCity(value.get("city").toString());
+                user.setPostalCode(value.get("postalCode").toString());
+                user.setPhoneNumber(value.get("phoneNumber").toString());
+                user.setWebsite(value.get("website").toString());
+                user.setCompanyName(value.get("companyName").toString());
+                user.setNif(value.get("nif").toString());
+                user.setSector(value.get("sector").toString());
+                user.setPosition(value.get("position").toString());
+                user.setDepartment(value.get("department").toString());
+                user.setFact((boolean) value.get("fact"));
+                callback.onDataLoaded();
             }
 
             @Override
@@ -45,7 +59,7 @@ public class UserDao extends Dao {
     }
 
     public void saveUser(User user) {
-        userRef.child("name").setValue(user.getName());
+        userRef.setValue(user);
     }
 
     public void logout() {

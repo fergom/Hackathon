@@ -1,13 +1,10 @@
 package com.a480.fernando.hackathon.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Fernando on 27/03/2017.
  */
 
-public class User implements Parcelable {
+public class User {
 
     private String email;
     private String password;
@@ -27,58 +24,6 @@ public class User implements Parcelable {
     private boolean fact;
 
     public User() { }
-
-    protected User(Parcel in) {
-        name = in.readString();
-        surname = in.readString();
-        country = in.readString();
-        state = in.readString();
-        city = in.readString();
-        postalCode = in.readString();
-        phoneNumber = in.readString();
-        website = in.readString();
-        companyName = in.readString();
-        nif = in.readString();
-        sector = in.readString();
-        position = in.readString();
-        department = in.readString();
-        fact = in.readByte() != 0;
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(surname);
-        dest.writeString(country);
-        dest.writeString(state);
-        dest.writeString(city);
-        dest.writeString(postalCode);
-        dest.writeString(phoneNumber);
-        dest.writeString(website);
-        dest.writeString(companyName);
-        dest.writeString(nif);
-        dest.writeString(sector);
-        dest.writeString(position);
-        dest.writeString(department);
-        dest.writeByte((byte) (fact ? 1 : 0));
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
     public String getEmail() {
         return email;
@@ -200,7 +145,7 @@ public class User implements Parcelable {
         this.department = department;
     }
 
-    public boolean isFact() {
+    public boolean getFact() {
         return fact;
     }
 

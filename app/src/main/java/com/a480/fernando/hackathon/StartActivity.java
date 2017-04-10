@@ -1,11 +1,10 @@
 package com.a480.fernando.hackathon;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class StartActivity extends Activity {
+public class StartActivity extends BaseActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 

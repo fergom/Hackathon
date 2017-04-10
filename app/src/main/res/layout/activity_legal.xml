@@ -26,7 +26,6 @@
                 android:id="@+id/legal_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/legal_info"
                 android:textColor="@color/darkGrey"
                 android:textSize="14sp"
                 android:layout_marginLeft="20dp"

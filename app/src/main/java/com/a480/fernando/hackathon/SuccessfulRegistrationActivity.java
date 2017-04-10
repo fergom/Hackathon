@@ -21,9 +21,6 @@ public class SuccessfulRegistrationActivity extends BaseActivity {
             @Override
             public void run() {
                 Intent mainIntent = new Intent(SuccessfulRegistrationActivity.this,ProfileActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(AppConstant.USER, user);
-                mainIntent.putExtras(bundle);
                 SuccessfulRegistrationActivity.this.startActivity(mainIntent);
                 SuccessfulRegistrationActivity.this.finish();
             }

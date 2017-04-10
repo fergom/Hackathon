@@ -42,7 +42,7 @@ public class FacilityMapDetailActivity extends BaseActivity implements OnMapRead
 
     private void setJustifiedText() {
         String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String description = getString(R.string.service_descrption);
+        String description = facility.getDescription();
         description = description.replace("\n","<br>");
         WebView webView = (WebView) findViewById(R.id.facility_description_detail);
         webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");

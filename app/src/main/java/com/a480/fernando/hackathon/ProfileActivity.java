@@ -33,7 +33,6 @@ public class ProfileActivity extends BaseActivity {
 
     public void logout(View view) {
         userDao.logout();
-        AppSharedPreferences.removeUser(getApplicationContext());
         Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
         startActivity(intent);
     }

@@ -26,7 +26,6 @@
                 android:id="@+id/web_view_inscription_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/home_description"
                 android:textColor="@color/darkGrey"
                 android:textSize="14sp"
                 android:layout_marginLeft="20dp"

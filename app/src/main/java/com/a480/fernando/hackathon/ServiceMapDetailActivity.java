@@ -44,7 +44,7 @@ public class ServiceMapDetailActivity extends BaseActivity implements OnMapReady
 
     private void setJustifiedText() {
         String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String description = getString(R.string.service_descrption);
+        String description = service.getDescription();
         description = description.replace("\n","<br>");
         WebView webView = (WebView) findViewById(R.id.service_description_detail);
         webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");

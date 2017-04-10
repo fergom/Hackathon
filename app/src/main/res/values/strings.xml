@@ -4,34 +4,6 @@
     <string name="inscription_button">INSCRIPCIÓN</string>
     <string name="home_title">Hackathon Castellón 2016</string>
     <string name="home_subtitle">Del 10 al 13 de Noviembre 2016. Castellón</string>
-    <string name="home_description">
-        Hackaton Castellón 2016 surge de la iniciativa de tres empresas pioneras en el sector de las telecomunicaciones en Castellón: Cuatroochenta, loTsens y Nayar Systems. Se trata del primer encuentro de Programadores en la provincia de Castellón, en el que los participantes deberán llevar a cabo uno de los retos planteados.
-        \n\nObjetivos:
-        \n\nCaptar talento, potenciar la innovación y brindar Ia posibilidad a los participantes de acceder a una bolsa de empleo por el mero hecho de participar.
-        \n\nCrear un ecosistema de creatividad, sinergias y transmisión conjunta de conocimientos y experiencias entre los participantes. Construir soluciones colaborativas a las problemáticas reales planteadas por tres empresas tecnológicas referentes en Castellón, durante un plazo determinado de horas y en el mismo espacio físico.
-        \n\nSumar habilidades y materializar las mejores ideas, siendo el crecimiento profesional el mayor premio para los participantes.
-    </string>
-    <string name="inscription_info">
-        Hackathon Castellón, que tendrá lugar los días 10, 11, 12 y 13 de noviembre de 2016, está dirigido tanto a profesionales emprendedores como a emprendedores noveles y universitarios.
-        \n\nPara poder participar es imprescindible inscribirse con antelación. El precio de la inscripción al evento es de 10€ e incluye:
-        \n- La participación completa durante los cuatro días.
-        \n- El Kit del Hacker, que consta de una bolsa mochila, una pulsera acreditativa de tela y una camiseta exclusiva del evento.
-        \n\nEn las instalaciones donde tendrá lugar Hackathon Castellón habrá conexión WiFi gratuita, pero es necesario que traigas tu propio ordenador para programar. Además, durante el viernes, sábado y domingo, habrá servicio de cafetería a precios populares para que puedas coger fuerzas sin la necesidad de moverte del recinto.
-        \n\nNo olvides que puedes apuntarte solo o con tus amigos. ¡Es una buena forma de conocer gente! Si ya tenéis un grupo formado, podéis especificarlo en el formulario escribiendo, individualmente, el nombre del grupo. Si no lo tienes, no te preocupes, conocerás mucha gente y podrás formar piña al inicio del Hackathon.
-    </string>
-    <string name="legal_info">
-        Psicólogo Industrial por la UNED y Executive MBA por INSEAD, Ángel Aledo Linos es fundador y director de la Consultora \"1+1=3 Recursos Humanos\".
-        \n\nAntes de su trabajo como Consultor, Ángel Aledo ha desarrollado una dilatada carrera profesional, ocupando posiciones de primer nivel en Recursos Humanos.
-        \n\nDesde 2005 a 2012, director de recursos humanos para el Sur de Europa y Medio Oriente de OTIS Elevators. Teniendo bajo su supervisión España, Portugal, Italia, Grecia, Chipre, Turquía, Kuwait, Emiratos Árabes Unidos, Arabia Saudita, Marruecos y Sudáfrica.
-        \n\nDesde 1999 a 2005, director de recursos humanos de ACCIONA Infraestructuras.
-        \n\nDesde 1991 a 1998, jefe de formación y desarrollo de HEINEKEN
-        \n\nDesde 1985 a 1991, jefe de gestión de cuadros superiores de RENAULT
-    </string>
-    <string name="service_descrption">
-        Este hotel sencillo se encuentra a 7 minutos a pie del campanario El Fadrí, que data del siglo XV, a 2,1 km de la estación de tren de Castellón de la Plana y a 7 km de la playa del Pinar.
-        \n\nLas habitaciones son funcionales y disponen de Wi-Fi gratis, televisiones de pantalla plana y minibares.
-        \n\nEl hotel sirve un desayuno buffet por un suplemento en un restaurante informal.También dispone de un gimnasio, una recepción abierta las 24 horas y aparcamiento (de pago).
-    </string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="legal_button">LEGALES</string>
@@ -46,18 +18,6 @@
     <string name="website">Página web</string>
     <string name="title_activity_login">Sign in</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="country">País</string>
     <string name="inscription_are_u_company">¿Eres una empresa?</string>
     <string name="company_name">Nombre empresa</string>
@@ -89,4 +49,11 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="repeat_password">Repite la contraseña</string>
+    <string name="my_documents">Mis documentos</string>
+    <string name="public_documents">Documentos públicos</string>
+    <string name="inscription">Inscripción</string>
+    <string name="documents_info">¿Qué es Hackathon Castellón?</string>
+    <string name="documents_schedule">Horarios y ponentes</string>
+    <string name="documents_hackathon_2016">Programa Hackathon Castellón 2016</string>
+    <string name="documents_challenges">Retos</string>
 </resources>

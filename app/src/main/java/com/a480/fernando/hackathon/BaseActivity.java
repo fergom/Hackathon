@@ -13,15 +13,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.a480.fernando.hackathon.dao.DocumentDao;
+import com.a480.fernando.hackathon.dao.FeedbackDao;
+import com.a480.fernando.hackathon.dao.InfoDao;
 import com.a480.fernando.hackathon.dao.MapsDao;
+import com.a480.fernando.hackathon.dao.SpeakersDao;
 import com.a480.fernando.hackathon.dao.UserDao;
 import com.a480.fernando.hackathon.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by Fernando on 16/03/2017.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements CallbackActivity {
 
     private Toolbar toolBar;
     private ActionBarDrawerToggle toggle;
@@ -30,16 +35,22 @@ public class BaseActivity extends AppCompatActivity {
     protected NavigationView navigationView;
     protected UserDao userDao = new UserDao();
     final static protected MapsDao mapsDao = new MapsDao();
+    final static protected InfoDao infoDao = new InfoDao();
+    final static protected FeedbackDao feedbackDao = new FeedbackDao();
+    final static protected DocumentDao documentDao = new DocumentDao();
+    final static protected SpeakersDao speakersDao = new SpeakersDao();
     protected User user;
     protected DrawerLayout navigation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String email = getUserEmail();
 
-        if (email != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             user = userDao.getUser();
+            if(user.getName() == null) {
+                userDao.onAuthenticated(BaseActivity.this);
+            }
         }
     }
 
@@ -83,17 +94,19 @@ public class BaseActivity extends AppCompatActivity {
 
     private void updateNavigation() {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        navigationView.inflateHeaderView(R.layout.navigation);
-        if(user == null) {
-            navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.VISIBLE);
-            navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.GONE);
-            navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
-        } else {
-            navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.GONE);
-            navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.VISIBLE);
-            navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
-            TextView nameMenu = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.name_menu);
-            nameMenu.setText(user.getName() + " " + user.getSurname());
+        if(navigationView != null) {
+            navigationView.inflateHeaderView(R.layout.navigation);
+            if(user == null) {
+                navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.VISIBLE);
+                navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.GONE);
+                navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+            } else {
+                navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.GONE);
+                navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.VISIBLE);
+                navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
+                TextView nameMenu = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.name_menu);
+                nameMenu.setText(user.getName() + " " + user.getSurname());
+            }
         }
     }
 
@@ -145,10 +158,10 @@ public class BaseActivity extends AppCompatActivity {
                 intent = new Intent(BaseActivity.this, HomeActivity.class);
                 break;
             case R.id.speakers:
-                intent = new Intent(BaseActivity.this, HomeActivity.class);
+                intent = new Intent(BaseActivity.this, SpeakersActivity.class);
                 break;
             case R.id.documentation:
-                intent = new Intent(BaseActivity.this, HomeActivity.class);
+                intent = new Intent(BaseActivity.this, DocumentsActivity.class);
                 break;
             case R.id.maps:
                 intent = new Intent(BaseActivity.this, FacilitiesActivity.class);
@@ -176,8 +189,9 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public String getUserEmail() {
-        return AppSharedPreferences.getUser(getApplicationContext());
+    @Override
+    public void onDataLoaded() {
+        user = userDao.getUser();
+        updateNavigation();
     }
-
 }

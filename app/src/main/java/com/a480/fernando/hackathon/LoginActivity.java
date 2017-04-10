@@ -15,9 +15,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements CallbackActivity {
 
     private FirebaseAuth mAuth;
+    private static String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     public void loginCredentials(View view) {
@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
         LinearLayout loginInfoLayout = (LinearLayout) findViewById(R.id.login_info_layout);
         EditText emailEditText = (EditText) findViewById(R.id.login_email);
         EditText passwordEditText = (EditText) findViewById(R.id.login_password);
-        String email = emailEditText.getText().toString();
+        email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
         if(TextUtils.isEmpty(email)) {
@@ -52,29 +52,15 @@ public class LoginActivity extends BaseActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Email o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
                         } else {
-
-                            /*FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference rootRef = database.getReference("");
-                            DatabaseReference userRef = rootRef.child("Users/" + mAuth.getCurrentUser().getUid());
-
-                            userRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Log.d("FIREBASE", dataSnapshot.getValue().toString());
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError error) {
-                                    Log.w("FIREBASE", "Failed to read value.", error.toException());
-                                }
-                            });*/
-                            userDao.login();
-                            AppSharedPreferences.setUser(getApplicationContext(), email);
-                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                            userDao.onAuthenticated(LoginActivity.this);
                         }
                     }
                 });
         }
-
     }
+
+    public void onDataLoaded() {
+        startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+    }
+
 }

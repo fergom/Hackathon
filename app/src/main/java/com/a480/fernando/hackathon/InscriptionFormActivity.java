@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InscriptionFormActivity extends BaseActivity {
+public class InscriptionFormActivity extends BaseActivity implements CallbackActivity {
 
     private Spinner countrySpinner;
     private Spinner stateSpinner;
@@ -32,6 +32,8 @@ public class InscriptionFormActivity extends BaseActivity {
     private EditText passwordConfirm;
 
     private FirebaseAuth auth;
+
+    private User createdUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +129,7 @@ public class InscriptionFormActivity extends BaseActivity {
         } else if(password.getText().toString().length() < 8) {
             Toast.makeText(getApplicationContext(), "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_LONG).show();
         } else {
-            User createdUser = createUser();
+            createdUser = createUser();
             auth.createUserWithEmailAndPassword(createdUser.getEmail(), createdUser.getPassword())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -135,13 +137,16 @@ public class InscriptionFormActivity extends BaseActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
                         } else {
-                            // save user in ddbb
-                            AppSharedPreferences.setUser(getApplicationContext(), createdUser.getEmail());
-                            startActivity(new Intent(InscriptionFormActivity.this, SuccessfulRegistrationActivity.class));
+                            userDao.onAuthenticated(InscriptionFormActivity.this);
+                            userDao.saveUser(createdUser);
                         }
                     }
                 });
         }
+    }
+
+    public void onDataLoaded() {
+        startActivity(new Intent(InscriptionFormActivity.this, SuccessfulRegistrationActivity.class));
     }
 
     private User createUser() {

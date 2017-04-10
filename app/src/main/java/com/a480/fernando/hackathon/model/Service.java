@@ -12,17 +12,9 @@ public class Service {
     private String type;
     private double latitude;
     private double longitude;
+    private String description;
 
     public Service() { }
-
-    public Service(String name, String address, String phone, String type, double latitude, double longitude) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 
     public double getLatitude() {
         return latitude;
@@ -70,5 +62,13 @@ public class Service {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

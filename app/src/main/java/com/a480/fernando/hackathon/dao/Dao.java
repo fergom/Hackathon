@@ -9,7 +9,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Dao {
 
-    protected final static BBDD bbdd = new BBDD();
     protected final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     protected final static FirebaseAuth auth = FirebaseAuth.getInstance();
 

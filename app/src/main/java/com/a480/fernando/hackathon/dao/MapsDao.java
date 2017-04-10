@@ -43,6 +43,7 @@ public class MapsDao extends Dao {
                         service.setAddress(attributes.get("address").toString());
                         service.setLatitude((double) attributes.get("latitude"));
                         service.setLongitude((double) attributes.get("longitude"));
+                        service.setDescription(attributes.get("description").toString());
                     }
                     if(type.contains("facility")) {
                         if(type.contains("image")) {

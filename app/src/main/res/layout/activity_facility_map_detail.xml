@@ -69,44 +69,6 @@
                     android:id="@+id/facility_description_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="30dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/star_icon"
-                        android:layout_gravity="center_vertical"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="25sp"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="10dp"
-                        android:text="@string/special_offer"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/for_hackathon_participants"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/visit_our_website"/>
             </LinearLayout>
 
             <LinearLayout

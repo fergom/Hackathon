@@ -52,6 +52,8 @@
         <activity android:name=".FacilitiesMapActivity" />
         <activity android:name=".FacilityMapDetailActivity" />
         <activity android:name=".FacilityRouteActivity" />
+        <activity android:name=".DocumentsActivity" />
+        <activity android:name=".SpeakersActivity"></activity>
     </application>
 
 </manifest>
