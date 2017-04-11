@@ -49,41 +49,46 @@ public class SpeakersDao extends Dao {
                     speaker.setName(key);
                     speaker.setDescription(attributes.get("description").toString());
                     speaker.setJob(attributes.get("job").toString());
+                    speaker.setImage(attributes.get("image").toString());
                     speaker.setLinkedin(attributes.get("linkedin").toString());
                     speaker.setTwitter(attributes.get("twitter").toString());
                     speaker.setWebsite(attributes.get("website").toString());
                     quest = new ArrayList<Question>();
 
                     questions = (ArrayList<HashMap<String, Object>>) attributes.get("questions");
-                    for(HashMap<String, Object> answer: questions) {
-                        q = new Question();
-                        q.setAnswer(answer.get("answer").toString());
-                        q.setTitle(answer.get("title").toString());
-                        q.setLikes((long) answer.get("likes"));
-                        try {
-                            time = Calendar.getInstance();
-                            time.setTime(sdf.parse(answer.get("time").toString()));
-                        } catch (ParseException pe) {
-                            pe.printStackTrace();
-                        }
-                        q.setTime(time);
-                        com = new ArrayList<Comment>();
-                        comments = (ArrayList<HashMap<String, Object>>) answer.get("comments");
-                        for(HashMap<String, Object> comment: comments) {
-                            c = new Comment();
-                            c.setName(comment.get("name").toString());
-                            c.setComment(comment.get("comment").toString());
+                    if(questions != null) {
+                        for(HashMap<String, Object> answer: questions) {
+                            q = new Question();
+                            q.setAnswer(answer.get("answer").toString());
+                            q.setTitle(answer.get("title").toString());
+                            q.setLikes((long) answer.get("likes"));
                             try {
                                 time = Calendar.getInstance();
-                                time.setTime(sdf.parse(comment.get("time").toString()));
+                                time.setTime(sdf.parse(answer.get("time").toString()));
                             } catch (ParseException pe) {
                                 pe.printStackTrace();
                             }
-                            c.setTime(time);
-                            com.add(c);
+                            q.setTime(time);
+                            com = new ArrayList<Comment>();
+                            comments = (ArrayList<HashMap<String, Object>>) answer.get("comments");
+                            if(comments != null) {
+                                for(HashMap<String, Object> comment: comments) {
+                                    c = new Comment();
+                                    c.setName(comment.get("name").toString());
+                                    c.setComment(comment.get("comment").toString());
+                                    try {
+                                        time = Calendar.getInstance();
+                                        time.setTime(sdf.parse(comment.get("time").toString()));
+                                    } catch (ParseException pe) {
+                                        pe.printStackTrace();
+                                    }
+                                    c.setTime(time);
+                                    com.add(c);
+                                }
+                            }
+                            q.setComments(com);
+                            quest.add(q);
                         }
-                        q.setComments(com);
-                        quest.add(q);
                     }
                     speaker.setQuestions(quest);
                     speakers.add(speaker);
@@ -100,6 +105,15 @@ public class SpeakersDao extends Dao {
 
     public ArrayList<Speaker> getSpeakers() {
         return speakers;
+    }
+
+    public Speaker getSpeakerByName(String name) {
+        for(Speaker speaker: speakers) {
+            if(speaker.getName().equals(name)) {
+                return speaker;
+            }
+        }
+        return null;
     }
 
 }

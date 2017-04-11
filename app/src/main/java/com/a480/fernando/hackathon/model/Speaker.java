@@ -15,6 +15,7 @@ public class Speaker {
     private String twitter;
     private String linkedin;
     private String website;
+    private String image;
 
     public Speaker() { }
 
@@ -74,4 +75,11 @@ public class Speaker {
         this.website = website;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

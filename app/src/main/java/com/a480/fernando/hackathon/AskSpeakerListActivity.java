@@ -8,22 +8,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.a480.fernando.hackathon.adapter.SpeakerAdapter;
+import com.a480.fernando.hackathon.adapter.AskSpeakerAdapter;
 
-public class SpeakersActivity extends BaseActivity {
+public class AskSpeakerListActivity extends BaseActivity {
 
     private ListView speakersListView;
-    private static SpeakerAdapter speakerAdapter;
+    private static AskSpeakerAdapter askSpeakerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_speakers);
+        setContentView(R.layout.activity_ask_speaker_list);
 
-        navigation = (DrawerLayout) findViewById(R.id.activity_speakers);
+        navigation = (DrawerLayout) findViewById(R.id.activity_ask_speaker_list);
         setToolBar("");
         TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Ponentes");
+        title.setText("Pregunta al ponente");
         ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);
         toolbarRightImageView.setImageResource(R.drawable.search);
         toolbarRightImageView.setOnClickListener(new View.OnClickListener() {
@@ -37,10 +38,10 @@ public class SpeakersActivity extends BaseActivity {
     }
 
     private void loadSpeakers() {
-        speakersListView = (ListView) findViewById(R.id.speakers_list);
+        speakersListView = (ListView) findViewById(R.id.ask_speakers_list);
 
-        speakerAdapter = new SpeakerAdapter(speakersDao.getSpeakers(), getApplicationContext());
-        speakersListView.setAdapter(speakerAdapter);
+        askSpeakerAdapter = new AskSpeakerAdapter(speakersDao.getSpeakers(), getApplicationContext());
+        speakersListView.setAdapter(askSpeakerAdapter);
     }
 
 }

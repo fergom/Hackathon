@@ -53,7 +53,10 @@
         <activity android:name=".FacilityMapDetailActivity" />
         <activity android:name=".FacilityRouteActivity" />
         <activity android:name=".DocumentsActivity" />
-        <activity android:name=".SpeakersActivity"></activity>
+        <activity android:name=".SpeakersActivity" />
+        <activity android:name=".SpeakerInfoActivity" />
+        <activity android:name=".AskSpeakerListActivity" />
+        <activity android:name=".QuestionsActivity"></activity>
     </application>
 
 </manifest>

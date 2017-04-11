@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="170dp">
+
+    <ImageView
+        android:id="@+id/ask_speaker_image"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:scaleType="fitXY"
+        android:padding="6dp"/>
+
+    <ImageView
+        android:src="@drawable/rounded_corners_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/ask_speaker_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:layout_gravity="bottom"
+        android:layout_alignBottom="@+id/ask_speaker_image"/>
+
+</FrameLayout>

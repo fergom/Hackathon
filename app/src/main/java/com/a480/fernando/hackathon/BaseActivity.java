@@ -140,7 +140,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
                 intent = new Intent(BaseActivity.this, ProfileActivity.class);
                 break;
             case R.id.ask:
-                intent = new Intent(BaseActivity.this, ProfileActivity.class);
+                intent = new Intent(BaseActivity.this, AskSpeakerListActivity.class);
                 break;
             case R.id.augmented_reality:
                 intent = new Intent(BaseActivity.this, AugmentedRealityActivity.class);
