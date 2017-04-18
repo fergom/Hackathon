@@ -2,6 +2,7 @@ package com.a480.fernando.hackathon.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by Fernando on 10/04/2017.
@@ -9,13 +10,22 @@ import java.util.Calendar;
 
 public class Question {
 
+    private long id;
     private String title;
     private String answer;
     private ArrayList<Comment> comments;
-    private long likes;
+    private HashMap<String, Integer> likes;
     private Calendar time;
 
     public Question() { }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -41,12 +51,20 @@ public class Question {
         this.comments = comments;
     }
 
-    public long getLikes() {
+    public HashMap<String, Integer> getLikes() {
         return likes;
     }
 
-    public void setLikes(long likes) {
+    public void setLikes(HashMap<String, Integer> likes) {
         this.likes = likes;
+    }
+
+    public void addLike(String uid) {
+        this.likes.put(uid, 1);
+    }
+
+    public void removeLike(String uid) {
+        this.likes.remove(uid);
     }
 
     public Calendar getTime() {
@@ -56,4 +74,5 @@ public class Question {
     public void setTime(Calendar time) {
         this.time = time;
     }
+
 }

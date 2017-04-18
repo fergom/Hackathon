@@ -57,4 +57,7 @@
     <string name="documents_hackathon_2016">Programa Hackathon Castellón 2016</string>
     <string name="documents_challenges">Retos</string>
     <string name="ask_speaker">PREGUNTAR AL PONENTE</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="write_question_here">Escribe aquí tu pregunta</string>
+    <string name="write_here_comment">Escribe aquí tu comentario</string>
 </resources>

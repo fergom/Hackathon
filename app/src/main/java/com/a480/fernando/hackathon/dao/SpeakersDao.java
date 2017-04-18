@@ -10,7 +10,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,15 +27,15 @@ public class SpeakersDao extends Dao {
 
     public SpeakersDao() {
 
-        speakers = new ArrayList<Speaker>();
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                speakers = new ArrayList<Speaker>();
                 HashMap<String, HashMap<String, Object>> value = (HashMap<String, HashMap<String, Object>>) dataSnapshot.getValue();
                 HashMap<String, Object> attributes;
                 ArrayList<HashMap<String, Object>> questions;
                 ArrayList<HashMap<String, Object>> comments;
+                HashMap<String, Integer> likes;
                 Speaker speaker;
                 ArrayList<Question> quest;
                 Question q;
@@ -57,16 +56,23 @@ public class SpeakersDao extends Dao {
 
                     questions = (ArrayList<HashMap<String, Object>>) attributes.get("questions");
                     if(questions != null) {
+                        int id = 0;
                         for(HashMap<String, Object> answer: questions) {
                             q = new Question();
+                            q.setId(id);
                             q.setAnswer(answer.get("answer").toString());
                             q.setTitle(answer.get("title").toString());
-                            q.setLikes((long) answer.get("likes"));
+                            likes = (HashMap<String, Integer>) answer.get("likes");
+                            if(likes != null) {
+                                q.setLikes(likes);
+                            } else {
+                                q.setLikes(new HashMap<String, Integer>());
+                            }
                             try {
                                 time = Calendar.getInstance();
                                 time.setTime(sdf.parse(answer.get("time").toString()));
-                            } catch (ParseException pe) {
-                                pe.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                             q.setTime(time);
                             com = new ArrayList<Comment>();
@@ -76,11 +82,12 @@ public class SpeakersDao extends Dao {
                                     c = new Comment();
                                     c.setName(comment.get("name").toString());
                                     c.setComment(comment.get("comment").toString());
+                                    c.setUserImage(comment.get("userImage").toString());
                                     try {
                                         time = Calendar.getInstance();
                                         time.setTime(sdf.parse(comment.get("time").toString()));
-                                    } catch (ParseException pe) {
-                                        pe.printStackTrace();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
                                     c.setTime(time);
                                     com.add(c);
@@ -88,6 +95,7 @@ public class SpeakersDao extends Dao {
                             }
                             q.setComments(com);
                             quest.add(q);
+                            id++;
                         }
                     }
                     speaker.setQuestions(quest);
@@ -100,7 +108,6 @@ public class SpeakersDao extends Dao {
                 Log.w("FIREBASE", "Failed to read value.", error.toException());
             }
         });
-
     }
 
     public ArrayList<Speaker> getSpeakers() {
@@ -114,6 +121,90 @@ public class SpeakersDao extends Dao {
             }
         }
         return null;
+    }
+
+    public Question getQuestion(String name, String title) {
+        for(Speaker speaker: speakers) {
+            if(speaker.getName().equals(name)) {
+                for(Question question: speaker.getQuestions()) {
+                    if(question.getTitle().equals(title)) {
+                        return question;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public void addQuestion(String speakerName, Question question) {
+        int items = 0;
+        if(getSpeakerByName(speakerName).getQuestions() != null) {
+            items = getSpeakerByName(speakerName).getQuestions().size();
+        }
+        DatabaseReference questionRef = myRef.child("/" + speakerName + "/questions/" + items);
+        Calendar date = question.getTime();
+        question.setTime(null);
+        questionRef.setValue(question);
+        questionRef.child("time").setValue(formatDate(date));
+    }
+
+    public void addComment(String speakerName, String questionTitle, Comment comment) {
+        long questionId = 0;
+        int commentId = 0;
+        Question q = getQuestion(speakerName, questionTitle);
+        questionId = q.getId();
+        if(q.getComments() != null) {
+            commentId = q.getComments().size();
+        }
+        DatabaseReference commentRef = myRef.child("/" + speakerName + "/questions/" + questionId + "/comments/" + commentId);
+        Calendar date = comment.getTime();
+        comment.setTime(null);
+        commentRef.setValue(comment);
+        commentRef.child("time").setValue(formatDate(date));
+    }
+
+    public void addLike(String speakerName, String questionTitle, String uid) {
+        long questionId = getQuestion(speakerName, questionTitle).getId();
+        DatabaseReference likeRef = myRef.child("/" + speakerName + "/questions/" + questionId + "/likes/" + uid);
+        likeRef.setValue(1);
+    }
+
+    public void removeLike(String speakerName, String questionTitle, String uid) {
+        long questionId = getQuestion(speakerName, questionTitle).getId();
+        DatabaseReference likeRef = myRef.child("/" + speakerName + "/questions/" + questionId + "/likes/" + uid);
+        likeRef.removeValue();
+    }
+
+    private String formatDate(Calendar date) {
+        StringBuilder dateString = new StringBuilder();
+        int day = date.get(Calendar.DAY_OF_MONTH);
+        int month = date.get(Calendar.MONTH) + 1;
+        int year = date.get(Calendar.YEAR);
+        int hour = date.get(Calendar.HOUR_OF_DAY);
+        int minute = date.get(Calendar.MINUTE);
+        int second = date.get(Calendar.SECOND);
+        if(day < 10) {
+            dateString.append("0");
+        }
+        dateString.append(day + "/");
+        if(month < 10) {
+            dateString.append("0");
+        }
+        dateString.append(month + "/");
+        dateString.append(year + " ");
+        if(hour < 10) {
+            dateString.append("0");
+        }
+        dateString.append(hour + ":");
+        if(minute < 10) {
+            dateString.append("0");
+        }
+        dateString.append(minute + ":");
+        if(second < 10) {
+            dateString.append("0");
+        }
+        dateString.append(second + "");
+        return dateString.toString();
     }
 
 }

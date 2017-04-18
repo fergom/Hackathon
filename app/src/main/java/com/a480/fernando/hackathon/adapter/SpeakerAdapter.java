@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,7 +43,7 @@ public class SpeakerAdapter extends BaseAdapter {
         ImageView speakerImage = (ImageView) v.findViewById(R.id.speaker_image);
         TextView name = (TextView) v.findViewById(R.id.speaker_name);
         TextView job = (TextView) v.findViewById(R.id.speaker_job);
-        WebView description = (WebView) v.findViewById(R.id.speaker_description);
+        TextView description = (TextView) v.findViewById(R.id.speaker_description);
         ImageView linkedin = (ImageView) v.findViewById(R.id.linkedin);
         ImageView twitter = (ImageView) v.findViewById(R.id.twitter);
         ImageView website = (ImageView) v.findViewById(R.id.website);
@@ -99,11 +98,7 @@ public class SpeakerAdapter extends BaseAdapter {
 
         name.setText(speaker.getName().toUpperCase());
         job.setText(speaker.getJob());
-
-        String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String desc = speaker.getDescription();
-        desc = desc.replace("\n", "<br>");
-        description.loadData(String.format(htmlText, desc), "text/html; charset=utf-8", "utf-8");
+        description.setText(speaker.getDescription());
 
         return v;
     }

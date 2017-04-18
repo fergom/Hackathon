@@ -56,7 +56,12 @@
         <activity android:name=".SpeakersActivity" />
         <activity android:name=".SpeakerInfoActivity" />
         <activity android:name=".AskSpeakerListActivity" />
-        <activity android:name=".QuestionsActivity"></activity>
+        <activity android:name=".QuestionsActivity" />
+        <activity android:name=".AnswerActivity" />
+        <activity android:name=".CreateQuestionActivity" />
+        <activity android:name=".CreateCommentActivity" />
+        <activity android:name=".BreakingNewsActivity" />
+        <activity android:name=".BreakingNewInfoActivity"></activity>
     </application>
 
 </manifest>

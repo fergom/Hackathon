@@ -13,6 +13,7 @@ public class AppConstant {
     public static final String SERVICE_NAME = "service_name";
     public static final String FACILITY_NAME = "facility_name";
     public static final String SPEAKER_NAME = "speaker_name";
+    public static final String QUESTION_TITLE = "question_title";
 
     public static final String OTHERS = "Otros";
     public static final String HOTELS = "Alojamiento";

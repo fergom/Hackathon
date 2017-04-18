@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_question"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="#DDDDDD"
+    tools:context="com.a480.fernando.hackathon.CreateQuestionActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/toolbar"/>
+
+    <EditText
+        android:id="@+id/question_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:layout_margin="20dp"
+        android:hint="@string/write_question_here"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/darkGrey"
+        android:gravity="top"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/send"
+        android:background="@drawable/button"
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="ask"/>
+
+
+</LinearLayout>

@@ -17,6 +17,7 @@ import com.a480.fernando.hackathon.dao.DocumentDao;
 import com.a480.fernando.hackathon.dao.FeedbackDao;
 import com.a480.fernando.hackathon.dao.InfoDao;
 import com.a480.fernando.hackathon.dao.MapsDao;
+import com.a480.fernando.hackathon.dao.NewsDao;
 import com.a480.fernando.hackathon.dao.SpeakersDao;
 import com.a480.fernando.hackathon.dao.UserDao;
 import com.a480.fernando.hackathon.model.User;
@@ -39,6 +40,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
     final static protected FeedbackDao feedbackDao = new FeedbackDao();
     final static protected DocumentDao documentDao = new DocumentDao();
     final static protected SpeakersDao speakersDao = new SpeakersDao();
+    final static protected NewsDao newsDao = new NewsDao();
     protected User user;
     protected DrawerLayout navigation;
 
@@ -152,7 +154,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
                 intent = new Intent(BaseActivity.this, HomeActivity.class);
                 break;
             case R.id.news:
-                intent = new Intent(BaseActivity.this, HomeActivity.class);
+                intent = new Intent(BaseActivity.this, BreakingNewsActivity.class);
                 break;
             case R.id.schedule:
                 intent = new Intent(BaseActivity.this, HomeActivity.class);

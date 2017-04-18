@@ -22,6 +22,7 @@ public class User {
     private String position;
     private String department;
     private boolean fact;
+    private String image;
 
     public User() { }
 
@@ -151,6 +152,14 @@ public class User {
 
     public void setFact(boolean fact) {
         this.fact = fact;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

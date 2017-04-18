@@ -182,6 +182,7 @@ public class InscriptionFormActivity extends BaseActivity implements CallbackAct
         user.setDepartment(department.getSelectedItem().toString());
         CheckBox fact = (CheckBox) findViewById(R.id.inscription_fact);
         user.setFact(fact.isChecked());
+        user.setImage("https://firebasestorage.googleapis.com/v0/b/hackathon-4d513.appspot.com/o/profile.png?alt=media&token=3e4335fc-5095-402a-b751-06fd85108805");
         return user;
     }
 

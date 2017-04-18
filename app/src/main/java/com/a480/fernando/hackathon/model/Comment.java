@@ -11,6 +11,7 @@ public class Comment {
     private String name;
     private String comment;
     private Calendar time;
+    private String userImage;
 
     public Comment() { }
 
@@ -36,5 +37,13 @@ public class Comment {
 
     public void setTime(Calendar time) {
         this.time = time;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 }

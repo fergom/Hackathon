@@ -44,6 +44,7 @@ public class UserDao extends Dao {
                 user.setPosition(value.get("position").toString());
                 user.setDepartment(value.get("department").toString());
                 user.setFact((boolean) value.get("fact"));
+                user.setImage(value.get("image").toString());
                 callback.onDataLoaded();
             }
 
