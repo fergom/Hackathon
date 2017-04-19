@@ -1,20 +1,20 @@
 package com.a480.fernando.hackathon.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.StrictMode;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.a480.fernando.hackathon.AppConstant;
+import com.a480.fernando.hackathon.BreakingNewInfoActivity;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.model.BreakingNew;
+import com.bumptech.glide.Glide;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -39,7 +39,8 @@ public class NewsAdapter extends BaseAdapter {
         TextView time = (TextView) v.findViewById(R.id.news_time);
         TextView title = (TextView) v.findViewById(R.id.news_title);
         TextView info = (TextView) v.findViewById(R.id.news_info);
-        LinearLayout image = (LinearLayout) v.findViewById(R.id.news_image);
+        LinearLayout imageLayout = (LinearLayout) v.findViewById(R.id.news_image_layout);
+        ImageView imageView = (ImageView) v.findViewById(R.id.news_image_view);
 
         BreakingNew breakingNew = this.news.get(position);
 
@@ -48,18 +49,19 @@ public class NewsAdapter extends BaseAdapter {
         time.setText(getTime(breakingNew.getTime()));
 
         if(breakingNew.getImage() != null) {
-            try {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                URL url = new URL(breakingNew.getImage());
-                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                BitmapDrawable background = new BitmapDrawable(bmp);
-                image.setBackground(background);
-                image.setVisibility(View.VISIBLE);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            Glide.with(context).load(breakingNew.getImage()).into(imageView);
+            imageLayout.setVisibility(View.VISIBLE);
         }
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BreakingNewInfoActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(AppConstant.BREAKING_NEW_TITLE, breakingNew.getTitle());
+                context.startActivity(intent);
+            }
+        });
 
         return v;
     }

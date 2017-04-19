@@ -7,11 +7,18 @@
     android:background="@drawable/rounded_layout">
 
     <LinearLayout
-        android:id="@+id/news_image"
+        android:id="@+id/news_image_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="vertical"
         android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/news_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+
     </LinearLayout>
 
     <LinearLayout

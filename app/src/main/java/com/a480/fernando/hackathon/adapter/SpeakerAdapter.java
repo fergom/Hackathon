@@ -2,10 +2,7 @@ package com.a480.fernando.hackathon.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,8 +15,8 @@ import com.a480.fernando.hackathon.QuestionsActivity;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.SpeakerInfoActivity;
 import com.a480.fernando.hackathon.model.Speaker;
+import com.bumptech.glide.Glide;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -86,16 +83,7 @@ public class SpeakerAdapter extends BaseAdapter {
             }
         });
 
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            URL url = new URL(speaker.getImage());
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            speakerImage.setImageBitmap(bmp);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
+        Glide.with(context).load(speaker.getImage()).into(speakerImage);
         name.setText(speaker.getName().toUpperCase());
         job.setText(speaker.getJob());
         description.setText(speaker.getDescription());

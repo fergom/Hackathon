@@ -1,9 +1,6 @@
 package com.a480.fernando.hackathon.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,8 +9,8 @@ import android.widget.TextView;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.dao.UserDao;
 import com.a480.fernando.hackathon.model.Comment;
+import com.bumptech.glide.Glide;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -49,16 +46,7 @@ public class CommentAdapter extends BaseAdapter {
         name.setText(comment.getName());
         time.setText(getTime(comment.getTime()));
         userComment.setText(comment.getComment());
-
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            URL url = new URL(comment.getUserImage());
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            profile.setImageBitmap(bmp);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        Glide.with(context).load(comment.getUserImage()).into(profile);
 
         return v;
     }

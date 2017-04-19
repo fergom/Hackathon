@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.a480.fernando.hackathon.dao.DocumentDao;
+import com.a480.fernando.hackathon.dao.EventsDao;
 import com.a480.fernando.hackathon.dao.FeedbackDao;
 import com.a480.fernando.hackathon.dao.InfoDao;
 import com.a480.fernando.hackathon.dao.MapsDao;
@@ -30,7 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class BaseActivity extends AppCompatActivity implements CallbackActivity {
 
     private Toolbar toolBar;
-    private ActionBarDrawerToggle toggle;
+    protected ActionBarDrawerToggle toggle;
     private boolean goBackEnabled;
 
     protected NavigationView navigationView;
@@ -41,6 +42,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
     final static protected DocumentDao documentDao = new DocumentDao();
     final static protected SpeakersDao speakersDao = new SpeakersDao();
     final static protected NewsDao newsDao = new NewsDao();
+    final static protected EventsDao eventsDao = new EventsDao();
     protected User user;
     protected DrawerLayout navigation;
 
@@ -94,7 +96,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    private void updateNavigation() {
+    protected void updateNavigation() {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         if(navigationView != null) {
             navigationView.inflateHeaderView(R.layout.navigation);
@@ -157,7 +159,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
                 intent = new Intent(BaseActivity.this, BreakingNewsActivity.class);
                 break;
             case R.id.schedule:
-                intent = new Intent(BaseActivity.this, HomeActivity.class);
+                intent = new Intent(BaseActivity.this, ScheduleActivity.class);
                 break;
             case R.id.speakers:
                 intent = new Intent(BaseActivity.this, SpeakersActivity.class);

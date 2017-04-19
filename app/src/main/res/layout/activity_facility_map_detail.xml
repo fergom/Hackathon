@@ -47,12 +47,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="30dp">
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp">
 
                 <TextView
                     android:id="@+id/facility_name_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:layout_marginTop="200dp"/>
@@ -61,14 +63,20 @@
                     android:id="@+id/facility_address_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
                     android:layout_marginTop="8dp"
                     android:textColor="@color/lightGrey"
                     android:textSize="16sp"/>
 
-                <WebView
-                    android:id="@+id/facility_description_detail"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+                    <WebView
+                        android:id="@+id/facility_description_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

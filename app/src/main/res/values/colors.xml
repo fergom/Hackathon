@@ -8,6 +8,7 @@
     <color name="buttonText">#FFFFFF</color>
     <color name="darkGrey">#888888</color>
     <color name="lightGrey">#BBBBBB</color>
+    <color name="whiteGrey">#DDDDDD</color>
     <color name="transparentGrey">#EEEEEE</color>
     <color name="linkedinColor">#007BB6</color>
 </resources>

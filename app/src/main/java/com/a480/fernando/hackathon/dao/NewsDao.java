@@ -62,4 +62,13 @@ public class NewsDao extends Dao {
         return news;
     }
 
+    public BreakingNew getNew(String title) {
+        for(BreakingNew n: news) {
+            if(n.getTitle().equals(title)) {
+                return n;
+            }
+        }
+        return null;
+    }
+
 }
