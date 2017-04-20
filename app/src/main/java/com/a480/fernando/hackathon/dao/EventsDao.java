@@ -28,11 +28,11 @@ public class EventsDao extends Dao {
                 HashMap<String, Object> months;
                 HashMap<String, Object> days;
                 HashMap<String, Object> daysOfWeek;
-                HashMap<String, String> info;
+                HashMap<String, HashMap<String, String>> info;
 
                 Event event = null;
                 int year, month, day;
-                String dayOfWeek, title, hour;
+                String dayOfWeek;
 
                 for(String y: years.keySet()) {
                     year = Integer.parseInt(y);
@@ -45,17 +45,19 @@ public class EventsDao extends Dao {
                             daysOfWeek = (HashMap<String, Object>) days.get(d);
                             for(String dw: daysOfWeek.keySet()) {
                                 dayOfWeek = dw;
-                                info = (HashMap<String, String>) daysOfWeek.get(dw);
+                                info = (HashMap<String, HashMap<String, String>>) daysOfWeek.get(dw);
                                 for(String i: info.keySet()) {
-                                    title = i;
-                                    hour = info.get(i);
                                     event = new Event();
                                     event.setYear(year);
                                     event.setMonth(month);
                                     event.setDay(day);
                                     event.setDayOfWeek(dayOfWeek);
-                                    event.setTitle(title);
-                                    event.setHour(hour);
+                                    event.setTitle(i);
+                                    event.setAddress(info.get(i).get("address"));
+                                    event.setEndTime(info.get(i).get("endTime"));
+                                    event.setImage(info.get(i).get("image"));
+                                    event.setInfo(info.get(i).get("info"));
+                                    event.setStartTime(info.get(i).get("startTime"));
                                     events.add(event);
                                 }
                             }
@@ -74,14 +76,21 @@ public class EventsDao extends Dao {
 
     public ArrayList<Event> getEventsMonth(int month) {
         ArrayList<Event> eventsMonth = new ArrayList<Event>();
-
         for(Event e: events) {
             if(e.getMonth() == month) {
                 eventsMonth.add(e);
             }
         }
-
         return eventsMonth;
+    }
+
+    public Event getEventByTitle(String title) {
+        for(Event e: events) {
+            if(e.getTitle().equals(title)) {
+                return e;
+            }
+        }
+        return null;
     }
 
 }

@@ -60,4 +60,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="write_question_here">Escribe aquí tu pregunta</string>
     <string name="write_here_comment">Escribe aquí tu comentario</string>
+    <string name="activate">ACTIVAR</string>
+    <string name="networking_desactivate">Una vez activo podrás desactivarlo desde tu perfil</string>
+    <string name="networking_activate">Activa networking para conocer a otros profesionales</string>
 </resources>

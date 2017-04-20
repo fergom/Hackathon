@@ -11,7 +11,11 @@ public class Event {
     private int day;
     private String dayOfWeek;
     private String title;
-    private String hour;
+    private String startTime;
+    private String endTime;
+    private String info;
+    private String address;
+    private String image;
     private boolean separator;
 
     public Event() { }
@@ -56,12 +60,44 @@ public class Event {
         this.title = title;
     }
 
-    public String getHour() {
-        return hour;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setHour(String hour) {
-        this.hour = hour;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean getSeparator() {
@@ -80,7 +116,12 @@ public class Event {
                 ", day=" + day +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", title='" + title + '\'' +
-                ", hour='" + hour + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", info='" + info + '\'' +
+                ", address='" + address + '\'' +
+                ", image='" + image + '\'' +
+                ", separator=" + separator +
                 '}';
     }
 }

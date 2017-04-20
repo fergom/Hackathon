@@ -38,9 +38,9 @@
                     android:src="@drawable/white"
                     android:layout_gravity="center"/>
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_user_image"
                     android:layout_width="105dp"
                     android:layout_height="105dp"
-                    android:src="@drawable/profile"
                     android:layout_gravity="center"/>
             </FrameLayout>
 
@@ -91,6 +91,7 @@
                 android:text="Modo Snooze"/>
 
             <Switch
+                android:id="@+id/snooze_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"/>
@@ -115,6 +116,7 @@
                 android:text="Networking"/>
 
             <Switch
+                android:id="@+id/networking_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"/>

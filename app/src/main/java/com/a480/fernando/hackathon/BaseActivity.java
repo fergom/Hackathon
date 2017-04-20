@@ -19,10 +19,14 @@ import com.a480.fernando.hackathon.dao.FeedbackDao;
 import com.a480.fernando.hackathon.dao.InfoDao;
 import com.a480.fernando.hackathon.dao.MapsDao;
 import com.a480.fernando.hackathon.dao.NewsDao;
+import com.a480.fernando.hackathon.dao.NotificationsDao;
 import com.a480.fernando.hackathon.dao.SpeakersDao;
 import com.a480.fernando.hackathon.dao.UserDao;
 import com.a480.fernando.hackathon.model.User;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Fernando on 16/03/2017.
@@ -43,6 +47,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
     final static protected SpeakersDao speakersDao = new SpeakersDao();
     final static protected NewsDao newsDao = new NewsDao();
     final static protected EventsDao eventsDao = new EventsDao();
+    final static protected NotificationsDao notificationsDao = new NotificationsDao();
     protected User user;
     protected DrawerLayout navigation;
 
@@ -108,8 +113,10 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
                 navigationView.getHeaderView(0).findViewById(R.id.navigation_login).setVisibility(View.GONE);
                 navigationView.getHeaderView(0).findViewById(R.id.header_navigation).setVisibility(View.VISIBLE);
                 navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
+                CircleImageView imageMenu = (CircleImageView)  navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.image_menu);
                 TextView nameMenu = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.name_menu);
                 nameMenu.setText(user.getName() + " " + user.getSurname());
+                Glide.with(getApplicationContext()).load(user.getImage()).into(imageMenu);
             }
         }
     }
@@ -141,7 +148,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
                 intent = new Intent(BaseActivity.this, ProfileActivity.class);
                 break;
             case R.id.networking:
-                intent = new Intent(BaseActivity.this, ProfileActivity.class);
+                intent = new Intent(BaseActivity.this, NetworkingActivity.class);
                 break;
             case R.id.ask:
                 intent = new Intent(BaseActivity.this, AskSpeakerListActivity.class);
@@ -174,7 +181,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
                 intent = new Intent(BaseActivity.this, ServicesActivity.class);
                 break;
             case R.id.notifications:
-                intent = new Intent(BaseActivity.this, HomeActivity.class);
+                intent = new Intent(BaseActivity.this, NotificationsActivity.class);
                 break;
             case R.id.sponsors:
                 intent = new Intent(BaseActivity.this, SponsorActivity.class);

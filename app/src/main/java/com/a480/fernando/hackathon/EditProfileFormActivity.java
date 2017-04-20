@@ -100,11 +100,7 @@ public class EditProfileFormActivity extends BaseActivity {
         departmentSpinner.setAdapter(yourAdapter);
         departmentSpinner.setDropDownVerticalOffset(140);
 
-        Bundle b = this.getIntent().getExtras();
 
-        if (b != null) {
-            user = b.getParcelable(AppConstant.USER);
-        }
     }
 
     public void update(View view) {

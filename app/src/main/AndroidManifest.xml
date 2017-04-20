@@ -62,7 +62,10 @@
         <activity android:name=".CreateCommentActivity" />
         <activity android:name=".BreakingNewsActivity" />
         <activity android:name=".BreakingNewInfoActivity" />
-        <activity android:name=".ScheduleActivity"></activity>
+        <activity android:name=".ScheduleActivity" />
+        <activity android:name=".EventInfoActivity" />
+        <activity android:name=".NotificationsActivity" />
+        <activity android:name=".NetworkingActivity"></activity>
     </application>
 
 </manifest>

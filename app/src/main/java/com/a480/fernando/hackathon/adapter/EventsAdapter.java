@@ -1,11 +1,14 @@
 package com.a480.fernando.hackathon.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.a480.fernando.hackathon.AppConstant;
+import com.a480.fernando.hackathon.EventInfoActivity;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.model.Event;
 
@@ -37,13 +40,16 @@ public class EventsAdapter extends BaseAdapter {
             TextView hour = (TextView) v.findViewById(R.id.event_item_hour);
             TextView title = (TextView) v.findViewById(R.id.event_item_title);
 
-            hour.setText(event.getHour());
+            hour.setText(event.getStartTime());
             title.setText(event.getTitle());
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(context, EventInfoActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(AppConstant.EVENT_TITLE, event.getTitle());
+                    context.startActivity(intent);
                 }
             });
 

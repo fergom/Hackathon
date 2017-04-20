@@ -137,11 +137,12 @@ public class ScheduleActivity extends BaseActivity {
                     if(e1.getYear() == e2.getYear()) {
                         if(e1.getMonth() == e2.getMonth()) {
                             if(e1.getDay() == e2.getDay()) {
-                                int hour1 = parseInt(e1.getHour().split(":")[0]);
-                                int hour2 = parseInt(e2.getHour().split(":")[0]);
+                                int hour1 = parseInt(e1.getStartTime().split(":")[0]);
+                                int hour2 = parseInt(e2.getStartTime().split(":")[0]);
                                 if(hour1 == hour2) {
-                                    int min1 = Integer.parseInt(e1.getHour().split(":")[1].substring(0,2));
-                                    int min2 = Integer.parseInt(e2.getHour().split(":")[1].substring(0,2));
+                                    int min1 = Integer.parseInt(e1.getStartTime().split(":")[1].substring(0,2));
+                                    int min2 = Integer.parseInt(e2.getStartTime().split(":")[1].substring(0,2));
+                                    return min1 - min2;
                                 }
                                 return hour1 - hour2;
                             }

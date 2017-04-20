@@ -1,5 +1,7 @@
 package com.a480.fernando.hackathon.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Fernando on 27/03/2017.
  */
@@ -23,6 +25,9 @@ public class User {
     private String department;
     private boolean fact;
     private String image;
+    private boolean snooze;
+    private boolean networking;
+    private ArrayList<Notification> notifications;
 
     public User() { }
 
@@ -162,10 +167,36 @@ public class User {
         this.image = image;
     }
 
+    public boolean getSnooze() {
+        return snooze;
+    }
+
+    public void setSnooze(boolean snooze) {
+        this.snooze = snooze;
+    }
+
+    public boolean getNetworking() {
+        return networking;
+    }
+
+    public void setNetworking(boolean networking) {
+        this.networking = networking;
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", country='" + country + '\'' +
                 ", state='" + state + '\'' +
@@ -179,6 +210,9 @@ public class User {
                 ", position='" + position + '\'' +
                 ", department='" + department + '\'' +
                 ", fact=" + fact +
+                ", image='" + image + '\'' +
+                ", snooze=" + snooze +
+                ", networking=" + networking +
                 '}';
     }
 }

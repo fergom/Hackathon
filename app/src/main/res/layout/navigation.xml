@@ -26,10 +26,10 @@
             android:onClick="navigationItemClicked">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_menu"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/profile" />
+                android:layout_marginRight="20dp"/>
 
             <TextView
                 android:id="@+id/name_menu"
@@ -40,8 +40,7 @@
                 android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:textAlignment="center"
-                android:textSize="15sp"
-                android:text="SUSANA GARCÍA"/>
+                android:textSize="15sp"/>
             
         </LinearLayout>
 
