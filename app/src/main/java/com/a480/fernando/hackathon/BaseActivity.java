@@ -18,6 +18,7 @@ import com.a480.fernando.hackathon.dao.EventsDao;
 import com.a480.fernando.hackathon.dao.FeedbackDao;
 import com.a480.fernando.hackathon.dao.InfoDao;
 import com.a480.fernando.hackathon.dao.MapsDao;
+import com.a480.fernando.hackathon.dao.MatchDao;
 import com.a480.fernando.hackathon.dao.NewsDao;
 import com.a480.fernando.hackathon.dao.NotificationsDao;
 import com.a480.fernando.hackathon.dao.SpeakersDao;
@@ -48,6 +49,7 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
     final static protected NewsDao newsDao = new NewsDao();
     final static protected EventsDao eventsDao = new EventsDao();
     final static protected NotificationsDao notificationsDao = new NotificationsDao();
+    final static protected MatchDao matchDao = new MatchDao();
     protected User user;
     protected DrawerLayout navigation;
 

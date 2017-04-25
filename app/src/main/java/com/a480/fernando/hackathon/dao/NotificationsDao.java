@@ -72,8 +72,6 @@ public class NotificationsDao extends Dao {
 
         this.userRef = userRef.child("/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/Notifications");
 
-        System.out.println(userRef.toString());
-
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -105,6 +103,13 @@ public class NotificationsDao extends Dao {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+    }
+
+    public void addNotification(String uid, Notification notification) {
+        DatabaseReference ref = database.getReference("Users").child("/" + uid + "/Notifications");
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put(notification.getMessage(), formatDate(notification.getTime()));
+        ref.setValue(map);
     }
 
     public ArrayList<Notification> getPublicNotifications() {

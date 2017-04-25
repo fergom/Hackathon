@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by Fernando on 29/03/2017.
@@ -24,58 +25,102 @@ public class UserDao extends Dao {
     private final DatabaseReference myRef = database.getReference("Users");
     private static DatabaseReference userRef;
     private final static User user = new User();
+    private static LinkedList<User> users;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     public UserDao() { }
 
     public void onAuthenticated(CallbackActivity callback) {
         userRef = myRef.child("/" + auth.getCurrentUser().getUid());
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                users = new LinkedList<User>();
+                HashMap<String, HashMap<String, Object>> value = (HashMap<String, HashMap<String, Object>>) dataSnapshot.getValue();
+                HashMap<String, Object> data;
+                User u;
+                for(String uid: value.keySet()) {
+                    u = new User();
+                    data = value.get(uid);
+                    u.setUid(uid);
+                    u.setImage((String) data.get("image"));
+                    u.setName((String) data.get("name"));
+                    u.setSurname((String) data.get("surname"));
+                    u.setState((String) data.get("state"));
+                    u.setCity((String) data.get("city"));
+                    u.setEmail((String) data.get("email"));
+                    users.add(u);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("FIREBASE", "Failed to read value.", error.toException());
+            }
+        });
+
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> value = (HashMap<String, Object>) dataSnapshot.getValue();
-                user.setName(value.get("name").toString());
-                user.setSurname(value.get("surname").toString());
-                user.setEmail(value.get("email").toString());
-                user.setPassword(value.get("password").toString());
-                user.setCountry(value.get("country").toString());
-                user.setState(value.get("state").toString());
-                user.setCity(value.get("city").toString());
-                user.setPostalCode(value.get("postalCode").toString());
-                user.setPhoneNumber(value.get("phoneNumber").toString());
-                user.setWebsite(value.get("website").toString());
-                user.setCompanyName(value.get("companyName").toString());
-                user.setNif(value.get("nif").toString());
-                user.setSector(value.get("sector").toString());
-                user.setPosition(value.get("position").toString());
-                user.setDepartment(value.get("department").toString());
-                user.setFact((boolean) value.get("fact"));
-                user.setImage(value.get("image").toString());
-                user.setSnooze((boolean) value.get("snooze"));
-                user.setNetworking((boolean) value.get("networking"));
-
-                HashMap<String, String> notifications = (HashMap<String, String>) value.get("Notifications");
-                ArrayList<Notification> notif = new ArrayList<Notification>();
-                Notification notification;
-                Calendar time = null;
-
-                if(notifications != null) {
-                    for(String n: notifications.keySet()) {
-                        notification = new Notification();
-                        notification.setMessage(n);
-                        try {
-                            time = Calendar.getInstance();
-                            time.setTime(sdf.parse(notifications.get(n).toString()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        notification.setTime(time);
-                        notif.add(notification);
+                try{
+                    user.setUid(auth.getCurrentUser().getUid());
+                    Calendar time = null;
+                    try {
+                        time = Calendar.getInstance();
+                        time.setTime(sdf.parse(value.get("lastConnection").toString()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                    user.setLastConnection(time);
+                    user.setName((String) value.get("name"));
+                    user.setSurname((String) value.get("surname"));
+                    user.setEmail((String) value.get("email"));
+                    user.setPassword((String) value.get("password"));
+                    user.setCountry((String) value.get("country"));
+                    user.setState((String) value.get("state"));
+                    user.setCity((String) value.get("city"));
+                    user.setPostalCode((String) value.get("postalCode"));
+                    user.setPhoneNumber((String) value.get("phoneNumber"));
+                    user.setWebsite((String) value.get("website"));
+                    user.setCompanyName((String) value.get("companyName"));
+                    user.setNif((String) value.get("nif"));
+                    user.setSector((String) value.get("sector"));
+                    user.setPosition((String) value.get("position"));
+                    user.setDepartment((String) value.get("department"));
+                    user.setFact((boolean) value.get("fact"));
+                    user.setImage((String) value.get("image"));
+                    user.setSnooze((boolean) value.get("snooze"));
+                    user.setNetworking((boolean) value.get("networking"));
+
+                    HashMap<String, String> notifications = (HashMap<String, String>) value.get("Notifications");
+                    ArrayList<Notification> notif = new ArrayList<Notification>();
+                    Notification notification;
+
+                    if(notifications != null) {
+                        for(String n: notifications.keySet()) {
+                            notification = new Notification();
+                            notification.setMessage(n);
+                            try {
+                                time = Calendar.getInstance();
+                                time.setTime(sdf.parse(notifications.get(n).toString()));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            notification.setTime(time);
+                            notif.add(notification);
+                        }
+                    }
+
+                    user.setNotifications(notif);
+                    if(callback != null) {
+                        callback.onDataLoaded();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-                user.setNotifications(notif);
-                callback.onDataLoaded();
             }
 
             @Override
@@ -95,47 +140,30 @@ public class UserDao extends Dao {
         userRef.setValue(user);
         DatabaseReference notificationsRef = userRef.child("Notifications");
         HashMap<String, String> map;
-        for(Notification n: notifications) {
-            map = new HashMap<String, String>();
-            map.put(n.getMessage(), formatDate(n.getTime()));
-            notificationsRef.setValue(map);
+        if(notifications != null) {
+            for(Notification n: notifications) {
+                map = new HashMap<String, String>();
+                map.put(n.getMessage(), formatDate(n.getTime()));
+                notificationsRef.setValue(map);
+            }
         }
     }
 
     public void logout() {
+        userRef.child("lastConnection").setValue(formatDate(Calendar.getInstance()));
         auth.signOut();
     }
 
-    private String formatDate(Calendar date) {
-        StringBuilder dateString = new StringBuilder();
-        int day = date.get(Calendar.DAY_OF_MONTH);
-        int month = date.get(Calendar.MONTH) + 1;
-        int year = date.get(Calendar.YEAR);
-        int hour = date.get(Calendar.HOUR_OF_DAY);
-        int minute = date.get(Calendar.MINUTE);
-        int second = date.get(Calendar.SECOND);
-        if(day < 10) {
-            dateString.append("0");
+    public User getRandomUser(String email) {
+        int range = (users.size()-1) + 1;
+        int random = (int)(Math.random() * range);
+        for(int i = 0; i < users.size()*2; i++) {
+            if(!users.get(random).getEmail().equals(email)) {
+                return users.get(random);
+            }
+            random = (int)(Math.random() * range);
         }
-        dateString.append(day + "/");
-        if(month < 10) {
-            dateString.append("0");
-        }
-        dateString.append(month + "/");
-        dateString.append(year + " ");
-        if(hour < 10) {
-            dateString.append("0");
-        }
-        dateString.append(hour + ":");
-        if(minute < 10) {
-            dateString.append("0");
-        }
-        dateString.append(minute + ":");
-        if(second < 10) {
-            dateString.append("0");
-        }
-        dateString.append(second + "");
-        return dateString.toString();
+        return null;
     }
 
 }

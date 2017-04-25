@@ -1,5 +1,6 @@
 package com.a480.fernando.hackathon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -8,17 +9,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a480.fernando.hackathon.model.Match;
+import com.a480.fernando.hackathon.model.Notification;
+import com.a480.fernando.hackathon.model.User;
 import com.bumptech.glide.Glide;
+
+import java.util.Calendar;
 
 public class NetworkingActivity extends BaseActivity {
 
+    private User randomUser;
+    private Match match;
+
     private LinearLayout activateLayout;
     private LinearLayout networkingLayout;
+
+    private ImageView profile;
+    private TextView name;
+    private TextView job;
+    private TextView interest;
+
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_networking);
+
+        counter = 0;
 
         navigation = (DrawerLayout) findViewById(R.id.activity_networking);
         setToolBar("Networking");
@@ -47,19 +65,44 @@ public class NetworkingActivity extends BaseActivity {
         toolbarRightImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "FRIENDS", Toast.LENGTH_LONG).show();
+                loadRandomUser();
             }
         });
 
-        ImageView profile = (ImageView) findViewById(R.id.networking_match_image);
-        TextView name = (TextView) findViewById(R.id.networking_match_name);
-        TextView job = (TextView) findViewById(R.id.networking_match_job);
-        TextView interest = (TextView) findViewById(R.id.networking_match_interest);
+        profile = (ImageView) findViewById(R.id.networking_match_image);
+        name = (TextView) findViewById(R.id.networking_match_name);
+        job = (TextView) findViewById(R.id.networking_match_job);
+        interest = (TextView) findViewById(R.id.networking_match_interest);
+        loadRandomUser();
+    }
 
-        Glide.with(getApplicationContext()).load(user.getImage()).into(profile);
-        name.setText(user.getName() + " " + user.getSurname());
-        job.setText(user.getCity());
-        interest.setText(user.getCompanyName());
+    private void loadRandomUser() {
+        randomUser = userDao.getRandomUser(user.getEmail());
+
+        if(randomUser == null) {
+            Toast.makeText(getApplicationContext(), "No hay más usuarios con los que hacer match.", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(NetworkingActivity.this, ProfileActivity.class));
+        }
+
+        match = matchDao.getMatch(user.getEmail(), randomUser.getEmail());
+        if((match.getAnswer1() == true && match.getMatch1() == false) || (match.getAnswer2() == true && match.getMatch2() == false)) {
+            checkCounter();
+        } else {
+            if(match.getEmail1().equals(user.getEmail())) {
+                if(match.getAnswer1()) {
+                    checkCounter();
+                }
+            } else {
+                if(match.getAnswer2()) {
+                    checkCounter();
+                }
+            }
+        }
+
+        Glide.with(getApplicationContext()).load(randomUser.getImage()).into(profile);
+        name.setText(randomUser.getName() + " " + randomUser.getSurname());
+        job.setText(randomUser.getCity());
+        interest.setText(randomUser.getState());
     }
 
     public void activate(View view) {
@@ -69,11 +112,48 @@ public class NetworkingActivity extends BaseActivity {
     }
 
     public void accept(View view) {
-        Toast.makeText(getApplicationContext(), "ACCEPT", Toast.LENGTH_LONG).show();
+       if(match.getEmail1().equals(user.getEmail())) {
+           match.setMatch1(true);
+           match.setAnswer1(true);
+       } else {
+           match.setMatch2(true);
+           match.setAnswer2(true);
+       }
+        matchDao.saveMatch(match);
+        if(match.getMatch1() && match.getMatch2()) {
+            Notification n1 = new Notification();
+            Notification n2 = new Notification();
+            n1.setMessage("Tienes un match con " + randomUser.getName() + " " + randomUser.getSurname());
+            n1.setTime(Calendar.getInstance());
+            n2.setMessage("Tienes un match con " + user.getName() + " " + user.getSurname());
+            n2.setTime(Calendar.getInstance());
+            notificationsDao.addNotification(user.getUid(), n1);
+            notificationsDao.addNotification(randomUser.getUid(), n2);
+        }
+        loadRandomUser();
     }
 
     public void cancel(View view) {
-        Toast.makeText(getApplicationContext(), "CANCEL", Toast.LENGTH_LONG).show();
+        if(match.getEmail1().equals(user.getEmail())) {
+            match.setMatch1(false);
+            match.setAnswer1(true);
+        } else {
+            match.setMatch2(false);
+            match.setAnswer2(true);
+        }
+        matchDao.saveMatch(match);
+        loadRandomUser();
+    }
+
+    private void checkCounter() {
+        if(counter == 5) {
+            counter = 0;
+            Toast.makeText(getApplicationContext(), "No hay más usuarios con los que hacer match.", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(NetworkingActivity.this, ProfileActivity.class));
+        } else {
+            counter++;
+            loadRandomUser();
+        }
     }
 
 }

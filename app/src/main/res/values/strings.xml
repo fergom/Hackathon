@@ -11,17 +11,17 @@
     <string name="fill_form">RELLENAR FORMULARIO</string>
     <string name="accept">ACEPTAR</string>
     <string name="linkedin_inscription">Inscríbete por medio de</string>
-    <string name="surname">Apellidos</string>
-    <string name="name">Nombre</string>
-    <string name="postal_code">Código postal</string>
-    <string name="phone">Teléfono móvil</string>
+    <string name="surname">Apellidos *</string>
+    <string name="name">Nombre *</string>
+    <string name="postal_code">Código postal *</string>
+    <string name="phone">Teléfono móvil *</string>
     <string name="website">Página web</string>
     <string name="title_activity_login">Sign in</string>
 
     <string name="country">País</string>
     <string name="inscription_are_u_company">¿Eres una empresa?</string>
     <string name="company_name">Nombre empresa</string>
-    <string name="nif">NIF</string>
+    <string name="nif">NIF *</string>
     <string name="check_in">Desea facturar</string>
     <string name="suggestions">Sugerencias</string>
     <string name="send">ENVIAR</string>
@@ -31,24 +31,13 @@
     <string name="augmented_reality">Busca tu punto de Realidad Aumentada.</string>
     <string name="scan">ESCANEAR</string>
 
-    <string-array name="country_arrays">
-        <item>España</item>
-        <item>Malaysia</item>
-        <item>United States</item>
-        <item>Indonesia</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
-    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="visit_our_website">VISITA NUESTRA WEB</string>
     <string name="for_hackathon_participants">Para los inscritos al Hackathon</string>
     <string name="special_offer">Oferta especial</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="repeat_password">Repite la contraseña</string>
+    <string name="password">Contraseña *</string>
+    <string name="email">Email *</string>
+    <string name="repeat_password">Repite la contraseña *</string>
     <string name="my_documents">Mis documentos</string>
     <string name="public_documents">Documentos públicos</string>
     <string name="inscription">Inscripción</string>

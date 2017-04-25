@@ -175,36 +175,4 @@ public class SpeakersDao extends Dao {
         likeRef.removeValue();
     }
 
-    private String formatDate(Calendar date) {
-        StringBuilder dateString = new StringBuilder();
-        int day = date.get(Calendar.DAY_OF_MONTH);
-        int month = date.get(Calendar.MONTH) + 1;
-        int year = date.get(Calendar.YEAR);
-        int hour = date.get(Calendar.HOUR_OF_DAY);
-        int minute = date.get(Calendar.MINUTE);
-        int second = date.get(Calendar.SECOND);
-        if(day < 10) {
-            dateString.append("0");
-        }
-        dateString.append(day + "/");
-        if(month < 10) {
-            dateString.append("0");
-        }
-        dateString.append(month + "/");
-        dateString.append(year + " ");
-        if(hour < 10) {
-            dateString.append("0");
-        }
-        dateString.append(hour + ":");
-        if(minute < 10) {
-            dateString.append("0");
-        }
-        dateString.append(minute + ":");
-        if(second < 10) {
-            dateString.append("0");
-        }
-        dateString.append(second + "");
-        return dateString.toString();
-    }
-
 }

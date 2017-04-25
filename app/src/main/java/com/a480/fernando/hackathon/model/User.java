@@ -1,6 +1,7 @@
 package com.a480.fernando.hackathon.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Fernando on 27/03/2017.
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 public class User {
 
+    private String uid;
     private String email;
     private String password;
     private String name;
@@ -28,8 +30,17 @@ public class User {
     private boolean snooze;
     private boolean networking;
     private ArrayList<Notification> notifications;
+    private Calendar lastConnection;
 
     public User() { }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getEmail() {
         return email;
@@ -189,6 +200,14 @@ public class User {
 
     public void setNotifications(ArrayList<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public Calendar getLastConnection() {
+        return lastConnection;
+    }
+
+    public void setLastConnection(Calendar lastConnection) {
+        this.lastConnection = lastConnection;
     }
 
     @Override
