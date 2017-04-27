@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -51,6 +50,31 @@
             android:gravity="center_vertical"
             android:paddingTop="30dp"
             android:weightSum="1"
+            android:id="@+id/contacts"
+            android:onClick="navigationItemClicked">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/contacts"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:text="@string/contacts"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="30dp"
+            android:weightSum="1"
             android:id="@+id/networking"
             android:onClick="navigationItemClicked">
 
@@ -65,7 +89,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Networking"/>
+                android:text="@string/networking"/>
 
         </LinearLayout>
 
@@ -90,7 +114,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Pregunta al ponente"/>
+                android:text="@string/ask_menu"/>
 
         </LinearLayout>
 
@@ -115,7 +139,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Realidad Aumentada"/>
+                android:text="@string/augmented_reality_menu"/>
 
         </LinearLayout>
 
@@ -140,7 +164,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Acreditación"/>
+                android:text="@string/accreditation"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -164,7 +188,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
-            android:text="INICIAR SESIÓN"/>
+            android:text="@string/login_menu"/>
     </LinearLayout>
 
     <LinearLayout
@@ -197,7 +221,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Home"/>
+                android:text="@string/home"/>
         </LinearLayout>
 
         <LinearLayout
@@ -221,7 +245,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Breaking news"/>
+                android:text="@string/breaking_news"/>
         </LinearLayout>
 
         <LinearLayout
@@ -245,7 +269,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Agenda"/>
+                android:text="@string/schedule"/>
         </LinearLayout>
 
         <LinearLayout
@@ -269,7 +293,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Ponentes"/>
+                android:text="@string/speakers"/>
         </LinearLayout>
 
         <LinearLayout
@@ -293,7 +317,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Documentación"/>
+                android:text="@string/documentation"/>
         </LinearLayout>
 
         <LinearLayout
@@ -317,7 +341,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Mapas"/>
+                android:text="@string/maps"/>
         </LinearLayout>
 
         <LinearLayout
@@ -341,7 +365,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Servicios"/>
+                android:text="@string/services"/>
         </LinearLayout>
 
         <LinearLayout
@@ -365,7 +389,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Notificaciones"/>
+                android:text="@string/notifications"/>
         </LinearLayout>
 
         <LinearLayout
@@ -389,7 +413,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Patrocinadores"/>
+                android:text="@string/sponsors"/>
         </LinearLayout>
 
         <LinearLayout
@@ -413,7 +437,7 @@
                 android:layout_weight="0.7"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"
-                android:text="Acerca de"/>
+                android:text="@string/about"/>
         </LinearLayout>
 
     </LinearLayout>

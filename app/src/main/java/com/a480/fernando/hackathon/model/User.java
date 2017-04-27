@@ -31,6 +31,7 @@ public class User {
     private boolean networking;
     private ArrayList<Notification> notifications;
     private Calendar lastConnection;
+    private boolean isFirstAlphabet;
 
     public User() { }
 
@@ -210,10 +211,19 @@ public class User {
         this.lastConnection = lastConnection;
     }
 
+    public boolean getFirstAlphabet() {
+        return isFirstAlphabet;
+    }
+
+    public void setFirstAlphabet(boolean firstAlphabet) {
+        isFirstAlphabet = firstAlphabet;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -232,6 +242,9 @@ public class User {
                 ", image='" + image + '\'' +
                 ", snooze=" + snooze +
                 ", networking=" + networking +
+                ", notifications=" + notifications +
+                ", lastConnection=" + lastConnection +
+                ", isFirstAlphabet=" + isFirstAlphabet +
                 '}';
     }
 }

@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class NotificationsActivity extends BaseActivity implements CallbackActivity {
+public class NotificationsActivity extends BaseActivity implements ICallbackActivity {
 
     private ListView notificationsListView;
     private NotificationsAdapter notificationsAdapter;
@@ -28,10 +28,11 @@ public class NotificationsActivity extends BaseActivity implements CallbackActiv
     }
 
     private void loadNotifications() {
+        notificationsDao.setCallbackActivity(NotificationsActivity.this);
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            notificationsDao.listenUserNotifications(this);
+            notificationsDao.listenUserNotifications();
         }
-        notificationsDao.listenPublicNotifications(this);
+        notificationsDao.listenPublicNotifications();
         notificationsListView = (ListView) findViewById(R.id.notifications_list);
     }
 

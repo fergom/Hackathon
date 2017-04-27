@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends BaseActivity implements CallbackActivity {
+public class LoginActivity extends BaseActivity implements ICallbackActivity {
 
     private FirebaseAuth mAuth;
     private static String email;
@@ -52,7 +52,8 @@ public class LoginActivity extends BaseActivity implements CallbackActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Email o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
                         } else {
-                            userDao.onAuthenticated(LoginActivity.this);
+                            userDao.setCallback(LoginActivity.this);
+                            userDao.onAuthenticated();
                         }
                     }
                 });

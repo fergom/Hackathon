@@ -6,7 +6,7 @@ import android.os.Handler;
 
 public class StartActivity extends BaseActivity {
 
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final int SPLASH_DISPLAY_LENGTH = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +16,7 @@ public class StartActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(StartActivity.this,HomeActivity.class);
+                Intent mainIntent = new Intent(StartActivity.this, BaseActivity.class);
                 StartActivity.this.startActivity(mainIntent);
                 StartActivity.this.finish();
             }

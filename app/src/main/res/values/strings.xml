@@ -52,4 +52,24 @@
     <string name="activate">ACTIVAR</string>
     <string name="networking_desactivate">Una vez activo podrás desactivarlo desde tu perfil</string>
     <string name="networking_activate">Activa networking para conocer a otros profesionales</string>
+    <string name="interested_contact">¡Contactos interesados!</string>
+    <string name="send_email">ENVIAR CORREO</string>
+    <string name="call">LLAMAR</string>
+    <string name="contacts">Contactos</string>
+    <string name="networking">Networking</string>
+    <string name="ask_menu">Pregunta al ponente</string>
+    <string name="augmented_reality_menu">Realidad Aumentada</string>
+    <string name="accreditation">Acreditación</string>
+    <string name="login_menu">INICIAR SESIÓN</string>
+    <string name="home">Home</string>
+    <string name="breaking_news">Breaking news</string>
+    <string name="schedule">Agenda</string>
+    <string name="speakers">Ponentes</string>
+    <string name="documentation">Documentación</string>
+    <string name="maps">Mapas</string>
+    <string name="services">Servicios</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="sponsors">Patrocinadores</string>
+    <string name="about">Acerca de</string>
+    <string name="search_contacts">Buscar contactos</string>
 </resources>

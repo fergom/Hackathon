@@ -1,6 +1,7 @@
 package com.a480.fernando.hackathon.dao;
 
-import com.a480.fernando.hackathon.CallbackActivity;
+import com.a480.fernando.hackathon.ICallbackActivity;
+import com.a480.fernando.hackathon.INewNotification;
 import com.a480.fernando.hackathon.model.Notification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -11,6 +12,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -23,14 +26,21 @@ public class NotificationsDao extends Dao {
     private DatabaseReference userRef = database.getReference("Users");
     private static ArrayList<Notification> userNotifications, publicNotifications, allNotifications;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private CallbackActivity callbackActivity;
+    private ICallbackActivity callbackActivity;
+    private INewNotification newNotification;
     private boolean publicLoaded, userLoaded;
 
     public NotificationsDao() { }
 
-    public void listenPublicNotifications(CallbackActivity callbackActivity) {
-
+    public void setCallbackActivity(ICallbackActivity callbackActivity) {
         this.callbackActivity = callbackActivity;
+    }
+
+    public void setNewNotification(INewNotification newNotification) {
+        this.newNotification = newNotification;
+    }
+
+    public void listenPublicNotifications() {
 
         publicRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -53,11 +63,21 @@ public class NotificationsDao extends Dao {
                     notification.setTime(time);
                     publicNotifications.add(notification);
                 }
+
+                Collections.sort(publicNotifications, new Comparator<Notification>() {
+                    @Override
+                    public int compare(Notification o1, Notification o2) {
+                        return o2.getTime().compareTo(o1.getTime());
+                    }
+                });
+
                 if(FirebaseAuth.getInstance().getCurrentUser() != null) {
                     publicLoaded = true;
                     mergeNotifications();
                 } else {
-                    callbackActivity.onDataLoaded();
+                    if(callbackActivity != null) {
+                        callbackActivity.onDataLoaded();
+                    }
                 }
             }
 
@@ -66,16 +86,14 @@ public class NotificationsDao extends Dao {
         });
     }
 
-    public void listenUserNotifications(CallbackActivity callbackActivity) {
+    public void listenUserNotifications() {
 
-        this.callbackActivity = callbackActivity;
+        DatabaseReference notifRef = userRef.child("/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/Notifications");
 
-        this.userRef = userRef.child("/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/Notifications");
-
-        userRef.addValueEventListener(new ValueEventListener() {
+        notifRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userLoaded = true;
+                userLoaded = false;
                 userNotifications = new ArrayList<Notification>();
                 HashMap<String, String> values = (HashMap<String, String>) dataSnapshot.getValue();
                 Notification notification;
@@ -106,10 +124,8 @@ public class NotificationsDao extends Dao {
     }
 
     public void addNotification(String uid, Notification notification) {
-        DatabaseReference ref = database.getReference("Users").child("/" + uid + "/Notifications");
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put(notification.getMessage(), formatDate(notification.getTime()));
-        ref.setValue(map);
+        DatabaseReference ref = database.getReference("Users").child("/" + uid + "/Notifications/");
+        ref.child(notification.getMessage()).setValue(formatDate(notification.getTime()));
     }
 
     public ArrayList<Notification> getPublicNotifications() {
@@ -125,7 +141,18 @@ public class NotificationsDao extends Dao {
             allNotifications = new ArrayList<Notification>();
             allNotifications.addAll(userNotifications);
             allNotifications.addAll(publicNotifications);
-            callbackActivity.onDataLoaded();
+            Collections.sort(allNotifications, new Comparator<Notification>() {
+                @Override
+                public int compare(Notification o1, Notification o2) {
+                    return o2.getTime().compareTo(o1.getTime());
+                }
+            });
+            if(callbackActivity != null) {
+                callbackActivity.onDataLoaded();
+            }
+            if(newNotification != null) {
+                newNotification.checkNotifications();
+            }
         }
     }
 

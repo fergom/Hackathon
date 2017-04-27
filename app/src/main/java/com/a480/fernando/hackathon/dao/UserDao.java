@@ -2,7 +2,7 @@ package com.a480.fernando.hackathon.dao;
 
 import android.util.Log;
 
-import com.a480.fernando.hackathon.CallbackActivity;
+import com.a480.fernando.hackathon.ICallbackActivity;
 import com.a480.fernando.hackathon.model.Notification;
 import com.a480.fernando.hackathon.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -25,18 +25,23 @@ public class UserDao extends Dao {
     private final DatabaseReference myRef = database.getReference("Users");
     private static DatabaseReference userRef;
     private final static User user = new User();
-    private static LinkedList<User> users;
+    private static ArrayList<User> users;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private static ICallbackActivity callback;
 
     public UserDao() { }
 
-    public void onAuthenticated(CallbackActivity callback) {
+    public void setCallback(ICallbackActivity callback) {
+        this.callback = callback;
+    }
+
+    public void onAuthenticated() {
         userRef = myRef.child("/" + auth.getCurrentUser().getUid());
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                users = new LinkedList<User>();
+                users = new ArrayList<User>();
                 HashMap<String, HashMap<String, Object>> value = (HashMap<String, HashMap<String, Object>>) dataSnapshot.getValue();
                 HashMap<String, Object> data;
                 User u;
@@ -50,6 +55,15 @@ public class UserDao extends Dao {
                     u.setState((String) data.get("state"));
                     u.setCity((String) data.get("city"));
                     u.setEmail((String) data.get("email"));
+                    u.setPhoneNumber((String) data.get("phoneNumber"));
+                    Calendar time = null;
+                    try {
+                        time = Calendar.getInstance();
+                        time.setTime(sdf.parse(data.get("lastConnection").toString()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    u.setLastConnection(time);
                     users.add(u);
                 }
             }
@@ -134,10 +148,23 @@ public class UserDao extends Dao {
         return user;
     }
 
+    public ArrayList<User> getUsers(LinkedList<String> emails) {
+        ArrayList<User> filteredUsers = new ArrayList<User>();
+        for(User u: users) {
+            if(emails.contains(u.getEmail())) {
+                filteredUsers.add(u);
+            }
+        }
+        return filteredUsers;
+    }
+
     public void saveUser(User user) {
         ArrayList<Notification> notifications = user.getNotifications();
+        Calendar lastConnection = user.getLastConnection();
         user.setNotifications(null);
+        user.setLastConnection(null);
         userRef.setValue(user);
+        userRef.child("lastConnection").setValue(formatDate(lastConnection));
         DatabaseReference notificationsRef = userRef.child("Notifications");
         HashMap<String, String> map;
         if(notifications != null) {
@@ -149,8 +176,16 @@ public class UserDao extends Dao {
         }
     }
 
-    public void logout() {
+    public void setLastConnection() {
         userRef.child("lastConnection").setValue(formatDate(Calendar.getInstance()));
+    }
+
+    public void updateProfileImage(String url) {
+        userRef.child("image").setValue(url);
+    }
+
+    public void logout() {
+        setLastConnection();
         auth.signOut();
     }
 

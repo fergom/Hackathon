@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InscriptionFormActivity extends BaseActivity implements CallbackActivity {
+public class InscriptionFormActivity extends BaseActivity implements ICallbackActivity {
 
     private EditText email;
     private EditText password;
@@ -160,7 +160,8 @@ public class InscriptionFormActivity extends BaseActivity implements CallbackAct
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    userDao.onAuthenticated(InscriptionFormActivity.this);
+                                    userDao.setCallback(InscriptionFormActivity.this);
+                                    userDao.onAuthenticated();
                                     userDao.saveUser(createdUser);
                                 }
                             }

@@ -53,6 +53,18 @@ public class MatchDao extends Dao {
         return  matches.size();
     }
 
+    public LinkedList<String> getUserMatches(String email) {
+        LinkedList<String> userMatches = new LinkedList<String>();
+        for(Match match: matches) {
+            if(match.getEmail1().equals(email) && match.getMatch1() && match.getMatch2()) {
+                userMatches.add(match.getEmail2());
+            } else if(match.getEmail2().equals(email) && match.getMatch1() && match.getMatch2()) {
+                userMatches.add(match.getEmail1());
+            }
+        }
+        return userMatches;
+    }
+
     public Match getMatch(String email1, String email2) {
         for(Match match: matches) {
             if((match.getEmail1().equals(email1) || match.getEmail2().equals(email1)) && (match.getEmail1().equals(email2) || match.getEmail2().equals(email2))){

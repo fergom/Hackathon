@@ -1,12 +1,19 @@
 package com.a480.fernando.hackathon;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +30,12 @@ import com.a480.fernando.hackathon.dao.NewsDao;
 import com.a480.fernando.hackathon.dao.NotificationsDao;
 import com.a480.fernando.hackathon.dao.SpeakersDao;
 import com.a480.fernando.hackathon.dao.UserDao;
+import com.a480.fernando.hackathon.model.Notification;
 import com.a480.fernando.hackathon.model.User;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,7 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Fernando on 16/03/2017.
  */
 
-public class BaseActivity extends AppCompatActivity implements CallbackActivity {
+public class BaseActivity extends AppCompatActivity implements ICallbackActivity, INewNotification {
 
     private Toolbar toolBar;
     protected ActionBarDrawerToggle toggle;
@@ -60,7 +70,13 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             user = userDao.getUser();
             if(user.getName() == null) {
-                userDao.onAuthenticated(BaseActivity.this);
+                userDao.setCallback(BaseActivity.this);
+                userDao.onAuthenticated();
+            } else {
+                userDao.setCallback(null);
+                notificationsDao.setNewNotification(BaseActivity.this);
+                notificationsDao.listenPublicNotifications();
+                notificationsDao.listenUserNotifications();
             }
         }
     }
@@ -149,6 +165,9 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
             case R.id.profile:
                 intent = new Intent(BaseActivity.this, ProfileActivity.class);
                 break;
+            case R.id.contacts:
+                intent = new Intent(BaseActivity.this, ContactsActivity.class);
+                break;
             case R.id.networking:
                 intent = new Intent(BaseActivity.this, NetworkingActivity.class);
                 break;
@@ -204,7 +223,42 @@ public class BaseActivity extends AppCompatActivity implements CallbackActivity 
 
     @Override
     public void onDataLoaded() {
-        user = userDao.getUser();
-        updateNavigation();
+        startActivity(new Intent(BaseActivity.this, HomeActivity.class));
+        finish();
     }
+
+    @Override
+    public void checkNotifications() {
+        if(user.getLastConnection() != null) {
+            for(Notification n: notificationsDao.getUserNotifications()) {
+                if(n.getTime().compareTo(user.getLastConnection()) > 0) {
+                    if(n.getMessage().contains("match")) {
+                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Networking", n.getMessage());
+                    } else {
+                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Evento modificado", n.getMessage());
+                    }
+                }
+            }
+            user.setLastConnection(Calendar.getInstance());
+            userDao.setLastConnection();
+        }
+    }
+
+    private void showNotification(int id, String title, String message) {
+        android.support.v4.app.NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.notifications_icon)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.notify_icon))
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary))
+                .setShowWhen(true)
+                .setAutoCancel(true)
+                .setVibrate(new long[] { 1000, 500, 1000})
+                .setLights(Color.RED, 1000, 1000)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(id, notification.build());
+    }
+
 }

@@ -65,7 +65,7 @@ public class NetworkingActivity extends BaseActivity {
         toolbarRightImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadRandomUser();
+                startActivity(new Intent(NetworkingActivity.this, ContactsActivity.class));
             }
         });
 
@@ -85,6 +85,7 @@ public class NetworkingActivity extends BaseActivity {
         }
 
         match = matchDao.getMatch(user.getEmail(), randomUser.getEmail());
+
         if((match.getAnswer1() == true && match.getMatch1() == false) || (match.getAnswer2() == true && match.getMatch2() == false)) {
             checkCounter();
         } else {
@@ -129,8 +130,20 @@ public class NetworkingActivity extends BaseActivity {
             n2.setTime(Calendar.getInstance());
             notificationsDao.addNotification(user.getUid(), n1);
             notificationsDao.addNotification(randomUser.getUid(), n2);
+            Intent intent = new Intent(NetworkingActivity.this, MatchActivity.class);
+            intent.putExtra(AppConstant.IMAGE_1, user.getImage());
+            intent.putExtra(AppConstant.IMAGE_2, randomUser.getImage());
+            intent.putExtra(AppConstant.NAME_1, user.getName());
+            intent.putExtra(AppConstant.NAME_2, randomUser.getName());
+            intent.putExtra(AppConstant.SURNAME_1, user.getSurname());
+            intent.putExtra(AppConstant.SURNAME_2, randomUser.getSurname());
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(NetworkingActivity.this, WaitMatchActivity.class);
+            intent.putExtra(AppConstant.NAME_1, randomUser.getName());
+            intent.putExtra(AppConstant.SURNAME_1, randomUser.getSurname());
+            startActivity(intent);
         }
-        loadRandomUser();
     }
 
     public void cancel(View view) {
@@ -142,7 +155,10 @@ public class NetworkingActivity extends BaseActivity {
             match.setAnswer2(true);
         }
         matchDao.saveMatch(match);
-        loadRandomUser();
+        Intent intent = new Intent(NetworkingActivity.this, CancelMatchActivity.class);
+        intent.putExtra(AppConstant.NAME_1, randomUser.getName());
+        intent.putExtra(AppConstant.SURNAME_1, randomUser.getSurname());
+        startActivity(intent);
     }
 
     private void checkCounter() {
