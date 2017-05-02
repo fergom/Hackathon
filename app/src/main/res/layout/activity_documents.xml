@@ -16,7 +16,7 @@
 
         <include
             android:id="@+id/app_bar"
-            layout="@layout/right_icon_toolbar"/>
+            layout="@layout/toolbar"/>
 
         <LinearLayout
             android:id="@+id/inscription_layout"

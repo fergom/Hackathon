@@ -1,23 +1,25 @@
 package com.a480.fernando.hackathon;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.a480.fernando.hackathon.adapter.QuestionAdapter;
+import com.a480.fernando.hackathon.model.Question;
 import com.a480.fernando.hackathon.model.Speaker;
+import com.bumptech.glide.Glide;
 
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class QuestionsActivity extends BaseActivity {
 
     private Speaker speaker;
+    private ArrayList<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +32,16 @@ public class QuestionsActivity extends BaseActivity {
         ImageView image = (ImageView) findViewById(R.id.speaker_image);
 
         name.setText(speaker.getName().toUpperCase());
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            URL url = new URL(speaker.getImage());
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            image.setImageBitmap(bmp);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        Glide.with(getApplicationContext()).load(speaker.getImage()).into(image);
+
+        questions = speaker.getQuestions();
+
+        Collections.sort(questions, new Comparator<Question>() {
+            @Override
+            public int compare(Question o1, Question o2) {
+                return o2.getTime().compareTo(o1.getTime());
+            }
+        });
 
         loadQuestions();
     }
@@ -46,7 +49,7 @@ public class QuestionsActivity extends BaseActivity {
     private void loadQuestions() {
         ListView questionsListView = (ListView) findViewById(R.id.questions_list);
 
-        QuestionAdapter questionAdapter = new QuestionAdapter(speaker.getName(), speaker.getQuestions(), getApplicationContext(), this);
+        QuestionAdapter questionAdapter = new QuestionAdapter(speaker.getName(), questions, getApplicationContext(), this);
         questionsListView.setAdapter(questionAdapter);
     }
 

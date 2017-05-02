@@ -16,7 +16,7 @@ public class CancelMatchActivity extends BaseActivity {
         message.setText("Se ha registrado correctamente que no quieres ser amigo de " +
                 getIntent().getStringExtra(AppConstant.NAME_1) + " "
                 + getIntent().getStringExtra(AppConstant.SURNAME_1)
-                + ". Tu perfil no saldr√° en su lista de sugerencias.");
+                + ". Tu perfil no saldr· en su lista de sugerencias.");
     }
 
     public void close(View view) {

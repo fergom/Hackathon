@@ -5,10 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,23 +51,9 @@ public class DocumentsActivity extends BaseActivity {
         documentsListView = (ListView) findViewById(R.id.documents_list);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_documents);
-        setToolBar("");
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        title.setText("Documentos");
-        ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);
-        toolbarRightImageView.setImageResource(R.drawable.search);
-        toolbarRightImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                search(v);
-            }
-        });
+        setToolBar("Documentos");
 
         loadDocuments();
-    }
-
-    public void search(View view) {
-        Toast.makeText(getApplicationContext(), "BUSCAR", Toast.LENGTH_LONG).show();
     }
 
     private void loadDocuments() {
@@ -90,14 +74,15 @@ public class DocumentsActivity extends BaseActivity {
     }
 
     public void openInscription(View view) {
-        openDocument(inscription.getHref());
+        openDocument(user.getUid() + ".pdf");
     }
 
     public void openDocument(String href) {
         try {
             StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://hackathon-4d513.appspot.com/");
-            File localFile = File.createTempFile("doc",".pdf");
+            File localFile = new File(getApplicationContext().getExternalFilesDir(null), href);
             StorageReference inscription =  storageRef.child(href);
+            System.out.println(Uri.fromFile(localFile));
 
             inscription.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override

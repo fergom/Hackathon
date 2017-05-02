@@ -1,19 +1,15 @@
 package com.a480.fernando.hackathon;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.a480.fernando.hackathon.model.Speaker;
-
-import java.net.URL;
+import com.bumptech.glide.Glide;
 
 public class SpeakerInfoActivity extends BaseActivity {
 
@@ -30,15 +26,7 @@ public class SpeakerInfoActivity extends BaseActivity {
         TextView name = (TextView) findViewById(R.id.speaker_name);
         TextView job = (TextView) findViewById(R.id.speaker_job);
 
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            URL url = new URL(speaker.getImage());
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            image.setImageBitmap(bmp);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        Glide.with(getApplicationContext()).load(speaker.getImage()).into(image);
         name.setText(speaker.getName().toUpperCase());
         job.setText(speaker.getJob());
 

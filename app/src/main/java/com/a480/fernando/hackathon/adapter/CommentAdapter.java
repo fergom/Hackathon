@@ -63,7 +63,7 @@ public class CommentAdapter extends BaseAdapter {
                 difference = horas + " horas";
             } else {
                 long dias = horas/24;
-                difference = dias + " dÃ­as.";
+                difference = dias + " días.";
             }
         }
         return difference;

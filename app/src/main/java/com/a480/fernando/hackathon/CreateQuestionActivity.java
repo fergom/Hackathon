@@ -22,7 +22,7 @@ public class CreateQuestionActivity extends BaseActivity {
 
         speakerName = getIntent().getExtras().getString(AppConstant.SPEAKER_NAME);
 
-        setGoBackToolBar("AÃ±adir pregunta");
+        setGoBackToolBar("Añadir pregunta");
     }
 
     public void ask(View view) {

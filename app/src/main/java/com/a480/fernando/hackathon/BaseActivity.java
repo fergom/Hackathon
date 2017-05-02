@@ -1,6 +1,7 @@
 package com.a480.fernando.hackathon;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -43,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Fernando on 16/03/2017.
  */
 
-public class BaseActivity extends AppCompatActivity implements ICallbackActivity, INewNotification {
+public class BaseActivity extends AppCompatActivity implements INewNotification {
 
     private Toolbar toolBar;
     protected ActionBarDrawerToggle toggle;
@@ -66,17 +67,15 @@ public class BaseActivity extends AppCompatActivity implements ICallbackActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        notificationsDao.listenUserNotifications(null);
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             user = userDao.getUser();
-            if(user.getName() == null) {
-                userDao.setCallback(BaseActivity.this);
-                userDao.onAuthenticated();
-            } else {
+            if(user.getName() != null) {
                 userDao.setCallback(null);
                 notificationsDao.setNewNotification(BaseActivity.this);
                 notificationsDao.listenPublicNotifications();
-                notificationsDao.listenUserNotifications();
+                notificationsDao.listenUserNotifications(user.getUid());
             }
         }
     }
@@ -133,7 +132,7 @@ public class BaseActivity extends AppCompatActivity implements ICallbackActivity
                 navigationView.getHeaderView(0).findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
                 CircleImageView imageMenu = (CircleImageView)  navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.image_menu);
                 TextView nameMenu = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.name_menu);
-                nameMenu.setText(user.getName() + " " + user.getSurname());
+                nameMenu.setText(user.getName().toUpperCase() + " " + user.getSurname().toUpperCase());
                 Glide.with(getApplicationContext()).load(user.getImage()).into(imageMenu);
             }
         }
@@ -222,20 +221,14 @@ public class BaseActivity extends AppCompatActivity implements ICallbackActivity
     }
 
     @Override
-    public void onDataLoaded() {
-        startActivity(new Intent(BaseActivity.this, HomeActivity.class));
-        finish();
-    }
-
-    @Override
-    public void checkNotifications() {
-        if(user.getLastConnection() != null) {
+    public void checkNotifications(String uid) {
+        if(user.getLastConnection() != null && user.getUid().equals(uid) && !user.getSnooze()) {
             for(Notification n: notificationsDao.getUserNotifications()) {
                 if(n.getTime().compareTo(user.getLastConnection()) > 0) {
                     if(n.getMessage().contains("match")) {
-                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Networking", n.getMessage());
+                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Tienes un nuevo match.");
                     } else {
-                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Evento modificado", n.getMessage());
+                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Se ha modificado un evento.");
                     }
                 }
             }
@@ -244,10 +237,13 @@ public class BaseActivity extends AppCompatActivity implements ICallbackActivity
         }
     }
 
-    private void showNotification(int id, String title, String message) {
+    private void showNotification(int id, String message) {
+        Intent notificationIntent = new Intent(BaseActivity.this, NotificationsActivity.class);
+        PendingIntent intent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
+
         android.support.v4.app.NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.drawable.notifications_icon)
-                .setContentTitle(title)
+                .setContentTitle("Hackathon")
                 .setContentText(message)
                 .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.notify_icon))
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary))
@@ -255,7 +251,8 @@ public class BaseActivity extends AppCompatActivity implements ICallbackActivity
                 .setAutoCancel(true)
                 .setVibrate(new long[] { 1000, 500, 1000})
                 .setLights(Color.RED, 1000, 1000)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(intent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(id, notification.build());

@@ -1,8 +1,10 @@
 package com.a480.fernando.hackathon;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -65,33 +67,33 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         departmentSpinner = (Spinner) findViewById(R.id.inscription_department);
 
         List<String> countries = new ArrayList<String>();
-        countries.add("Pais *");
-        countries.add("EspaÃ±a");
+        countries.add("País *");
+        countries.add("España");
 
         List<String> states = new ArrayList<String>();
         states.add("Comunidad *");
-        states.add("Aragon");
+        states.add("Aragón");
         states.add("Comunidad Valenciana");
         states.add("Madrid");
-        states.add("Andalucia");
+        states.add("Andalucía");
         states.add("Murcia");
         states.add("Galicia");
 
         List<String> cities = new ArrayList<String>();
         cities.add("Ciudad *");
-        cities.add("Castellon de la Plana");
+        cities.add("Castellón de la Plana");
         cities.add("Elche");
         cities.add("Valencia");
         cities.add("Alicante");
-        cities.add("Chovar");
+        cities.add("Chóvar");
         cities.add("Soneja");
 
         List<String> sectors = new ArrayList<String>();
         sectors.add("Sector");
-        sectors.add("TecnolÃ³gico");
+        sectors.add("Tecnológico");
         sectors.add("Deportivo");
         sectors.add("Ocio");
-        sectors.add("Educacion");
+        sectors.add("Educación");
         sectors.add("Servicios");
 
         List<String> positions = new ArrayList<String>();
@@ -106,7 +108,7 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         departments.add("Departamento");
         departments.add("RRHH");
         departments.add("Marketing");
-        departments.add("DiseÃ±o");
+        departments.add("Diseño");
         departments.add("Software");
         departments.add("Bussiness");
 
@@ -131,8 +133,14 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
 
     }
 
+    public void linkedinInscription(View view) {
+
+    }
+
     public void acceptInscription(View view) {
-        if(email.getText().toString().length() == 0 ||
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        } else if(email.getText().toString().length() == 0 ||
                 password.getText().toString().length() == 0 ||
                 passwordConfirm.getText().toString().length() == 0 ||
                 name.getText().toString().length() == 0 ||
@@ -140,7 +148,7 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
                 postalCode.getText().toString().length() == 0 ||
                 phoneNumber.getText().toString().length() == 0 ||
                 nif.getText().toString().length() == 0 ||
-                countrySpinner.getSelectedItem().toString().equals("Pais *") ||
+                countrySpinner.getSelectedItem().toString().equals("País *") ||
                 stateSpinner.getSelectedItem().toString().equals("Comunidad *") ||
                 citySpinner.getSelectedItem().toString().equals("Ciudad *")) {
 
@@ -148,24 +156,24 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
 
         } else {
             if(!password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                Toast.makeText(getApplicationContext(), "Las contraseÃ±as no coinciden.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden.", Toast.LENGTH_LONG).show();
             } else if(password.getText().toString().length() < 8) {
-                Toast.makeText(getApplicationContext(), "La contraseÃ±a debe tener al menos 8 caracteres.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_LONG).show();
             } else {
                 createdUser = createUser();
                 auth.createUserWithEmailAndPassword(createdUser.getEmail(), createdUser.getPassword())
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    userDao.setCallback(InscriptionFormActivity.this);
-                                    userDao.onAuthenticated();
-                                    userDao.saveUser(createdUser);
-                                }
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                userDao.setCallback(InscriptionFormActivity.this);
+                                userDao.onAuthenticated();
+                                userDao.saveUser(createdUser);
                             }
-                        });
+                        }
+                    });
             }
         }
     }

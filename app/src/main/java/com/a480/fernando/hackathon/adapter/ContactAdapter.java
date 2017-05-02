@@ -75,7 +75,7 @@ public class ContactAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(context, "Para poder llamar debes dar permisos a la aplicaciÃ³n.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Para poder llamar debes dar permisos a la aplicación.", Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(Intent.ACTION_DIAL);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

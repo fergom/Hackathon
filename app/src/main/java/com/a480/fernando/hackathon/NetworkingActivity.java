@@ -80,7 +80,7 @@ public class NetworkingActivity extends BaseActivity {
         randomUser = userDao.getRandomUser(user.getEmail());
 
         if(randomUser == null) {
-            Toast.makeText(getApplicationContext(), "No hay m√°s usuarios con los que hacer match.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No hay m·s usuarios con los que hacer match.", Toast.LENGTH_LONG).show();
             startActivity(new Intent(NetworkingActivity.this, ProfileActivity.class));
         }
 
@@ -128,8 +128,8 @@ public class NetworkingActivity extends BaseActivity {
             n1.setTime(Calendar.getInstance());
             n2.setMessage("Tienes un match con " + user.getName() + " " + user.getSurname());
             n2.setTime(Calendar.getInstance());
-            notificationsDao.addNotification(user.getUid(), n1);
             notificationsDao.addNotification(randomUser.getUid(), n2);
+            notificationsDao.addNotification(user.getUid(), n1);
             Intent intent = new Intent(NetworkingActivity.this, MatchActivity.class);
             intent.putExtra(AppConstant.IMAGE_1, user.getImage());
             intent.putExtra(AppConstant.IMAGE_2, randomUser.getImage());
@@ -164,7 +164,7 @@ public class NetworkingActivity extends BaseActivity {
     private void checkCounter() {
         if(counter == 5) {
             counter = 0;
-            Toast.makeText(getApplicationContext(), "No hay m√°s usuarios con los que hacer match.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No hay m·s usuarios con los que hacer match.", Toast.LENGTH_LONG).show();
             startActivity(new Intent(NetworkingActivity.this, ProfileActivity.class));
         } else {
             counter++;

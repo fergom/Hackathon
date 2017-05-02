@@ -5,5 +5,5 @@ package com.a480.fernando.hackathon;
  */
 
 public interface INewNotification {
-    void checkNotifications();
+    void checkNotifications(String uid);
 }

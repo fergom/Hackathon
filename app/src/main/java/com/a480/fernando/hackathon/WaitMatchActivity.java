@@ -13,10 +13,10 @@ public class WaitMatchActivity extends BaseActivity {
         setContentView(R.layout.activity_wait_match);
 
         TextView message = (TextView) findViewById(R.id.message);
-        message.setText("La petici√≥n de amistad se ha registrado correctamente. Cuando " +
+        message.setText("La peticiÛn de amistad se ha registrado correctamente. Cuando " +
                 getIntent().getStringExtra(AppConstant.NAME_1) + " "
                 + getIntent().getStringExtra(AppConstant.SURNAME_1)
-                + " acepte se te enviar√° una notificaci√≥n.");
+                + " acepte se te enviar· una notificaciÛn.");
     }
 
     public void close(View view) {

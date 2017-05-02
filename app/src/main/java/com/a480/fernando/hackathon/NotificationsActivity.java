@@ -30,7 +30,7 @@ public class NotificationsActivity extends BaseActivity implements ICallbackActi
     private void loadNotifications() {
         notificationsDao.setCallbackActivity(NotificationsActivity.this);
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            notificationsDao.listenUserNotifications();
+            notificationsDao.listenUserNotifications(user.getUid());
         }
         notificationsDao.listenPublicNotifications();
         notificationsListView = (ListView) findViewById(R.id.notifications_list);

@@ -127,7 +127,7 @@ public class ProfileActivity extends BaseActivity {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getApplicationContext(), "La imagen no se ha podido subir, pruebe m√°s tarde.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "La imagen no se ha podido subir, pruebe m·s tarde.", Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -139,7 +139,7 @@ public class ProfileActivity extends BaseActivity {
                 });
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Algo ha ido mal, int√©ntalo m√°s tarde.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Algo ha ido mal, intÈntalo m·s tarde.", Toast.LENGTH_LONG).show();
         }
 
     }

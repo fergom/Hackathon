@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity implements ICallbackActivity {
         if(TextUtils.isEmpty(email)) {
             Toast.makeText(LoginActivity.this, "El email es un campo obligatorio.", Toast.LENGTH_SHORT).show();
         } else if(TextUtils.isEmpty(password)) {
-            Toast.makeText(LoginActivity.this, "La contraseÃ±a es un campo obligatorio.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "La contraseña es un campo obligatorio.", Toast.LENGTH_SHORT).show();
         } else {
             loginInfoLayout.setAlpha(0.3f);
             progressBar.setVisibility(View.VISIBLE);
@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity implements ICallbackActivity {
                         progressBar.setVisibility(View.GONE);
                         loginInfoLayout.setAlpha(1);
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Email o contraseÃ±a incorrectos.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Email o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
                         } else {
                             userDao.setCallback(LoginActivity.this);
                             userDao.onAuthenticated();

@@ -52,31 +52,31 @@ public class EditProfileFormActivity extends BaseActivity {
         departmentSpinner = (Spinner) findViewById(R.id.inscription_department);
 
         List<String> countries = new ArrayList<String>();
-        countries.add("Pais *");
-        countries.add("Espa帽a");
+        countries.add("Pa韘 *");
+        countries.add("Espa馻");
 
         List<String> states = new ArrayList<String>();
         states.add("Comunidad *");
-        states.add("Arag贸n");
+        states.add("Arag髇");
         states.add("Comunidad Valenciana");
         states.add("Madrid");
-        states.add("Andaluc铆a");
+        states.add("Andaluc韆");
         states.add("Murcia");
         states.add("Galicia");
 
         List<String> cities = new ArrayList<String>();
         cities.add("Ciudad *");
-        cities.add("Castell贸n de la Plana");
+        cities.add("Castell髇 de la Plana");
         cities.add("Elche");
         cities.add("Valencia");
         cities.add("Alicante");
 
         List<String> sectors = new ArrayList<String>();
         sectors.add("Sector");
-        sectors.add("Tecnol贸gico");
+        sectors.add("Tecnol骻ico");
         sectors.add("Deportivo");
         sectors.add("Ocio");
-        sectors.add("Educaci贸n");
+        sectors.add("Educaci髇");
         sectors.add("Servicios");
 
         List<String> positions = new ArrayList<String>();
@@ -91,7 +91,7 @@ public class EditProfileFormActivity extends BaseActivity {
         departments.add("Departamento");
         departments.add("RRHH");
         departments.add("Marketing");
-        departments.add("Dise帽o");
+        departments.add("Dise駉");
         departments.add("Software");
         departments.add("Bussiness");
 

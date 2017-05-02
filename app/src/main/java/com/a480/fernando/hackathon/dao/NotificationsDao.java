@@ -29,6 +29,7 @@ public class NotificationsDao extends Dao {
     private ICallbackActivity callbackActivity;
     private INewNotification newNotification;
     private boolean publicLoaded, userLoaded;
+    private String uid;
 
     public NotificationsDao() { }
 
@@ -86,9 +87,10 @@ public class NotificationsDao extends Dao {
         });
     }
 
-    public void listenUserNotifications() {
+    public void listenUserNotifications(String uid) {
 
-        DatabaseReference notifRef = userRef.child("/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/Notifications");
+        this.uid = uid;
+        DatabaseReference notifRef = userRef.child("/" + uid + "/Notifications");
 
         notifRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -151,7 +153,7 @@ public class NotificationsDao extends Dao {
                 callbackActivity.onDataLoaded();
             }
             if(newNotification != null) {
-                newNotification.checkNotifications();
+                newNotification.checkNotifications(uid);
             }
         }
     }

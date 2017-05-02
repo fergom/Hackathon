@@ -13,7 +13,7 @@ public class AccreditationActivity extends BaseActivity {
 
         navigation = (DrawerLayout) findViewById(R.id.activity_accreditation);
 
-        setToolBar("AcreditaciÃ³n");
+        setToolBar("Acreditación");
 
         if(user != null) {
             TextView name = (TextView) findViewById(R.id.accreditation_name);

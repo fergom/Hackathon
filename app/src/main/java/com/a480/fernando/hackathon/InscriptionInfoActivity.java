@@ -13,7 +13,7 @@ public class InscriptionInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription_info);
         navigation = (DrawerLayout) findViewById(R.id.activity_inscription_info);
-        setToolBar("InscripciÃ³n");
+        setToolBar("Inscripción");
         setJustifiedText();
     }
 

@@ -4,22 +4,38 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class StartActivity extends BaseActivity {
+import com.google.firebase.auth.FirebaseAuth;
 
-    private final int SPLASH_DISPLAY_LENGTH = 500;
+public class StartActivity extends BaseActivity implements ICallbackActivity {
+
+    private static final int SPLASH_DISPLAY_LENGTH = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                Intent mainIntent = new Intent(StartActivity.this, BaseActivity.class);
-                StartActivity.this.startActivity(mainIntent);
-                StartActivity.this.finish();
-            }
-        }, SPLASH_DISPLAY_LENGTH);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            userDao.setCallback(StartActivity.this);
+            userDao.onAuthenticated();
+        } else {
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    startHome();
+                }
+            }, SPLASH_DISPLAY_LENGTH);
+        }
     }
+
+    @Override
+    public void onDataLoaded() {
+        startHome();
+    }
+
+    private void startHome() {
+        startActivity(new Intent(StartActivity.this, HomeActivity.class));
+        finish();
+    }
+
 }

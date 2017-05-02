@@ -11,16 +11,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.a480.fernando.hackathon.adapter.CommentAdapter;
+import com.a480.fernando.hackathon.model.Comment;
 import com.a480.fernando.hackathon.model.Question;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AnswerActivity extends BaseActivity {
 
     private Question question;
     private String speakerName;
     private String questionTitle;
+    private ArrayList<Comment> commentsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,15 @@ public class AnswerActivity extends BaseActivity {
             }
         });
 
+        commentsList = question.getComments();
+
+        Collections.sort(commentsList, new Comparator<Comment>() {
+            @Override
+            public int compare(Comment o1, Comment o2) {
+                return o2.getTime().compareTo(o1.getTime());
+            }
+        });
+
         loadComments();
 
     }
@@ -127,7 +141,7 @@ public class AnswerActivity extends BaseActivity {
                 difference = horas + " horas";
             } else {
                 long dias = horas/24;
-                difference = dias + " dÃ­as.";
+                difference = dias + " días.";
             }
         }
         return difference;

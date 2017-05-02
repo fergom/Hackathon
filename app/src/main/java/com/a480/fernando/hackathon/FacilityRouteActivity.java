@@ -183,7 +183,7 @@ public class FacilityRouteActivity extends BaseActivity implements OnMapReadyCal
         }
     }
 
-    // Si el GPS no estÃ¡ activado se muestra un mensaje para activarlo
+    // Si el GPS no est? activado se muestra un mensaje para activarlo
 
     private void statusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -196,9 +196,9 @@ public class FacilityRouteActivity extends BaseActivity implements OnMapReadyCal
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Para poder localizar tu ubicaciÃ³n el GPS debe estar activado Â¿Quieres activarlo ahora?")
+        builder.setMessage("Para poder localizar tu ubicación el GPS debe estar activado ¿Quieres activarlo ahora?")
                 .setCancelable(false)
-                .setPositiveButton("SÃ­", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
