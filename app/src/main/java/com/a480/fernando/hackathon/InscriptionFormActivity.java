@@ -13,6 +13,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.a480.fernando.hackathon.model.User;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -41,7 +52,13 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
 
     private FirebaseAuth auth;
 
+    private LoginButton facebookLoginButton;
+    private CallbackManager callbackManager;
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
+
     private User createdUser;
+    private Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +66,8 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         setContentView(R.layout.activity_inscription_form);
 
         auth = FirebaseAuth.getInstance();
+
+        initFacebook();
 
         email = (EditText) findViewById(R.id.inscription_email);
         name = (EditText) findViewById(R.id.inscription_name);
@@ -133,10 +152,6 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
 
     }
 
-    public void linkedinInscription(View view) {
-
-    }
-
     public void acceptInscription(View view) {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -168,6 +183,7 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
                             if (!task.isSuccessful()) {
                                 Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
                             } else {
+                                LoginManager.getInstance().logOut();
                                 userDao.setCallback(InscriptionFormActivity.this);
                                 userDao.onAuthenticated();
                                 userDao.saveUser(createdUser);
@@ -181,6 +197,82 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
     public void onDataLoaded() {
         startActivity(new Intent(InscriptionFormActivity.this, SuccessfulRegistrationActivity.class));
         finish();
+    }
+
+    private void initFacebook() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                showData(currentProfile);
+            }
+        };
+
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
+
+        facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                showData(Profile.getCurrentProfile());
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.println("Cancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.println(error);
+            }
+        };
+
+        facebookLoginButton.setReadPermissions("public_profile");
+        facebookLoginButton.registerCallback(callbackManager, callback);
+        LoginManager.getInstance().registerCallback(callbackManager, callback);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showData(Profile.getCurrentProfile());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void showData(Profile profile) {
+        if(profile != null) {
+            this.profile = profile;
+            name.setText(profile.getFirstName());
+            surname.setText(profile.getLastName());
+        }
     }
 
     private User createUser() {
@@ -202,9 +294,14 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         user.setSector(sectorSpinner.getSelectedItem().toString());
         user.setPosition(positionSpinner.getSelectedItem().toString());
         user.setDepartment(departmentSpinner.getSelectedItem().toString());
+        user.setNetworking(true);
         CheckBox fact = (CheckBox) findViewById(R.id.inscription_fact);
         user.setFact(fact.isChecked());
-        user.setImage("https://firebasestorage.googleapis.com/v0/b/hackathon-4d513.appspot.com/o/profile.png?alt=media&token=3e4335fc-5095-402a-b751-06fd85108805");
+        if(profile == null) {
+            user.setImage("https://firebasestorage.googleapis.com/v0/b/hackathon-4d513.appspot.com/o/profile.png?alt=media&token=3e4335fc-5095-402a-b751-06fd85108805");
+        } else {
+            user.setImage(profile.getProfilePictureUri(1,1).toString());
+        }
         return user;
     }
 

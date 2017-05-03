@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="facebook_app_id">202831706897996</string>
+    <string name="fb_login_protocol_scheme">fb202831706897996</string>
+
     <string name="app_name">Hackathon</string>
     <string name="inscription_button">INSCRIPCIÓN</string>
     <string name="home_title">Hackathon Castellón 2016</string>
@@ -72,4 +75,5 @@
     <string name="sponsors">Patrocinadores</string>
     <string name="about">Acerca de</string>
     <string name="search_contacts">Buscar contactos</string>
+    <string name="no_contacts">No hay contactos.</string>
 </resources>

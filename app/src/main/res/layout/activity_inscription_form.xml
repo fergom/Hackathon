@@ -19,20 +19,20 @@
             android:paddingTop="50dp"
             android:text="@string/linkedin_inscription"
             android:textAlignment="center"
-            android:textColor="@color/linkedinColor"
+            android:textColor="@color/facebookColor"
             android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/linkedin_logo" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
+            android:layout_marginTop="20dp"
             android:text="o rellena el formulario"
             android:textColor="@color/darkGrey"
             android:textAlignment="center"

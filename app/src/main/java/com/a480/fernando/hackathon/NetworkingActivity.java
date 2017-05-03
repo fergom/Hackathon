@@ -137,6 +137,8 @@ public class NetworkingActivity extends BaseActivity {
             intent.putExtra(AppConstant.NAME_2, randomUser.getName());
             intent.putExtra(AppConstant.SURNAME_1, user.getSurname());
             intent.putExtra(AppConstant.SURNAME_2, randomUser.getSurname());
+            intent.putExtra(AppConstant.EMAIL, randomUser.getEmail());
+            intent.putExtra(AppConstant.PHONE_NUMBER, randomUser.getPhoneNumber());
             startActivity(intent);
         } else {
             Intent intent = new Intent(NetworkingActivity.this, WaitMatchActivity.class);

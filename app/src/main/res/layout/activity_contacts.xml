@@ -25,6 +25,18 @@
         android:textColorHint="@android:color/white"
         android:hint="@string/search_contacts"/>
 
+    <TextView
+        android:id="@+id/no_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/no_contacts"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_below="@+id/search_toolbar"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/contacts_list_view"
         android:layout_width="match_parent"

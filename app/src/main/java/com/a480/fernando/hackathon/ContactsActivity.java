@@ -6,7 +6,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.a480.fernando.hackathon.adapter.ContactAdapter;
 import com.a480.fernando.hackathon.model.User;
@@ -21,6 +23,7 @@ public class ContactsActivity extends BaseActivity {
     private MaterialSearchView searchView;
     private ListView contactsListView;
     private ArrayList<User> contacts;
+    private TextView noContacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class ContactsActivity extends BaseActivity {
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         contactsListView = (ListView) findViewById(R.id.contacts_list_view);
+        noContacts = (TextView) findViewById(R.id.no_contacts);
 
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
@@ -115,20 +119,30 @@ public class ContactsActivity extends BaseActivity {
         char first = ' ';
         ArrayList<User> contactsWithSeparator = new ArrayList<>();
         User separator;
-        for(User c: contacts) {
-            if(c.getName().toLowerCase().charAt(0) - first > 0) {
-                separator = new User();
-                separator.setName(c.getName());
-                separator.setFirstAlphabet(true);
-                contactsWithSeparator.add(separator);
-                first = c.getName().toLowerCase().charAt(0);
+
+        if(contacts.size() == 0) {
+            noContacts.setVisibility(View.VISIBLE);
+            contactsListView.setVisibility(View.GONE);
+
+        } else {
+            noContacts.setVisibility(View.GONE);
+            contactsListView.setVisibility(View.VISIBLE);
+
+            for(User c: contacts) {
+                if(c.getName().toLowerCase().charAt(0) - first > 0) {
+                    separator = new User();
+                    separator.setName(c.getName());
+                    separator.setFirstAlphabet(true);
+                    contactsWithSeparator.add(separator);
+                    first = c.getName().toLowerCase().charAt(0);
+                }
+                contactsWithSeparator.add(c);
             }
-            contactsWithSeparator.add(c);
+
+            contacts = contactsWithSeparator;
+
+            ContactAdapter contactAdapter = new ContactAdapter(contacts, getApplicationContext());
+            contactsListView.setAdapter(contactAdapter);
         }
-
-        contacts = contactsWithSeparator;
-
-        ContactAdapter contactAdapter = new ContactAdapter(contacts, getApplicationContext());
-        contactsListView.setAdapter(contactAdapter);
     }
 }

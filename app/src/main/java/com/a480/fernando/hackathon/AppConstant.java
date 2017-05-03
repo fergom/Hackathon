@@ -24,5 +24,7 @@ public class AppConstant {
     public static final String NAME_2 = "name_2";
     public static final String SURNAME_1 = "surname_1";
     public static final String SURNAME_2 = "surname_2";
+    public static final String EMAIL = "email";
+    public static final String PHONE_NUMBER = "phone_number";
 
 }
