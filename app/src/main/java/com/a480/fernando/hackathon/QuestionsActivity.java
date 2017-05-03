@@ -59,8 +59,4 @@ public class QuestionsActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
-
-    public void goBack(View view) {
-        finish();
-    }
 }

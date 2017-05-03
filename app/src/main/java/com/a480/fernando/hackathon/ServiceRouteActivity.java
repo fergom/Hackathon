@@ -49,7 +49,7 @@ public class ServiceRouteActivity extends BaseActivity implements OnMapReadyCall
 
         this.service = this.mapsDao.getServiceByName(getIntent().getStringExtra(AppConstant.SERVICE_NAME));
 
-        setCloseToolBar("Ruta a " + service.getName());
+        setCloseToolbar("Ruta a " + service.getName());
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.route_service_map);
         mapFragment.getMapAsync(this);

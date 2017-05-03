@@ -82,8 +82,4 @@ public class EventInfoActivity extends BaseActivity {
         }
     }
 
-    public void goBack(View view) {
-        finish();
-    }
-
 }

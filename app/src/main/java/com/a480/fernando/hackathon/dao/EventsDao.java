@@ -30,7 +30,7 @@ public class EventsDao extends Dao {
                 HashMap<String, Object> daysOfWeek;
                 HashMap<String, HashMap<String, String>> info;
 
-                Event event = null;
+                Event event;
                 int year, month, day;
                 String dayOfWeek;
 

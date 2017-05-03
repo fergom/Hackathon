@@ -42,7 +42,8 @@ public class MatchActivity extends BaseActivity {
     }
 
     public void close(View view) {
-        startActivity(new Intent(MatchActivity.this, NetworkingActivity.class));
+        Intent intent = new Intent(MatchActivity.this, NetworkingActivity.class);
+        startActivity(intent);
         finish();
     }
 

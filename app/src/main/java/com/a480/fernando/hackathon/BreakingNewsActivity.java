@@ -21,7 +21,7 @@ public class BreakingNewsActivity extends BaseActivity {
         setContentView(R.layout.activity_breaking_news);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_breaking_news);
-        setToolBar("Breaking News");
+        setToolbar("Breaking News");
 
         news = newsDao.getNews();
 

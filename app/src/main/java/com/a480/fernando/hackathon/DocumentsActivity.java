@@ -51,7 +51,7 @@ public class DocumentsActivity extends BaseActivity {
         documentsListView = (ListView) findViewById(R.id.documents_list);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_documents);
-        setToolBar("Documentos");
+        setToolbar("Documentos");
 
         loadDocuments();
     }
@@ -96,7 +96,7 @@ public class DocumentsActivity extends BaseActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(getApplicationContext(), "No se ha podido abrir el PDF.", Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), "No se ha podido abrir el PDF.", Toast.LENGTH_LONG).show();
                 }
             });
 

@@ -48,7 +48,7 @@ public class FacilityRouteActivity extends BaseActivity implements OnMapReadyCal
 
         this.facility = this.mapsDao.getFacilityByName(getIntent().getStringExtra(AppConstant.FACILITY_NAME));
 
-        setCloseToolBar("Ruta a " + facility.getName());
+        setCloseToolbar("Ruta a " + facility.getName());
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.route_facility_map);
         mapFragment.getMapAsync(this);

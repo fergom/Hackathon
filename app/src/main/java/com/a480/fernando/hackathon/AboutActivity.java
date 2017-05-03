@@ -12,7 +12,7 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         navigation = (DrawerLayout) findViewById(R.id.activity_about);
-        setToolBar("Acerca de");
+        setToolbar("Acerca de");
     }
 
     public void legal(View view) {

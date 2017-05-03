@@ -14,7 +14,7 @@ import com.a480.fernando.hackathon.adapter.ServiceAdapter;
 public class ServicesActivity extends BaseActivity {
 
     private ListView servicesListView;
-    private static ServiceAdapter serviceAdapter;
+    private ServiceAdapter serviceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class ServicesActivity extends BaseActivity {
         setContentView(R.layout.activity_services);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_services);
-        setToolBar("");
+        setToolbar("");
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("Servicios");
         ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);

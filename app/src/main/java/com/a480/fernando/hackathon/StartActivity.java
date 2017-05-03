@@ -34,7 +34,8 @@ public class StartActivity extends BaseActivity implements ICallbackActivity {
     }
 
     private void startHome() {
-        startActivity(new Intent(StartActivity.this, HomeActivity.class));
+        Intent intent = new Intent(StartActivity.this, HomeActivity.class);
+        startActivity(intent);
         finish();
     }
 

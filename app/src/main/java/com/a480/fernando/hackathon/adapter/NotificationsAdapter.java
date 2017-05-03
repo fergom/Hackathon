@@ -10,7 +10,8 @@ import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.model.Notification;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
+import static com.a480.fernando.hackathon.AppConstant.getTime;
 
 /**
  * Created by Fernando on 20/04/2017.
@@ -40,24 +41,6 @@ public class NotificationsAdapter extends BaseAdapter {
         message.setText(notification.getMessage());
 
         return v;
-    }
-
-    private String getTime(Calendar time) {
-        String difference;
-        long diff = Calendar.getInstance().getTime().getTime() - time.getTime().getTime();
-        double minutes = diff / (1000 * 60);
-        if (minutes < 60) {
-            difference = minutes + " minutos";
-        } else {
-            long horas = (long) (minutes / 60);
-            if(horas < 24) {
-                difference = horas + " horas";
-            } else {
-                long dias = horas/24;
-                difference = dias + " días.";
-            }
-        }
-        return difference;
     }
 
     @Override

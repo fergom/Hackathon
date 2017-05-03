@@ -20,7 +20,7 @@ public class FeedBackActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
-        setCloseToolBar("Feedback");
+        setCloseToolbar("Feedback");
 
         feedbackTypeSpinner = (Spinner) findViewById(R.id.feedback_type);
 

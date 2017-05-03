@@ -13,7 +13,7 @@ public class AugmentedRealityActivity extends BaseActivity {
         setContentView(R.layout.activity_augmented_reality);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_augmented_reality);
-        setToolBar("Realidad aumentada");
+        setToolbar("Realidad aumentada");
     }
 
     public void scan(View view) {

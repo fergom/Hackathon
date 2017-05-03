@@ -23,13 +23,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.LinkedList;
 
+import static com.a480.fernando.hackathon.AppConstant.DEFAULT_LATITUDE;
+import static com.a480.fernando.hackathon.AppConstant.DEFAULT_LONGITUDE;
+import static com.a480.fernando.hackathon.AppConstant.DEFAULT_ZOOM;
+import static com.a480.fernando.hackathon.AppConstant.NEAR_ZOOM;
+
 public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
 
     private GoogleMap map;
-    private double defaultLatitude = 39.9863563;
-    private double defaultLongitude = -0.0513246;
-    private float defaultZoom = 14.0f;
-    private float nearZoom = 18.0f;
     private String selectedServiceName = null;
 
     private RelativeLayout serviceInfoMap;
@@ -58,7 +59,7 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
         this.selectedServiceName = getIntent().getStringExtra(AppConstant.SERVICE_NAME);
 
         this.navigation = (DrawerLayout) findViewById(R.id.activity_map_services);
-        setToolBar("");
+        setToolbar("");
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("Servicios");
         ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);
@@ -78,7 +79,7 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(defaultLatitude,defaultLongitude), defaultZoom));
+        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(DEFAULT_LATITUDE,DEFAULT_LONGITUDE), DEFAULT_ZOOM));
         this.map.setOnMarkerClickListener(this);
         this.map.setOnMapClickListener(this);
         loadLocations();
@@ -114,7 +115,7 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
         for(Service service: mapsDao.getServices()) {
             if(selectedServiceName != null && service.getName().equals(selectedServiceName)) {
                 icon = getActiveIcon(service.getType());
-                this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(service.getLatitude(),service.getLongitude()) , nearZoom));
+                this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(service.getLatitude(),service.getLongitude()) , NEAR_ZOOM));
                 setBottomInformation(service);
             } else {
                 icon = getIcon(service.getType());

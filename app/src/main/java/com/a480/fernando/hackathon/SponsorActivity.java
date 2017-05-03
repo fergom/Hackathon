@@ -10,6 +10,6 @@ public class SponsorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sponsor);
         navigation = (DrawerLayout) findViewById(R.id.activity_sponsor);
-        setToolBar("Patrocinadores");
+        setToolbar("Patrocinadores");
     }
 }

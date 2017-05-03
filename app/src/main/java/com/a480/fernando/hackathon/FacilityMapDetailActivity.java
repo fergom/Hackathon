@@ -15,10 +15,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static com.a480.fernando.hackathon.AppConstant.GREY_HEX;
+import static com.a480.fernando.hackathon.AppConstant.NEAR_ZOOM;
+
 public class FacilityMapDetailActivity extends BaseActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
-    private float nearZoom = 18.0f;
     private Service facility;
 
     @Override
@@ -34,22 +36,11 @@ public class FacilityMapDetailActivity extends BaseActivity implements OnMapRead
         name.setText(this.facility.getName());
         address.setText(this.facility.getAddress());
 
-        setJustifiedText();
+        WebView webView = (WebView) findViewById(R.id.facility_description_detail);
+        setJustifiedText(webView, facility.getDescription().replace("\n","<br>"), GREY_HEX);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.detailed_facility_map);
         mapFragment.getMapAsync(this);
-    }
-
-    private void setJustifiedText() {
-        String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String description = facility.getDescription();
-        description = description.replace("\n","<br>");
-        WebView webView = (WebView) findViewById(R.id.facility_description_detail);
-        webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");
-    }
-
-    public void goBack(View view) {
-        finish();
     }
 
     public void route(View view) {
@@ -61,7 +52,7 @@ public class FacilityMapDetailActivity extends BaseActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.facility.getLatitude(),this.facility.getLongitude()), nearZoom));
+        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(this.facility.getLatitude(),this.facility.getLongitude()), NEAR_ZOOM));
         this.map.addMarker(new MarkerOptions().position(new LatLng(facility.getLatitude(), facility.getLongitude())).title(facility.getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.location)));
     }
 

@@ -3,22 +3,18 @@ package com.a480.fernando.hackathon;
 import android.os.Bundle;
 import android.webkit.WebView;
 
+import static com.a480.fernando.hackathon.AppConstant.GREY_HEX;
+
 public class LegalActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legal);
-        setCloseToolBar("Legales");
-        setJustifiedText();
-    }
+        setCloseToolbar("Legales");
 
-    private void setJustifiedText() {
-        String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String description = infoDao.getLegalInfo();
-        description = description.replace("\n","<br>");
         WebView webView = (WebView) findViewById(R.id.legal_info);
-        webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");
+        setJustifiedText(webView, infoDao.getLegalInfo().replace("\n","<br>"), GREY_HEX);
     }
 
 }

@@ -21,13 +21,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.LinkedList;
 
+import static com.a480.fernando.hackathon.AppConstant.DEFAULT_LATITUDE;
+import static com.a480.fernando.hackathon.AppConstant.DEFAULT_LONGITUDE;
+import static com.a480.fernando.hackathon.AppConstant.DEFAULT_ZOOM;
+import static com.a480.fernando.hackathon.AppConstant.NEAR_ZOOM;
+
 public class FacilitiesMapActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
 
     private GoogleMap map;
-    private double defaultLatitude = 39.9863563;
-    private double defaultLongitude = -0.0513246;
-    private float defaultZoom = 14.0f;
-    private float nearZoom = 18.0f;
     private String selectedFacilityName = null;
 
     private RelativeLayout facilityInfoMap;
@@ -54,7 +55,7 @@ public class FacilitiesMapActivity extends BaseActivity implements OnMapReadyCal
         this.selectedFacilityName = getIntent().getStringExtra(AppConstant.FACILITY_NAME);
 
         this.navigation = (DrawerLayout) findViewById(R.id.activity_map_facilities);
-        setToolBar("");
+        setToolbar("");
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("Servicios");
         ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);
@@ -74,7 +75,7 @@ public class FacilitiesMapActivity extends BaseActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(defaultLatitude,defaultLongitude), defaultZoom));
+        this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(DEFAULT_LATITUDE,DEFAULT_LONGITUDE), DEFAULT_ZOOM));
         this.map.setOnMarkerClickListener(this);
         this.map.setOnMapClickListener(this);
         loadLocations();
@@ -110,7 +111,7 @@ public class FacilitiesMapActivity extends BaseActivity implements OnMapReadyCal
         for(Service facility: mapsDao.getFacilities()) {
             if(selectedFacilityName != null && facility.getName().equals(selectedFacilityName)) {
                 icon = R.drawable.location;
-                this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(facility.getLatitude(),facility.getLongitude()) , nearZoom));
+                this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(facility.getLatitude(),facility.getLongitude()) , NEAR_ZOOM));
                 setBottomInformation(facility);
             } else {
                 icon = R.drawable.event_location_icon;

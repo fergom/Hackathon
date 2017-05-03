@@ -12,6 +12,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/CancelMatchActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/ContactsActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/CreateCommentActivity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/CreateQuestionActivity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/EditProfileFormActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/EventInfoActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/FacilitiesActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/FacilitiesMapActivity.java" charset="ISO-8859-1" />
@@ -22,6 +24,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/ICallbackActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/INewNotification.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/InscriptionFormActivity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/InscriptionInfoActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/LoginActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/MatchActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/NetworkingActivity.java" charset="ISO-8859-1" />

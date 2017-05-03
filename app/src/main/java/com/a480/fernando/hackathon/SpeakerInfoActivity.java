@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.a480.fernando.hackathon.model.Speaker;
 import com.bumptech.glide.Glide;
 
+import static com.a480.fernando.hackathon.AppConstant.GREY_HEX;
+
 public class SpeakerInfoActivity extends BaseActivity {
 
     private Speaker speaker;
@@ -30,37 +32,29 @@ public class SpeakerInfoActivity extends BaseActivity {
         name.setText(speaker.getName().toUpperCase());
         job.setText(speaker.getJob());
 
-        setJustifiedText();
-    }
-
-    private void setJustifiedText() {
-        String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String description = speaker.getDescription();
-        description = description.replace("\n", "<br>");
         WebView webView = (WebView) findViewById(R.id.speaker_description);
-        webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");
+        setJustifiedText(webView, speaker.getDescription().replace("\n", "<br>"), GREY_HEX);
     }
 
     public void goToLinkedin(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getLinkedin())));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getLinkedin()));
+        startActivity(intent);
     }
 
     public void goToTwitter(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getTwitter())));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getTwitter()));
+        startActivity(intent);
     }
 
     public void goToWebsite(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getWebsite())));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(speaker.getWebsite()));
+        startActivity(intent);
     }
 
     public void askSpeaker(View view) {
         Intent intent = new Intent(SpeakerInfoActivity.this, QuestionsActivity.class);
         intent.putExtra(AppConstant.SPEAKER_NAME, speaker.getName());
         startActivity(intent);
-    }
-
-    public void goBack(View view) {
-        finish();
     }
 
 }

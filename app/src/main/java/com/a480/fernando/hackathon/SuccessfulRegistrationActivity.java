@@ -61,13 +61,11 @@ public class SuccessfulRegistrationActivity extends BaseActivity {
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(getApplicationContext(), "MAL", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No se ha creado la acreditación.", Toast.LENGTH_LONG).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getApplicationContext(), "BIEN", Toast.LENGTH_LONG).show();
-                }
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) { }
             });
         } catch (Exception e) {
             e.printStackTrace();

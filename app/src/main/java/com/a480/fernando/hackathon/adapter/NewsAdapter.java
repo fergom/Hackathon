@@ -16,7 +16,8 @@ import com.a480.fernando.hackathon.model.BreakingNew;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
+import static com.a480.fernando.hackathon.AppConstant.getTime;
 
 /**
  * Created by Fernando on 18/04/2017.
@@ -64,24 +65,6 @@ public class NewsAdapter extends BaseAdapter {
         });
 
         return v;
-    }
-
-    private String getTime(Calendar time) {
-        String difference;
-        long diff = Calendar.getInstance().getTime().getTime() - time.getTime().getTime();
-        double minutes = diff / (1000 * 60);
-        if (minutes < 60) {
-            difference = minutes + " minutos";
-        } else {
-            long horas = (long) (minutes / 60);
-            if(horas < 24) {
-                difference = horas + " horas";
-            } else {
-                long dias = horas/24;
-                difference = dias + " días.";
-            }
-        }
-        return difference;
     }
 
     @Override

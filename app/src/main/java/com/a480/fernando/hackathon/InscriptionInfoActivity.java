@@ -6,6 +6,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.webkit.WebView;
 
+import static com.a480.fernando.hackathon.AppConstant.GREY_HEX;
+
 public class InscriptionInfoActivity extends BaseActivity {
 
     @Override
@@ -13,16 +15,10 @@ public class InscriptionInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription_info);
         navigation = (DrawerLayout) findViewById(R.id.activity_inscription_info);
-        setToolBar("Inscripción");
-        setJustifiedText();
-    }
+        setToolbar("Inscripción");
 
-    private void setJustifiedText() {
-        String htmlText = "<html><body style=\"text-align:justify;color:#888888\"> %s </body></html>";
-        String description = infoDao.getInscriptionInfo();
-        description = description.replace("\n","<br>");
         WebView webView = (WebView) findViewById(R.id.web_view_inscription_info);
-        webView.loadData(String.format(htmlText, description), "text/html; charset=utf-8", "utf-8");
+        setJustifiedText(webView, infoDao.getInscriptionInfo().replace("\n","<br>"), GREY_HEX);
     }
 
     public void goToInscription(View view) {

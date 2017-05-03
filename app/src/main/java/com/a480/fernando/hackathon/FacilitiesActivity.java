@@ -15,7 +15,7 @@ import com.a480.fernando.hackathon.model.Service;
 public class FacilitiesActivity extends BaseActivity {
 
     private ListView facilitiesListView;
-    private static FacilityAdapter facilityAdapter;
+    private FacilityAdapter facilityAdapter;
 
     private ImageView image;
     private ImageView closeImage;
@@ -29,7 +29,7 @@ public class FacilitiesActivity extends BaseActivity {
         closeImage = (ImageView) findViewById(R.id.close_image);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_facilities);
-        setToolBar("");
+        setToolbar("");
         TextView title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("Mapas");
         ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);

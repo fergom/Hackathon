@@ -9,7 +9,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -25,7 +24,6 @@ public class NotificationsDao extends Dao {
     private final DatabaseReference publicRef = database.getReference("Notifications");
     private DatabaseReference userRef = database.getReference("Users");
     private static ArrayList<Notification> userNotifications, publicNotifications, allNotifications;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private ICallbackActivity callbackActivity;
     private INewNotification newNotification;
     private boolean publicLoaded, userLoaded;

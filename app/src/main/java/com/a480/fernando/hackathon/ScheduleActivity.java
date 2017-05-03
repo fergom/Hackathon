@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import static com.a480.fernando.hackathon.AppConstant.DAYS;
+import static com.a480.fernando.hackathon.AppConstant.MONTHS;
 import static java.lang.Integer.parseInt;
 
 public class ScheduleActivity extends BaseActivity {
@@ -35,8 +37,6 @@ public class ScheduleActivity extends BaseActivity {
     private boolean isExpanded = false;
     private int m = 0;
     private int year = 2017;
-    private static final String[] months = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-    private static final String[] days = {"L","M","M","J","V","S","D"};
     private ArrayList<Event> events;
 
     @Override
@@ -50,7 +50,7 @@ public class ScheduleActivity extends BaseActivity {
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-        compactCalendarView.setDayColumnNames(days);
+        compactCalendarView.setDayColumnNames(DAYS);
         compactCalendarView.setShouldDrawDaysHeader(true);
 
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -117,7 +117,7 @@ public class ScheduleActivity extends BaseActivity {
         year = parseInt(subtitle.split("/")[2]);
 
         if (datePickerTextView != null) {
-            datePickerTextView.setText(months[m] + " " + year);
+            datePickerTextView.setText(MONTHS[m] + " " + year);
         }
 
         loadEvents();
@@ -129,7 +129,7 @@ public class ScheduleActivity extends BaseActivity {
         if(events.size() == 0) {
             noEvents.setVisibility(View.VISIBLE);
             eventsListView.setVisibility(View.GONE);
-            noEvents.setText("No hay eventos en " + months[m] + " del " + year + ".");
+            noEvents.setText("No hay eventos en " + MONTHS[m] + " del " + year + ".");
         } else {
             Collections.sort(events, new Comparator<Event>() {
                 @Override

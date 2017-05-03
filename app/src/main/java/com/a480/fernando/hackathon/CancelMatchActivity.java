@@ -20,7 +20,8 @@ public class CancelMatchActivity extends BaseActivity {
     }
 
     public void close(View view) {
-        startActivity(new Intent(CancelMatchActivity.this, NetworkingActivity.class));
+        Intent intent = new Intent(CancelMatchActivity.this, NetworkingActivity.class);
+        startActivity(intent);
         finish();
     }
 

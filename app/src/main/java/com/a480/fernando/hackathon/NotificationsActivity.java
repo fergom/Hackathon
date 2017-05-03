@@ -22,7 +22,7 @@ public class NotificationsActivity extends BaseActivity implements ICallbackActi
         setContentView(R.layout.activity_notifications);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_notifications);
-        setToolBar("Notificaciones");
+        setToolbar("Notificaciones");
 
         loadNotifications();
     }

@@ -20,7 +20,8 @@ public class WaitMatchActivity extends BaseActivity {
     }
 
     public void close(View view) {
-        startActivity(new Intent(WaitMatchActivity.this, NetworkingActivity.class));
+        Intent intent = new Intent(WaitMatchActivity.this, NetworkingActivity.class);
+        startActivity(intent);
         finish();
     }
 

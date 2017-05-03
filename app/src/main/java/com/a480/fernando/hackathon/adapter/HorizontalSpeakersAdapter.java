@@ -3,9 +3,10 @@ package com.a480.fernando.hackathon.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,89 +21,72 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 /**
- * Created by Fernando on 10/04/2017.
+ * Created by Fernando on 03/05/2017.
  */
 
-public class SpeakerAdapter extends BaseAdapter {
+public class HorizontalSpeakersAdapter extends RecyclerView.Adapter<HorizontalSpeakersAdapter.ViewHolder> {
 
     private ArrayList<Speaker> speakers;
     private Context context;
 
-    public SpeakerAdapter(ArrayList<Speaker> speakers, Context context) {
+    public HorizontalSpeakersAdapter(ArrayList<Speaker> speakers, Context context) {
         this.speakers = speakers;
         this.context = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.speaker_item, null);
+    public HorizontalSpeakersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.speaker_item, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
+    }
 
-        ImageView speakerImage = (ImageView) v.findViewById(R.id.speaker_image);
-        TextView name = (TextView) v.findViewById(R.id.speaker_name);
-        TextView job = (TextView) v.findViewById(R.id.speaker_job);
-        TextView description = (TextView) v.findViewById(R.id.speaker_description);
-        ImageView linkedin = (ImageView) v.findViewById(R.id.linkedin);
-        ImageView twitter = (ImageView) v.findViewById(R.id.twitter);
-        ImageView website = (ImageView) v.findViewById(R.id.website);
-        Button askSpeaker = (Button) v.findViewById(R.id.ask_speaker);
-
+    @Override
+    public void onBindViewHolder(HorizontalSpeakersAdapter.ViewHolder holder, int position) {
         Speaker speaker = speakers.get(position);
-
-        askSpeaker.setOnClickListener(new View.OnClickListener() {
+        holder.askSpeaker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 askSpeaker(speaker);
             }
         });
 
-        speakerImage.setOnClickListener(new View.OnClickListener() {
+        holder.speakerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showSpeakerInfo(speaker);
             }
         });
 
-        linkedin.setOnClickListener(new View.OnClickListener() {
+        holder.linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToLink(speaker.getLinkedin());
             }
         });
 
-        twitter.setOnClickListener(new View.OnClickListener() {
+        holder.twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToLink(speaker.getTwitter());
             }
         });
 
-        website.setOnClickListener(new View.OnClickListener() {
+        holder.website.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToLink(speaker.getWebsite());
             }
         });
 
-        Glide.with(context).load(speaker.getImage()).into(speakerImage);
-        name.setText(speaker.getName().toUpperCase());
-        job.setText(speaker.getJob());
-        description.setText(speaker.getDescription());
-
-        return v;
+        Glide.with(context).load(speaker.getImage()).into(holder.speakerImage);
+        holder.name.setText(speaker.getName().toUpperCase());
+        holder.job.setText(speaker.getJob());
+        holder.description.setText(speaker.getDescription());
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return speakers.get(position);
-    }
-
-    @Override
-    public int getCount() {
+    public int getItemCount() {
         return speakers.size();
     }
 
@@ -127,4 +111,27 @@ public class SpeakerAdapter extends BaseAdapter {
         this.context.startActivity(intent);
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView speakerImage;
+        public TextView name;
+        public TextView job;
+        public TextView description;
+        public ImageView linkedin;
+        public ImageView twitter;
+        public ImageView website;
+        public Button askSpeaker;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            speakerImage = (ImageView) itemView.findViewById(R.id.speaker_image);
+            name = (TextView) itemView.findViewById(R.id.speaker_name);
+            job = (TextView) itemView.findViewById(R.id.speaker_job);
+            description = (TextView) itemView.findViewById(R.id.speaker_description);
+            linkedin = (ImageView) itemView.findViewById(R.id.linkedin);
+            twitter = (ImageView) itemView.findViewById(R.id.twitter);
+            website = (ImageView) itemView.findViewById(R.id.website);
+            askSpeaker = (Button) itemView.findViewById(R.id.ask_speaker);
+        }
+    }
 }

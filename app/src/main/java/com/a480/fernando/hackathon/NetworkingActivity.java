@@ -39,7 +39,7 @@ public class NetworkingActivity extends BaseActivity {
         counter = 0;
 
         navigation = (DrawerLayout) findViewById(R.id.activity_networking);
-        setToolBar("Networking");
+        setToolbar("Networking");
 
         activateLayout = (LinearLayout) findViewById(R.id.activate_layout);
         networkingLayout = (LinearLayout) findViewById(R.id.networking_layout);

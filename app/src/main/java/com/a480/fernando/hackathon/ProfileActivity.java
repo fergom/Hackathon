@@ -41,7 +41,7 @@ public class ProfileActivity extends BaseActivity {
         setContentView(R.layout.activity_profile);
 
         navigation = (DrawerLayout) findViewById(R.id.activity_profile);
-        setToolBar("");
+        setToolbar("");
         ImageView toolbarRightImageView = (ImageView) findViewById(R.id.toolbar_right_icon);
         toolbarRightImageView.setImageResource(R.drawable.log_out);
         toolbarRightImageView.setOnClickListener(new View.OnClickListener() {

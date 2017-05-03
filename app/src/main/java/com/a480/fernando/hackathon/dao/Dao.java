@@ -3,6 +3,7 @@ package com.a480.fernando.hackathon.dao;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -13,6 +14,7 @@ public class Dao {
 
     protected final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     protected final static FirebaseAuth auth = FirebaseAuth.getInstance();
+    protected static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     protected String formatDate(Calendar date) {
         StringBuilder dateString = new StringBuilder();

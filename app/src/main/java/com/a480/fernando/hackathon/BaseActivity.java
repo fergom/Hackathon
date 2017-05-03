@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.a480.fernando.hackathon.dao.DocumentDao;
@@ -46,7 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BaseActivity extends AppCompatActivity implements INewNotification {
 
-    private Toolbar toolBar;
+    private Toolbar toolbar;
     protected ActionBarDrawerToggle toggle;
     private boolean goBackEnabled;
 
@@ -80,7 +81,7 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
         }
     }
 
-    public void setToolBar(String title) {
+    public void setToolbar(String title) {
         updateNavigation();
 
         goBackEnabled = false;
@@ -90,29 +91,29 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
         navigation.addDrawerListener(toggle);
         toggle.syncState();
 
-        toolBar = (Toolbar) findViewById(R.id.app_bar);
-        toolBar.setNavigationIcon(R.drawable.event_text_icon);
-        setSupportActionBar(toolBar);
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setNavigationIcon(R.drawable.event_text_icon);
+        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(title);
     }
 
-    public void setCloseToolBar(String title) {
-        cancelToolBar(title, R.drawable.close_icon);
+    public void setCloseToolbar(String title) {
+        cancelToolbar(title, R.drawable.close_icon);
     }
 
-    public void setGoBackToolBar(String title) {
-        cancelToolBar(title, 0);
+    public void setGoBackToolbar(String title) {
+        cancelToolbar(title, 0);
     }
 
-    private void cancelToolBar(String title, int icon) {
+    private void cancelToolbar(String title, int icon) {
         goBackEnabled = true;
-        toolBar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
         if(icon != 0) {
-            toolBar.setNavigationIcon(icon);
+            toolbar.setNavigationIcon(icon);
         }
-        setSupportActionBar(toolBar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -218,6 +219,16 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
     public void inscription(View view) {
         Intent intent = new Intent(BaseActivity.this, InscriptionInfoActivity.class);
         startActivity(intent);
+    }
+
+    public void setJustifiedText(WebView webView, String text, String color) {
+        String htmlText = "<html><body style=\"text-align:justify;color:" + color + "\"> %s </body></html>";
+        text = text.replace("\n", "<br>");
+        webView.loadData(String.format(htmlText, text), "text/html; charset=utf-8", "utf-8");
+    }
+
+    public void goBack(View view) {
+        finish();
     }
 
     @Override

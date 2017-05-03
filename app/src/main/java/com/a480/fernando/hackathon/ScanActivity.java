@@ -9,6 +9,6 @@ public class ScanActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        setGoBackToolBar("Escanear");
+        setGoBackToolbar("Escanear");
     }
 }

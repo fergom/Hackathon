@@ -3,6 +3,7 @@ package com.a480.fernando.hackathon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -10,7 +11,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import static com.a480.fernando.hackathon.AppConstant.CITIES;
+import static com.a480.fernando.hackathon.AppConstant.COUNTRIES;
+import static com.a480.fernando.hackathon.AppConstant.DEPARTMENTS;
+import static com.a480.fernando.hackathon.AppConstant.POSITIONS;
+import static com.a480.fernando.hackathon.AppConstant.SECTORS;
+import static com.a480.fernando.hackathon.AppConstant.STATES;
+import static com.a480.fernando.hackathon.AppConstant.getCities;
 
 public class EditProfileFormActivity extends BaseActivity {
 
@@ -51,69 +59,28 @@ public class EditProfileFormActivity extends BaseActivity {
         positionSpinner = (Spinner) findViewById(R.id.inscription_position);
         departmentSpinner = (Spinner) findViewById(R.id.inscription_department);
 
-        List<String> countries = new ArrayList<String>();
-        countries.add("País *");
-        countries.add("España");
+        initSpinner(COUNTRIES, countrySpinner);
+        initSpinner(STATES, stateSpinner);
+        initSpinner(CITIES, citySpinner);
+        initSpinner(SECTORS, sectorSpinner);
+        initSpinner(POSITIONS, positionSpinner);
+        initSpinner(DEPARTMENTS, departmentSpinner);
 
-        List<String> states = new ArrayList<String>();
-        states.add("Comunidad *");
-        states.add("Aragón");
-        states.add("Comunidad Valenciana");
-        states.add("Madrid");
-        states.add("Andalucía");
-        states.add("Murcia");
-        states.add("Galicia");
+        stateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                initSpinner(getCities(STATES.get(position)), citySpinner);
+            }
 
-        List<String> cities = new ArrayList<String>();
-        cities.add("Ciudad *");
-        cities.add("Castellón de la Plana");
-        cities.add("Elche");
-        cities.add("Valencia");
-        cities.add("Alicante");
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
 
-        List<String> sectors = new ArrayList<String>();
-        sectors.add("Sector");
-        sectors.add("Tecnológico");
-        sectors.add("Deportivo");
-        sectors.add("Ocio");
-        sectors.add("Educación");
-        sectors.add("Servicios");
-
-        List<String> positions = new ArrayList<String>();
-        positions.add("Cargo");
-        positions.add("Jefe");
-        positions.add("Subjefe");
-        positions.add("Jefe de departamento");
-        positions.add("Empleado");
-        positions.add("Becario");
-
-        List<String> departments = new ArrayList<String>();
-        departments.add("Departamento");
-        departments.add("RRHH");
-        departments.add("Marketing");
-        departments.add("Diseño");
-        departments.add("Software");
-        departments.add("Bussiness");
-
-        ArrayAdapter<String> yourAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, countries);
-        countrySpinner.setAdapter(yourAdapter);
-        countrySpinner.setDropDownVerticalOffset(140);
-        yourAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, states);
-        stateSpinner.setAdapter(yourAdapter);
-        stateSpinner.setDropDownVerticalOffset(140);
-        yourAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, cities);
-        citySpinner.setAdapter(yourAdapter);
-        citySpinner.setDropDownVerticalOffset(140);
-        yourAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, sectors);
-        sectorSpinner.setAdapter(yourAdapter);
-        sectorSpinner.setDropDownVerticalOffset(140);
-        yourAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, positions);
-        positionSpinner.setAdapter(yourAdapter);
-        positionSpinner.setDropDownVerticalOffset(140);
-        yourAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, departments);
-        departmentSpinner.setAdapter(yourAdapter);
-        departmentSpinner.setDropDownVerticalOffset(140);
-
+    private void initSpinner(ArrayList<String> data, Spinner spinner) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, data);
+        spinner.setAdapter(adapter);
+        spinner.setDropDownVerticalOffset(140);
     }
 
     public void update(View view) {
@@ -122,7 +89,7 @@ public class EditProfileFormActivity extends BaseActivity {
                 postalCode.getText().toString().length() == 0 ||
                 phoneNumber.getText().toString().length() == 0 ||
                 nif.getText().toString().length() == 0 ||
-                countrySpinner.getSelectedItem().toString().equals("Pais *") ||
+                countrySpinner.getSelectedItem().toString().equals("País *") ||
                 stateSpinner.getSelectedItem().toString().equals("Comunidad *") ||
                 citySpinner.getSelectedItem().toString().equals("Ciudad *")) {
 
