@@ -82,7 +82,6 @@ public class DocumentsActivity extends BaseActivity {
             StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://hackathon-4d513.appspot.com/");
             File localFile = new File(getApplicationContext().getExternalFilesDir(null), href);
             StorageReference inscription =  storageRef.child(href);
-            System.out.println(Uri.fromFile(localFile));
 
             inscription.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override

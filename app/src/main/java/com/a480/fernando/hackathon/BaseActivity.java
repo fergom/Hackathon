@@ -41,6 +41,17 @@ import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.a480.fernando.hackathon.singleton.Singleton.getDocumentDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getEventsDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getFeedbackDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getInfoDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getMapsDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getMatchDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getNewsDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getNotificationsDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getSpeakersDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getUserDaoInstance;
+
 /**
  * Created by Fernando on 16/03/2017.
  */
@@ -52,16 +63,18 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
     private boolean goBackEnabled;
 
     protected NavigationView navigationView;
-    protected UserDao userDao = new UserDao();
-    final static protected MapsDao mapsDao = new MapsDao();
-    final static protected InfoDao infoDao = new InfoDao();
-    final static protected FeedbackDao feedbackDao = new FeedbackDao();
-    final static protected DocumentDao documentDao = new DocumentDao();
-    final static protected SpeakersDao speakersDao = new SpeakersDao();
-    final static protected NewsDao newsDao = new NewsDao();
-    final static protected EventsDao eventsDao = new EventsDao();
-    final static protected NotificationsDao notificationsDao = new NotificationsDao();
-    final static protected MatchDao matchDao = new MatchDao();
+
+    protected UserDao userDao = getUserDaoInstance();
+    final static protected MapsDao mapsDao = getMapsDaoInstance();
+    final static protected InfoDao infoDao = getInfoDaoInstance();
+    final static protected FeedbackDao feedbackDao = getFeedbackDaoInstance();
+    final static protected DocumentDao documentDao = getDocumentDaoInstance();
+    final static protected SpeakersDao speakersDao = getSpeakersDaoInstance();
+    final static protected NewsDao newsDao = getNewsDaoInstance();
+    final static protected EventsDao eventsDao = getEventsDaoInstance();
+    final static protected NotificationsDao notificationsDao = getNotificationsDaoInstance();
+    final static protected MatchDao matchDao = getMatchDaoInstance();
+
     protected User user;
     protected DrawerLayout navigation;
 

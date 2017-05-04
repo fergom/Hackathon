@@ -21,6 +21,7 @@ public class FeedbackDao extends Dao {
     private static long itemsLength;
 
     public FeedbackDao() {
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

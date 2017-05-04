@@ -125,6 +125,9 @@ public class ContactsActivity extends BaseActivity {
             contactsListView.setVisibility(View.GONE);
 
         } else {
+            noContacts.setVisibility(View.GONE);
+            contactsListView.setVisibility(View.VISIBLE);
+
             for(User c: contacts) {
                 if(c.getName().toLowerCase().charAt(0) - first > 0) {
                     separator = new User();
