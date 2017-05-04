@@ -62,6 +62,10 @@ public class ServiceMapDetailActivity extends BaseActivity implements OnMapReady
         switch (type) {
             case AppConstant.HOTELS:
                 return R.drawable.hotel_selected_icon;
+            case AppConstant.SHOP:
+                return R.drawable.shop_selected_icon;
+            case AppConstant.RESTAURANT:
+                return R.drawable.restaurant_selected_icon;
             case AppConstant.OTHERS:
                 return R.drawable.other_service_selected_icon;
         }

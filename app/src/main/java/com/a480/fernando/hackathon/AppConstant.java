@@ -26,6 +26,8 @@ public class AppConstant {
 
     public static final String OTHERS = "Otros";
     public static final String HOTELS = "Alojamiento";
+    public static final String RESTAURANT = "Restaurante";
+    public static final String SHOP = "TIenda";
     public static final String LOCATION = "Ubicacion";
     public static final String IMAGE = "Imagen";
 

@@ -20,6 +20,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
@@ -30,7 +32,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.a480.fernando.hackathon.AppConstant.CITIES;
 import static com.a480.fernando.hackathon.AppConstant.COUNTRIES;
@@ -143,19 +148,19 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
             } else {
                 createdUser = createUser();
                 auth.createUserWithEmailAndPassword(createdUser.getEmail(), createdUser.getPassword())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                LoginManager.getInstance().logOut();
-                                userDao.setCallback(InscriptionFormActivity.this);
-                                userDao.onAuthenticated();
-                                userDao.saveUser(createdUser);
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(InscriptionFormActivity.this, "No se ha podido registrar el usuario, pruebe en unos minutos.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    LoginManager.getInstance().logOut();
+                                    userDao.setCallback(InscriptionFormActivity.this);
+                                    userDao.onAuthenticated();
+                                    userDao.saveUser(createdUser);
+                                }
                             }
-                        }
-                    });
+                        });
             }
         }
     }
@@ -180,7 +185,7 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                showData(currentProfile);
+                showData(currentProfile, "");
             }
         };
 
@@ -191,7 +196,24 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                showData(Profile.getCurrentProfile());
+
+                GraphRequest mGraphRequest = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject me, GraphResponse response) {
+                                if (response.getError() != null) {
+                                    // handle error
+                                } else {
+                                    String email = me.optString("email");
+
+                                    showData(Profile.getCurrentProfile(), email);
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                mGraphRequest.setParameters(parameters);
+                mGraphRequest.executeAsync();
             }
 
             @Override
@@ -205,7 +227,7 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
             }
         };
 
-        facebookLoginButton.setReadPermissions("public_profile");
+        facebookLoginButton.setReadPermissions(Arrays.asList("public_profile","email"));
         facebookLoginButton.registerCallback(callbackManager, callback);
         LoginManager.getInstance().registerCallback(callbackManager, callback);
     }
@@ -218,7 +240,7 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
     @Override
     protected void onResume() {
         super.onResume();
-        showData(Profile.getCurrentProfile());
+        showData(Profile.getCurrentProfile(), "");
     }
 
     @Override
@@ -234,11 +256,12 @@ public class InscriptionFormActivity extends BaseActivity implements ICallbackAc
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void showData(Profile profile) {
+    private void showData(Profile profile, String email) {
         if(profile != null) {
             this.profile = profile;
-            name.setText(profile.getFirstName());
-            surname.setText(profile.getLastName());
+            this.name.setText(profile.getFirstName());
+            this.surname.setText(profile.getLastName());
+            this.email.setText(email);
         }
     }
 

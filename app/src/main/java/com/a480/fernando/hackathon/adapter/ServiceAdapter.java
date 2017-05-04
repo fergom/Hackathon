@@ -10,8 +10,11 @@ import android.widget.TextView;
 import com.a480.fernando.hackathon.AppConstant;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.model.Service;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Fernando on 29/03/2017.
@@ -42,9 +45,13 @@ public class ServiceAdapter extends BaseAdapter {
         phone.setText(service.getPhone());
         type.setText(service.getType());
         if(service.getType().equals(AppConstant.HOTELS)) {
-            mapsService.setImageResource(R.drawable.maps_screenshot_hotel);
+            Glide.with(getApplicationContext()).load(R.drawable.maps_screenshot_hotel).into(mapsService);
+        } else if(service.getType().equals(AppConstant.SHOP)){
+            Glide.with(getApplicationContext()).load(R.drawable.maps_screenshot_shop).into(mapsService);
+        } else if(service.getType().equals(AppConstant.RESTAURANT)){
+            Glide.with(getApplicationContext()).load(R.drawable.maps_screenshot_restaurant).into(mapsService);
         } else {
-            mapsService.setImageResource(R.drawable.maps_screenshot_other);
+            Glide.with(getApplicationContext()).load(R.drawable.maps_screenshot_other).into(mapsService);
         }
 
         v.setTag(services.get(position).getName());

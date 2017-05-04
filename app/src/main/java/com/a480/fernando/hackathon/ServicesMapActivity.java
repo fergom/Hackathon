@@ -134,6 +134,10 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
         switch (serviceType) {
             case AppConstant.HOTELS:
                 return R.drawable.hotel_not_selected_icon;
+            case AppConstant.SHOP:
+                return R.drawable.shop_not_selected_icon;
+            case AppConstant.RESTAURANT:
+                return R.drawable.restaurant_not_selected_icon;
             case AppConstant.OTHERS:
                 return R.drawable.other_service_icon;
         }
@@ -144,6 +148,10 @@ public class ServicesMapActivity extends BaseActivity implements OnMapReadyCallb
         switch (serviceType) {
             case AppConstant.HOTELS:
                 return R.drawable.hotel_selected_icon;
+            case AppConstant.SHOP:
+                return R.drawable.shop_selected_icon;
+            case AppConstant.RESTAURANT:
+                return R.drawable.restaurant_selected_icon;
             case AppConstant.OTHERS:
                 return R.drawable.other_service_selected_icon;
         }

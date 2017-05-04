@@ -10,8 +10,11 @@ import android.widget.TextView;
 import com.a480.fernando.hackathon.AppConstant;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.model.Service;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Fernando on 05/04/2017.
@@ -36,9 +39,9 @@ public class FacilityAdapter extends BaseAdapter {
         Service service = facilities.get(position);
         name.setText(service.getName());
         if(service.getType().equals(AppConstant.LOCATION)) {
-            mapsFacility.setImageResource(R.drawable.maps_screenshot_location);
+            Glide.with(getApplicationContext()).load(R.drawable.maps_screenshot_location).into(mapsFacility);
         } else {
-            mapsFacility.setImageResource(R.drawable.uji_map);
+            Glide.with(getApplicationContext()).load(R.drawable.uji_map).into(mapsFacility);
         }
 
         v.setTag(facilities.get(position).getName());

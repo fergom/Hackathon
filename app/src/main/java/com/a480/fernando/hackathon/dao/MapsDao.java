@@ -56,6 +56,10 @@ public class MapsDao extends Dao {
                         service.setPhone(attributes.get("phone").toString());
                         if(type.contains("hotel")) {
                             service.setType(AppConstant.HOTELS);
+                        } else if(type.contains("restaurant")) {
+                            service.setType(AppConstant.RESTAURANT);
+                        } else if(type.contains("shop")) {
+                            service.setType(AppConstant.SHOP);
                         } else {
                             service.setType(AppConstant.OTHERS);
                         }

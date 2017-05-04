@@ -46,7 +46,7 @@ dependencies {
     compile 'com.github.sundeepk:compact-calendar-view:1.9.2-beta'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     testCompile 'junit:junit:4.12'
-    compile files('C:/Users/Francisco/Desktop/HackathonFinal/libs/itextg-5.5.8.jar')
+    compile files('C:/Users/Francisco/Desktop/Hackathon/libs/itextg-5.5.8.jar')
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
