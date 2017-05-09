@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -19,31 +21,69 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".SponsorActivity" />
-        <activity android:name=".InscriptionInfoActivity" />
-        <activity android:name=".InscriptionFormActivity" />
-        <activity android:name=".LegalActivity" />
-        <activity android:name=".FeedBackActivity" />
-        <activity android:name=".SentSuggestionActivity" />
-        <activity android:name=".SuccessfulRegistrationActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".EditProfileFormActivity" />
-        <activity android:name=".AccreditationActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".AugmentedRealityActivity" />
-        <activity android:name=".ScanActivity" />
-        <activity android:name=".ServicesActivity" />
-        <activity android:name=".ServicesMapActivity" />
+        <activity
+            android:name=".BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SponsorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InscriptionInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InscriptionFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LegalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FeedBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SentSuggestionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SuccessfulRegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditProfileFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AccreditationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AugmentedRealityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ServicesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ServicesMapActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -66,30 +106,78 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ServiceMapDetailActivity" />
-        <activity android:name=".ServiceRouteActivity" />
-        <activity android:name=".FacilitiesActivity" />
-        <activity android:name=".FacilitiesMapActivity" />
-        <activity android:name=".FacilityMapDetailActivity" />
-        <activity android:name=".FacilityRouteActivity" />
-        <activity android:name=".DocumentsActivity" />
-        <activity android:name=".SpeakersActivity" />
-        <activity android:name=".SpeakerInfoActivity" />
-        <activity android:name=".AskSpeakerListActivity" />
-        <activity android:name=".QuestionsActivity" />
-        <activity android:name=".AnswerActivity" />
-        <activity android:name=".CreateQuestionActivity" />
-        <activity android:name=".CreateCommentActivity" />
-        <activity android:name=".BreakingNewsActivity" />
-        <activity android:name=".BreakingNewInfoActivity" />
-        <activity android:name=".ScheduleActivity" />
-        <activity android:name=".EventInfoActivity" />
-        <activity android:name=".NotificationsActivity" />
-        <activity android:name=".NetworkingActivity" />
-        <activity android:name=".MatchActivity" />
-        <activity android:name=".WaitMatchActivity" />
-        <activity android:name=".CancelMatchActivity" />
-        <activity android:name=".ContactsActivity" />
+        <activity
+            android:name=".ServiceMapDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ServiceRouteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacilitiesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacilitiesMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacilityMapDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacilityRouteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DocumentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SpeakersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SpeakerInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AskSpeakerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QuestionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AnswerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateQuestionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreateCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BreakingNewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BreakingNewInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScheduleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EventInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NetworkingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MatchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WaitMatchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CancelMatchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ContactsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -102,7 +190,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChatActivity"></activity>
+        <activity
+            android:name=".ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".NoConnectionActivity"></activity>
     </application>
 
 </manifest>

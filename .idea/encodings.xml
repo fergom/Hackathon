@@ -28,6 +28,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/LoginActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/MatchActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/NetworkingActivity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/NoConnectionActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/NotificationsActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/ProfileActivity.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a480/fernando/hackathon/QuestionsActivity.java" charset="ISO-8859-1" />

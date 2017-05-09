@@ -1,6 +1,8 @@
 package com.a480.fernando.hackathon;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -78,9 +80,20 @@ public class BaseActivity extends AppCompatActivity  {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if(!checkConn()) {
+            Intent intent = new Intent(BaseActivity.this, NoConnectionActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             user = userDao.getUser();
         }
+    }
+
+    public boolean checkConn() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return conMgr.getActiveNetworkInfo() != null;
     }
 
     public void setToolbar(String title) {
