@@ -3,7 +3,6 @@ package com.a480.fernando.hackathon.dao;
 import android.util.Log;
 
 import com.a480.fernando.hackathon.ICallbackActivity;
-import com.a480.fernando.hackathon.model.Notification;
 import com.a480.fernando.hackathon.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,9 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  * Created by Fernando on 29/03/2017.
@@ -26,8 +23,35 @@ public class UserDao extends Dao {
     private final static User user = new User();
     private static ArrayList<User> users;
     private static ICallbackActivity callback;
+    private static ICallbackActivity callbackNotification;
+    private static boolean isSnooze = false;
 
     public UserDao() { }
+
+    public void isSnooze(ICallbackActivity callbackNotification) {
+        this.callbackNotification = callbackNotification;
+
+        if(auth.getCurrentUser() != null) {
+            myRef.child("/" + auth.getCurrentUser().getUid() + "/snooze").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    isSnooze = (boolean) dataSnapshot.getValue();
+                    callbackNotification.onDataLoaded();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.w("FIREBASE", "Failed to read value.", error.toException());
+                }
+            });
+        } else {
+            callbackNotification.onDataLoaded();
+        }
+    }
+
+    public boolean getSnooze() {
+        return isSnooze;
+    }
 
     public void setCallback(ICallbackActivity callback) {
         this.callback = callback;
@@ -55,14 +79,6 @@ public class UserDao extends Dao {
                     u.setEmail((String) data.get("email"));
                     u.setPhoneNumber((String) data.get("phoneNumber"));
                     u.setNetworking((boolean) data.get("networking"));
-                    Calendar time = null;
-                    try {
-                        time = Calendar.getInstance();
-                        time.setTime(sdf.parse(data.get("lastConnection").toString()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    u.setLastConnection(time);
                     users.add(u);
                 }
             }
@@ -80,14 +96,6 @@ public class UserDao extends Dao {
                 try{
                     if(auth.getCurrentUser() != null) {
                         user.setUid(auth.getCurrentUser().getUid());
-                        Calendar time = null;
-                        try {
-                            time = Calendar.getInstance();
-                            time.setTime(sdf.parse(value.get("lastConnection").toString()));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        user.setLastConnection(time);
                         user.setName((String) value.get("name"));
                         user.setSurname((String) value.get("surname"));
                         user.setEmail((String) value.get("email"));
@@ -108,26 +116,6 @@ public class UserDao extends Dao {
                         user.setSnooze((boolean) value.get("snooze"));
                         user.setNetworking((boolean) value.get("networking"));
 
-                        HashMap<String, String> notifications = (HashMap<String, String>) value.get("Notifications");
-                        ArrayList<Notification> notif = new ArrayList<Notification>();
-                        Notification notification;
-
-                        if(notifications != null) {
-                            for(String n: notifications.keySet()) {
-                                notification = new Notification();
-                                notification.setMessage(n);
-                                try {
-                                    time = Calendar.getInstance();
-                                    time.setTime(sdf.parse(notifications.get(n).toString()));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                notification.setTime(time);
-                                notif.add(notification);
-                            }
-                        }
-
-                        user.setNotifications(notif);
                         if(callback != null) {
                             callback.onDataLoaded();
                         }
@@ -150,35 +138,29 @@ public class UserDao extends Dao {
         return user;
     }
 
-    public ArrayList<User> getUsers(LinkedList<String> emails) {
+    public ArrayList<User> getUsers(HashMap<String, String> matches) {
         ArrayList<User> filteredUsers = new ArrayList<User>();
         for(User u: users) {
-            if(emails.contains(u.getEmail())) {
+            if(matches.get(u.getEmail()) != null) {
+                u.setChatId(matches.get(u.getEmail()));
                 filteredUsers.add(u);
             }
         }
         return filteredUsers;
     }
 
-    public void saveUser(User user) {
-        ArrayList<Notification> notifications = user.getNotifications();
-        user.setNotifications(null);
-        user.setLastConnection(null);
-        userRef.setValue(user);
-        userRef.child("lastConnection").setValue(formatDate(Calendar.getInstance()));
-        DatabaseReference notificationsRef = userRef.child("Notifications");
-        HashMap<String, String> map;
-        if(notifications != null) {
-            for(Notification n: notifications) {
-                map = new HashMap<String, String>();
-                map.put(n.getMessage(), formatDate(n.getTime()));
-                notificationsRef.setValue(map);
+    public User getUserUid(String uid) {
+        for(User u: users) {
+            if(u.getUid().equals(uid)) {
+                return u;
             }
         }
+        return null;
     }
 
-    public void setLastConnection() {
-        userRef.child("lastConnection").setValue(formatDate(Calendar.getInstance()));
+    public void saveUser(User user) {
+        user.setChatId(null);
+        userRef.setValue(user);
     }
 
     public void updateProfileImage(String url) {
@@ -186,7 +168,6 @@ public class UserDao extends Dao {
     }
 
     public void logout() {
-        setLastConnection();
         auth.signOut();
     }
 

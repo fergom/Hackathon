@@ -15,6 +15,8 @@ public class StartActivity extends BaseActivity implements ICallbackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        setToken();
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             userDao.setCallback(StartActivity.this);
             userDao.onAuthenticated();

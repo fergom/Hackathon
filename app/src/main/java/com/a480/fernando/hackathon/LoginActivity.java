@@ -52,6 +52,7 @@ public class LoginActivity extends BaseActivity implements ICallbackActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Email o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
                         } else {
+                            setToken();
                             userDao.setCallback(LoginActivity.this);
                             userDao.onAuthenticated();
                         }

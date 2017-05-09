@@ -1,20 +1,12 @@
 package com.a480.fernando.hackathon;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +14,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.a480.fernando.hackathon.dao.ChatDao;
 import com.a480.fernando.hackathon.dao.DocumentDao;
 import com.a480.fernando.hackathon.dao.EventsDao;
 import com.a480.fernando.hackathon.dao.FeedbackDao;
@@ -31,16 +24,16 @@ import com.a480.fernando.hackathon.dao.MatchDao;
 import com.a480.fernando.hackathon.dao.NewsDao;
 import com.a480.fernando.hackathon.dao.NotificationsDao;
 import com.a480.fernando.hackathon.dao.SpeakersDao;
+import com.a480.fernando.hackathon.dao.TokenDao;
 import com.a480.fernando.hackathon.dao.UserDao;
-import com.a480.fernando.hackathon.model.Notification;
 import com.a480.fernando.hackathon.model.User;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Calendar;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.a480.fernando.hackathon.singleton.Singleton.getChatDaoInstance;
 import static com.a480.fernando.hackathon.singleton.Singleton.getDocumentDaoInstance;
 import static com.a480.fernando.hackathon.singleton.Singleton.getEventsDaoInstance;
 import static com.a480.fernando.hackathon.singleton.Singleton.getFeedbackDaoInstance;
@@ -50,13 +43,14 @@ import static com.a480.fernando.hackathon.singleton.Singleton.getMatchDaoInstanc
 import static com.a480.fernando.hackathon.singleton.Singleton.getNewsDaoInstance;
 import static com.a480.fernando.hackathon.singleton.Singleton.getNotificationsDaoInstance;
 import static com.a480.fernando.hackathon.singleton.Singleton.getSpeakersDaoInstance;
+import static com.a480.fernando.hackathon.singleton.Singleton.getTokenDaoInstance;
 import static com.a480.fernando.hackathon.singleton.Singleton.getUserDaoInstance;
 
 /**
  * Created by Fernando on 16/03/2017.
  */
 
-public class BaseActivity extends AppCompatActivity implements INewNotification {
+public class BaseActivity extends AppCompatActivity  {
 
     private Toolbar toolbar;
     protected ActionBarDrawerToggle toggle;
@@ -74,6 +68,8 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
     final static protected EventsDao eventsDao = getEventsDaoInstance();
     final static protected NotificationsDao notificationsDao = getNotificationsDaoInstance();
     final static protected MatchDao matchDao = getMatchDaoInstance();
+    final static protected TokenDao tokenDao = getTokenDaoInstance();
+    final static protected ChatDao chatDao = getChatDaoInstance();
 
     protected User user;
     protected DrawerLayout navigation;
@@ -81,16 +77,9 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        notificationsDao.listenUserNotifications(null);
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             user = userDao.getUser();
-            if(user.getName() != null) {
-                userDao.setCallback(null);
-                notificationsDao.setNewNotification(BaseActivity.this);
-                notificationsDao.listenPublicNotifications();
-                notificationsDao.listenUserNotifications(user.getUid());
-            }
         }
     }
 
@@ -244,42 +233,8 @@ public class BaseActivity extends AppCompatActivity implements INewNotification 
         finish();
     }
 
-    @Override
-    public void checkNotifications(String uid) {
-        if(user.getLastConnection() != null && user.getUid().equals(uid) && !user.getSnooze()) {
-            for(Notification n: notificationsDao.getUserNotifications()) {
-                if(n.getTime().compareTo(user.getLastConnection()) > 0) {
-                    if(n.getMessage().contains("match")) {
-                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Tienes un nuevo match.");
-                    } else {
-                        showNotification((int) (n.getTime().getTimeInMillis() % Integer.MAX_VALUE), "Se ha modificado un evento.");
-                    }
-                }
-            }
-            user.setLastConnection(Calendar.getInstance());
-            userDao.setLastConnection();
-        }
-    }
-
-    private void showNotification(int id, String message) {
-        Intent notificationIntent = new Intent(BaseActivity.this, NotificationsActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
-
-        android.support.v4.app.NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext())
-                .setSmallIcon(R.drawable.notifications_icon)
-                .setContentTitle("Hackathon")
-                .setContentText(message)
-                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.notify_icon))
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary))
-                .setShowWhen(true)
-                .setAutoCancel(true)
-                .setVibrate(new long[] { 1000, 500, 1000})
-                .setLights(Color.RED, 1000, 1000)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setContentIntent(intent);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(id, notification.build());
+    public void setToken() {
+        tokenDao.setToken(FirebaseInstanceId.getInstance().getToken());
     }
 
 }

@@ -1,8 +1,5 @@
 package com.a480.fernando.hackathon.model;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 /**
  * Created by Fernando on 27/03/2017.
  */
@@ -29,9 +26,8 @@ public class User {
     private String image;
     private boolean snooze;
     private boolean networking;
-    private ArrayList<Notification> notifications;
-    private Calendar lastConnection;
     private boolean isFirstAlphabet;
+    private String chatId;
 
     public User() { }
 
@@ -195,28 +191,20 @@ public class User {
         this.networking = networking;
     }
 
-    public ArrayList<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(ArrayList<Notification> notifications) {
-        this.notifications = notifications;
-    }
-
-    public Calendar getLastConnection() {
-        return lastConnection;
-    }
-
-    public void setLastConnection(Calendar lastConnection) {
-        this.lastConnection = lastConnection;
-    }
-
     public boolean getFirstAlphabet() {
         return isFirstAlphabet;
     }
 
     public void setFirstAlphabet(boolean firstAlphabet) {
         isFirstAlphabet = firstAlphabet;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
     @Override
@@ -242,8 +230,6 @@ public class User {
                 ", image='" + image + '\'' +
                 ", snooze=" + snooze +
                 ", networking=" + networking +
-                ", notifications=" + notifications +
-                ", lastConnection=" + lastConnection +
                 ", isFirstAlphabet=" + isFirstAlphabet +
                 '}';
     }

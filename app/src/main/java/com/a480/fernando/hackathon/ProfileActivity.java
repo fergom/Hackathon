@@ -80,6 +80,7 @@ public class ProfileActivity extends BaseActivity {
 
     public void logout(View view) {
         userDao.logout();
+        setToken();
         Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
         startActivity(intent);
     }

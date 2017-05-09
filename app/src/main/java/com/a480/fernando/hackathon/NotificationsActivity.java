@@ -24,11 +24,11 @@ public class NotificationsActivity extends BaseActivity implements ICallbackActi
         navigation = (DrawerLayout) findViewById(R.id.activity_notifications);
         setToolbar("Notificaciones");
 
+        notificationsDao.setCallbackActivity(this);
         loadNotifications();
     }
 
     private void loadNotifications() {
-        notificationsDao.setCallbackActivity(NotificationsActivity.this);
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             notificationsDao.listenUserNotifications(user.getUid());
         }

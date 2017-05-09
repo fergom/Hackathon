@@ -8,7 +8,7 @@
         android:id="@+id/ask_speaker_image"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:padding="6dp"/>
 
     <ImageView

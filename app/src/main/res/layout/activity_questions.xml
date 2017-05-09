@@ -25,7 +25,7 @@
                     android:id="@+id/speaker_image"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="centerCrop"/>
 
                 <ImageView
                     android:layout_width="30dp"

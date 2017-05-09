@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a480.fernando.hackathon.AppConstant;
+import com.a480.fernando.hackathon.ChatActivity;
 import com.a480.fernando.hackathon.R;
 import com.a480.fernando.hackathon.model.User;
 import com.bumptech.glide.Glide;
@@ -53,6 +55,17 @@ public class ContactAdapter extends BaseAdapter {
             name.setText(contact.getName() + " " + contact.getSurname());
             city.setText(contact.getCity());
             state.setText(contact.getState());
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChatActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(AppConstant.UID, contact.getUid());
+                    intent.putExtra(AppConstant.CHAT_ID, contact.getChatId());
+                    context.startActivity(intent);
+                }
+            });
 
             email.setOnClickListener(new View.OnClickListener() {
                 @Override

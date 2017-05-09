@@ -1,5 +1,6 @@
 package com.a480.fernando.hackathon.singleton;
 
+import com.a480.fernando.hackathon.dao.ChatDao;
 import com.a480.fernando.hackathon.dao.DocumentDao;
 import com.a480.fernando.hackathon.dao.EventsDao;
 import com.a480.fernando.hackathon.dao.FeedbackDao;
@@ -9,6 +10,7 @@ import com.a480.fernando.hackathon.dao.MatchDao;
 import com.a480.fernando.hackathon.dao.NewsDao;
 import com.a480.fernando.hackathon.dao.NotificationsDao;
 import com.a480.fernando.hackathon.dao.SpeakersDao;
+import com.a480.fernando.hackathon.dao.TokenDao;
 import com.a480.fernando.hackathon.dao.UserDao;
 
 /**
@@ -26,7 +28,9 @@ public class Singleton {
     private static NewsDao newsDao = null;
     private static NotificationsDao notificationsDao = null;
     private static SpeakersDao speakersDao = null;
+    private static TokenDao tokenDao = null;
     private static UserDao userDao = null;
+    private static ChatDao chatDao = null;
 
     public static DocumentDao getDocumentDaoInstance() {
         if(documentDao == null) {
@@ -96,6 +100,20 @@ public class Singleton {
             userDao = new UserDao();
         }
         return userDao;
+    }
+
+    public static TokenDao getTokenDaoInstance() {
+        if(tokenDao == null) {
+            tokenDao = new TokenDao();
+        }
+        return tokenDao;
+    }
+
+    public static ChatDao getChatDaoInstance() {
+        if(chatDao == null) {
+            chatDao = new ChatDao();
+        }
+        return chatDao;
     }
     
 }

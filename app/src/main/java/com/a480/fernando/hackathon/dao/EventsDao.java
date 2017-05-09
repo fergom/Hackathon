@@ -6,7 +6,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -17,6 +19,7 @@ public class EventsDao extends Dao {
 
     private final DatabaseReference myRef = database.getReference("Events");
     private ArrayList<Event> events;
+    protected static final SimpleDateFormat sdfEvent = new SimpleDateFormat("dd/MM/yyyy");
 
     public EventsDao() {
 
@@ -24,46 +27,33 @@ public class EventsDao extends Dao {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 events = new ArrayList<Event>();
-                HashMap<String, Object> years = (HashMap<String, Object>) dataSnapshot.getValue();
-                HashMap<String, Object> months;
-                HashMap<String, Object> days;
-                HashMap<String, Object> daysOfWeek;
-                HashMap<String, HashMap<String, String>> info;
-
+                HashMap<String, Object> eventNames = (HashMap<String, Object>) dataSnapshot.getValue();
+                HashMap<String, String> data;
                 Event event;
-                int year, month, day;
-                String dayOfWeek;
+                Calendar time = null;
 
-                for(String y: years.keySet()) {
-                    year = Integer.parseInt(y);
-                    months = (HashMap<String, Object>) years.get(y);
-                    for(String m: months.keySet()) {
-                        month = Integer.parseInt(m);
-                        days = (HashMap<String, Object>) months.get(m);
-                        for(String d: days.keySet()) {
-                            day = Integer.parseInt(d);
-                            daysOfWeek = (HashMap<String, Object>) days.get(d);
-                            for(String dw: daysOfWeek.keySet()) {
-                                dayOfWeek = dw;
-                                info = (HashMap<String, HashMap<String, String>>) daysOfWeek.get(dw);
-                                for(String i: info.keySet()) {
-                                    event = new Event();
-                                    event.setYear(year);
-                                    event.setMonth(month);
-                                    event.setDay(day);
-                                    event.setDayOfWeek(dayOfWeek);
-                                    event.setTitle(i);
-                                    event.setAddress(info.get(i).get("address"));
-                                    event.setEndTime(info.get(i).get("endTime"));
-                                    event.setImage(info.get(i).get("image"));
-                                    event.setInfo(info.get(i).get("info"));
-                                    event.setStartTime(info.get(i).get("startTime"));
-                                    events.add(event);
-                                }
-                            }
-                        }
+                for(String name: eventNames.keySet()) {
+                    event = new Event();
+                    event.setTitle(name);
+                    data = (HashMap<String, String>) eventNames.get(name);
+                    event.setAddress(data.get("address"));
+                    event.setDayOfWeek(data.get("dayOfWeek"));
+                    event.setEndTime(data.get("endTime"));
+                    event.setStartTime(data.get("startTime"));
+                    event.setInfo(data.get("info"));
+                    event.setImage(data.get("image"));
+                    try {
+                        time = Calendar.getInstance();
+                        time.setTime(sdfEvent.parse(data.get("time")));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                    event.setYear(time.get(Calendar.YEAR));
+                    event.setMonth(time.get(Calendar.MONTH));
+                    event.setDay(time.get(Calendar.DAY_OF_MONTH));
+                    events.add(event);
                 }
+
             }
 
             @Override

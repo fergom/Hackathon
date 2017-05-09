@@ -1,7 +1,6 @@
 package com.a480.fernando.hackathon.dao;
 
 import com.a480.fernando.hackathon.ICallbackActivity;
-import com.a480.fernando.hackathon.INewNotification;
 import com.a480.fernando.hackathon.model.Notification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,10 +21,9 @@ import java.util.HashMap;
 public class NotificationsDao extends Dao {
 
     private final DatabaseReference publicRef = database.getReference("Notifications");
-    private DatabaseReference userRef = database.getReference("Users");
+    private DatabaseReference userRef = database.getReference("NotificationsUser");
     private static ArrayList<Notification> userNotifications, publicNotifications, allNotifications;
     private ICallbackActivity callbackActivity;
-    private INewNotification newNotification;
     private boolean publicLoaded, userLoaded;
     private String uid;
 
@@ -33,10 +31,6 @@ public class NotificationsDao extends Dao {
 
     public void setCallbackActivity(ICallbackActivity callbackActivity) {
         this.callbackActivity = callbackActivity;
-    }
-
-    public void setNewNotification(INewNotification newNotification) {
-        this.newNotification = newNotification;
     }
 
     public void listenPublicNotifications() {
@@ -88,7 +82,7 @@ public class NotificationsDao extends Dao {
     public void listenUserNotifications(String uid) {
 
         this.uid = uid;
-        DatabaseReference notifRef = userRef.child("/" + uid + "/Notifications");
+        DatabaseReference notifRef = userRef.child("/" + uid);
 
         notifRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,7 +118,7 @@ public class NotificationsDao extends Dao {
     }
 
     public void addNotification(String uid, Notification notification) {
-        DatabaseReference ref = database.getReference("Users").child("/" + uid + "/Notifications/");
+        DatabaseReference ref = userRef.child("/" + uid);
         ref.child(notification.getMessage()).setValue(formatDate(notification.getTime()));
     }
 
@@ -149,9 +143,6 @@ public class NotificationsDao extends Dao {
             });
             if(callbackActivity != null) {
                 callbackActivity.onDataLoaded();
-            }
-            if(newNotification != null) {
-                newNotification.checkNotifications(uid);
             }
         }
     }
