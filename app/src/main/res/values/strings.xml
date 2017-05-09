@@ -82,4 +82,5 @@
     <string name="write_message">Escribe un mensaje...</string>
     <string name="forgot_pwd"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="check_connection">COMPROBAR CONEXIÓN</string>
+    <string name="connect">No hay conexión. Para poder usar la aplicación debes estar conectado a una red WiFi o de tráfico de datos. Conéctate y pulsa el botón \'COMPROBAR CONEXIÓN\'</string>
 </resources>

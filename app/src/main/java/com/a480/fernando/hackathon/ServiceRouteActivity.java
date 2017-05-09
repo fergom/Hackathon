@@ -205,7 +205,6 @@ public class ServiceRouteActivity extends BaseActivity implements OnMapReadyCall
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
-
         }
     }
 

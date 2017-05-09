@@ -16,7 +16,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
-        android:text="No hay conexión. Para poder usar la aplicación debes estar conectado a una red WiFi o de tráfico de datos. Conéctate y pulsa el botón 'COMPROBAR CONEXIÓN'"/>
+        android:text="@string/connect"/>
 
     <Button
         android:layout_width="match_parent"
