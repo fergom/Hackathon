@@ -19,6 +19,7 @@ public class LoginActivity extends BaseActivity implements ICallbackActivity {
 
     private FirebaseAuth mAuth;
     private static String email;
+    private EditText emailEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class LoginActivity extends BaseActivity implements ICallbackActivity {
     public void loginCredentials(View view) {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.login_progress_bar);
         LinearLayout loginInfoLayout = (LinearLayout) findViewById(R.id.login_info_layout);
-        EditText emailEditText = (EditText) findViewById(R.id.login_email);
+        emailEditText = (EditText) findViewById(R.id.login_email);
         EditText passwordEditText = (EditText) findViewById(R.id.login_password);
         email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -63,6 +64,22 @@ public class LoginActivity extends BaseActivity implements ICallbackActivity {
 
     public void onDataLoaded() {
         startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+    }
+
+    public void forgotPassword(View view) {
+        if(emailEditText.getText().toString().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Introduzca su email.", Toast.LENGTH_LONG).show();
+        } else {
+            mAuth.sendPasswordResetEmail(emailEditText.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Se ha enviado un email a la dirección de correo. Cambie su contraseña y después haga login con la nueva.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+        }
     }
 
 }

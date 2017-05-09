@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
+    android:id="@+id/bubble_layout"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:background="@drawable/rounded_grey_layout"
+    android:paddingLeft="25dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:background="@drawable/bubble1"
     android:weightSum="1">
 
     <TextView
@@ -23,5 +26,4 @@
         android:gravity="right"
         android:textColor="@color/darkGrey"
         android:textSize="15sp"/>
-
 </LinearLayout>

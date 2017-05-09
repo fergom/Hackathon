@@ -48,7 +48,7 @@
             android:layout_above="@+id/send_layout"
             android:layout_margin="10dp"
             android:divider="@android:color/transparent"
-            android:dividerHeight="3dp"/>
+            android:dividerHeight="4dp"/>
 
         <LinearLayout
             android:id="@+id/send_layout"

@@ -25,6 +25,7 @@ public class ChatActivity extends BaseActivity implements ICallbackActivity {
     private ArrayList<ChatMessage> messages;
     private EditText sendMessage;
     private ListView chatList;
+    private ChatAdapter chatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class ChatActivity extends BaseActivity implements ICallbackActivity {
             filteredMessages.add(c);
         }
 
-        ChatAdapter chatAdapter = new ChatAdapter(filteredMessages, getApplicationContext(), user.getUid());
+        chatAdapter = new ChatAdapter(filteredMessages, getApplicationContext(), user.getUid());
         chatList.setAdapter(chatAdapter);
         chatList.setSelection(chatAdapter.getCount()-1);
     }

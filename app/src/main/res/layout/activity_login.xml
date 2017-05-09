@@ -53,6 +53,16 @@
             android:background="@drawable/edittext"
             android:maxLines="1"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/forgot_pwd"
+            android:textColor="@color/com_facebook_blue"
+            android:textAlignment="center"
+            android:onClick="forgotPassword"/>
+
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"

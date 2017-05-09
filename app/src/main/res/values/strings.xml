@@ -80,4 +80,5 @@
     <string name="search_document">Buscar documento</string>
     <string name="no_speakers">No hay ponentes que coincidan.</string>
     <string name="write_message">Escribe un mensaje...</string>
+    <string name="forgot_pwd"><u>¿Has olvidado tu contraseña?</u></string>
 </resources>
