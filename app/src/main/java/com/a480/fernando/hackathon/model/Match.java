@@ -7,8 +7,8 @@ package com.a480.fernando.hackathon.model;
 public class Match {
 
     private String id;
-    private String email1;
-    private String email2;
+    private String uid1;
+    private String uid2;
     private boolean match1;
     private boolean match2;
     private boolean answer1;
@@ -24,20 +24,20 @@ public class Match {
         this.id = id;
     }
 
-    public String getEmail1() {
-        return email1;
+    public String getUid1() {
+        return uid1;
     }
 
-    public void setEmail1(String email1) {
-        this.email1 = email1;
+    public void setUid1(String uid1) {
+        this.uid1 = uid1;
     }
 
-    public String getEmail2() {
-        return email2;
+    public String getUid2() {
+        return uid2;
     }
 
-    public void setEmail2(String email2) {
-        this.email2 = email2;
+    public void setUid2(String uid2) {
+        this.uid2 = uid2;
     }
 
     public boolean getMatch1() {
@@ -76,8 +76,8 @@ public class Match {
     public String toString() {
         return "Match{" +
                 "id='" + id + '\'' +
-                ", email1='" + email1 + '\'' +
-                ", email2='" + email2 + '\'' +
+                ", uid1='" + uid1 + '\'' +
+                ", uid2='" + uid2 + '\'' +
                 ", match1=" + match1 +
                 ", match2=" + match2 +
                 ", answer1=" + answer1 +

@@ -33,6 +33,7 @@ public class AppConstant {
 
     public static final String UID = "uid";
     public static final String CHAT_ID = "chat_id";
+    public static final String QUESTION_ID = "question_id";
     public static final String IMAGE_1 = "image_1";
     public static final String IMAGE_2 = "image_2";
     public static final String NAME_1 = "name_1";

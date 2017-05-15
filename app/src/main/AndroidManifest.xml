@@ -193,7 +193,9 @@
         <activity
             android:name=".ChatActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NoConnectionActivity"></activity>
+        <activity android:name=".NoConnectionActivity" />
+        <activity android:name=".MyQuestionsActivity" />
+        <activity android:name=".AnswerQuestionActivity"></activity>
     </application>
 
 </manifest>

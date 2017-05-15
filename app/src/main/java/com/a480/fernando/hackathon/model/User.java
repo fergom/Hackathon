@@ -28,6 +28,7 @@ public class User {
     private boolean networking;
     private boolean isFirstAlphabet;
     private String chatId;
+    private boolean speaker;
 
     public User() { }
 
@@ -205,6 +206,14 @@ public class User {
 
     public void setChatId(String chatId) {
         this.chatId = chatId;
+    }
+
+    public boolean isSpeaker() {
+        return speaker;
+    }
+
+    public void setSpeaker(boolean speaker) {
+        this.speaker = speaker;
     }
 
     @Override

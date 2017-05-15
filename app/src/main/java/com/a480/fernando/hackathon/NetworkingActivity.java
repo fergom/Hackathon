@@ -84,12 +84,12 @@ public class NetworkingActivity extends BaseActivity {
             startActivity(new Intent(NetworkingActivity.this, ProfileActivity.class));
         }
 
-        match = matchDao.getMatch(user.getEmail(), randomUser.getEmail());
+        match = matchDao.getMatch(user.getUid(), randomUser.getUid());
 
         if((match.getAnswer1() == true && match.getMatch1() == false) || (match.getAnswer2() == true && match.getMatch2() == false)) {
             checkCounter();
         } else {
-            if(match.getEmail1().equals(user.getEmail())) {
+            if(match.getUid1().equals(user.getUid())) {
                 if(match.getAnswer1()) {
                     checkCounter();
                 }
@@ -113,7 +113,7 @@ public class NetworkingActivity extends BaseActivity {
     }
 
     public void accept(View view) {
-       if(match.getEmail1().equals(user.getEmail())) {
+       if(match.getUid1().equals(user.getUid())) {
            match.setMatch1(true);
            match.setAnswer1(true);
        } else {
@@ -149,7 +149,7 @@ public class NetworkingActivity extends BaseActivity {
     }
 
     public void cancel(View view) {
-        if(match.getEmail1().equals(user.getEmail())) {
+        if(match.getUid1().equals(user.getUid())) {
             match.setMatch1(false);
             match.setAnswer1(true);
         } else {

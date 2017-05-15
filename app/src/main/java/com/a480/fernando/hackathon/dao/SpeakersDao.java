@@ -54,10 +54,9 @@ public class SpeakersDao extends Dao {
 
                     questions = (ArrayList<HashMap<String, Object>>) attributes.get("questions");
                     if(questions != null) {
-                        int id = 0;
                         for(HashMap<String, Object> answer: questions) {
                             q = new Question();
-                            q.setId(id);
+                            q.setId((long) answer.get("id"));
                             q.setAnswer(answer.get("answer").toString());
                             q.setTitle(answer.get("title").toString());
                             likes = (HashMap<String, Integer>) answer.get("likes");
@@ -93,7 +92,6 @@ public class SpeakersDao extends Dao {
                             }
                             q.setComments(com);
                             quest.add(q);
-                            id++;
                         }
                     }
                     speaker.setQuestions(quest);
@@ -142,8 +140,14 @@ public class SpeakersDao extends Dao {
         DatabaseReference questionRef = myRef.child("/" + speakerName + "/questions/" + items);
         Calendar date = question.getTime();
         question.setTime(null);
+        question.setId(items);
         questionRef.setValue(question);
         questionRef.child("time").setValue(formatDate(date));
+    }
+
+    public void addAnswer(String speakerName, long id, String answer) {
+        DatabaseReference questionRef = myRef.child("/" + speakerName + "/questions/" + id);
+        questionRef.child("answer").setValue(answer);
     }
 
     public void addComment(String speakerName, String questionTitle, Comment comment) {

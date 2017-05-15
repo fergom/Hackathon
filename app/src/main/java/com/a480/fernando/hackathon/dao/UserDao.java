@@ -79,6 +79,7 @@ public class UserDao extends Dao {
                     u.setEmail((String) data.get("email"));
                     u.setPhoneNumber((String) data.get("phoneNumber"));
                     u.setNetworking((boolean) data.get("networking"));
+                    u.setSpeaker((boolean) data.get("speaker"));
                     users.add(u);
                 }
             }
@@ -115,6 +116,7 @@ public class UserDao extends Dao {
                         user.setImage((String) value.get("image"));
                         user.setSnooze((boolean) value.get("snooze"));
                         user.setNetworking((boolean) value.get("networking"));
+                        user.setSpeaker((boolean) value.get("speaker"));
 
                         if(callback != null) {
                             callback.onDataLoaded();
@@ -141,8 +143,8 @@ public class UserDao extends Dao {
     public ArrayList<User> getUsers(HashMap<String, String> matches) {
         ArrayList<User> filteredUsers = new ArrayList<User>();
         for(User u: users) {
-            if(matches.get(u.getEmail()) != null) {
-                u.setChatId(matches.get(u.getEmail()));
+            if(matches.get(u.getUid()) != null) {
+                u.setChatId(matches.get(u.getUid()));
                 filteredUsers.add(u);
             }
         }
@@ -175,7 +177,7 @@ public class UserDao extends Dao {
         int range = (users.size()-1) + 1;
         int random = (int)(Math.random() * range);
         for(int i = 0; i < users.size()*2; i++) {
-            if(!users.get(random).getEmail().equals(email) && users.get(random).getNetworking()) {
+            if(!users.get(random).getEmail().equals(email) && users.get(random).getNetworking() && !users.get(random).isSpeaker()) {
                 return users.get(random);
             }
             random = (int)(Math.random() * range);

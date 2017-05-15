@@ -61,7 +61,7 @@ public class ContactsActivity extends BaseActivity {
                 if(newText != null && !newText.isEmpty()){
                     newText = newText.toLowerCase();
                     ArrayList<User> queryUsers = new ArrayList<User>();
-                    for(User u: userDao.getUsers(matchDao.getUserMatches(user.getEmail()))) {
+                    for(User u: userDao.getUsers(matchDao.getUserMatches(user.getUid()))) {
                         if(u.getName().toLowerCase().contains(newText) || u.getSurname().toLowerCase().contains(newText) || u.getCity().toLowerCase().contains(newText) || u.getState().toLowerCase().contains(newText)) {
                             queryUsers.add(u);
                         }
@@ -83,7 +83,7 @@ public class ContactsActivity extends BaseActivity {
     }
 
     private void setDefault() {
-        contacts = userDao.getUsers(matchDao.getUserMatches(user.getEmail()));
+        contacts = userDao.getUsers(matchDao.getUserMatches(user.getUid()));
         sortContacts();
     }
 

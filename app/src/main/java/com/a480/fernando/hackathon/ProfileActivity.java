@@ -69,13 +69,15 @@ public class ProfileActivity extends BaseActivity {
             }
         });
 
-        networking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                user.setNetworking(isChecked);
-                userDao.saveUser(user);
-            }
-        });
+        if(!user.isSpeaker()) {
+            networking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    user.setNetworking(isChecked);
+                    userDao.saveUser(user);
+                }
+            });
+        }
     }
 
     public void logout(View view) {

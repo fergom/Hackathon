@@ -150,6 +150,23 @@ public class BaseActivity extends AppCompatActivity  {
                 TextView nameMenu = (TextView) navigationView.getHeaderView(0).findViewById(R.id.header_navigation).findViewById(R.id.name_menu);
                 nameMenu.setText(user.getName().toUpperCase() + " " + user.getSurname().toUpperCase());
                 Glide.with(getApplicationContext()).load(user.getImage()).into(imageMenu);
+                if(user.isSpeaker()) {
+                    navigationView.getHeaderView(0).findViewById(R.id.my_questions).setVisibility(View.VISIBLE);
+                    navigationView.getHeaderView(0).findViewById(R.id.contacts).setVisibility(View.GONE);
+                    navigationView.getHeaderView(0).findViewById(R.id.networking).setVisibility(View.GONE);
+                    navigationView.getHeaderView(0).findViewById(R.id.ask).setVisibility(View.GONE);
+                    navigationView.getHeaderView(0).findViewById(R.id.augmented_reality).setVisibility(View.GONE);
+                    navigationView.getHeaderView(0).findViewById(R.id.accreditation).setVisibility(View.GONE);
+                    navigationView.getHeaderView(0).findViewById(R.id.speakers).setVisibility(View.GONE);
+                } else {
+                    navigationView.getHeaderView(0).findViewById(R.id.my_questions).setVisibility(View.GONE);
+                    navigationView.getHeaderView(0).findViewById(R.id.contacts).setVisibility(View.VISIBLE);
+                    navigationView.getHeaderView(0).findViewById(R.id.networking).setVisibility(View.VISIBLE);
+                    navigationView.getHeaderView(0).findViewById(R.id.ask).setVisibility(View.VISIBLE);
+                    navigationView.getHeaderView(0).findViewById(R.id.augmented_reality).setVisibility(View.VISIBLE);
+                    navigationView.getHeaderView(0).findViewById(R.id.accreditation).setVisibility(View.VISIBLE);
+                    navigationView.getHeaderView(0).findViewById(R.id.speakers).setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -176,6 +193,9 @@ public class BaseActivity extends AppCompatActivity  {
         switch(view.getId()) {
             case R.id.navigation_login:
                 intent = new Intent(BaseActivity.this, LoginActivity.class);
+                break;
+            case R.id.my_questions:
+                intent = new Intent(BaseActivity.this, MyQuestionsActivity.class);
                 break;
             case R.id.profile:
                 intent = new Intent(BaseActivity.this, ProfileActivity.class);

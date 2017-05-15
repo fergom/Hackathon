@@ -32,8 +32,8 @@ public class MatchDao extends Dao {
                         m = new Match();
                         data = value.get(id);
                         m.setId(id);
-                        m.setEmail1((String) data.get("email1"));
-                        m.setEmail2((String) data.get("email2"));
+                        m.setUid1((String) data.get("uid1"));
+                        m.setUid2((String) data.get("uid2"));
                         m.setMatch1((boolean) data.get("match1"));
                         m.setMatch2((boolean) data.get("match2"));
                         m.setAnswer1((boolean) data.get("answer1"));
@@ -53,27 +53,27 @@ public class MatchDao extends Dao {
         return  matches.size();
     }
 
-    public HashMap<String, String> getUserMatches(String email) {
+    public HashMap<String, String> getUserMatches(String uid) {
         HashMap<String, String> userMatches = new HashMap<String, String>();
         for(Match match: matches) {
-            if(match.getEmail1().equals(email) && match.getMatch1() && match.getMatch2()) {
-                userMatches.put(match.getEmail2(), match.getId());
-            } else if(match.getEmail2().equals(email) && match.getMatch1() && match.getMatch2()) {
-                userMatches.put(match.getEmail1(), match.getId());
+            if(match.getUid1().equals(uid) && match.getMatch1() && match.getMatch2()) {
+                userMatches.put(match.getUid2(), match.getId());
+            } else if(match.getUid2().equals(uid) && match.getMatch1() && match.getMatch2()) {
+                userMatches.put(match.getUid1(), match.getId());
             }
         }
         return userMatches;
     }
 
-    public Match getMatch(String email1, String email2) {
+    public Match getMatch(String uid1, String uid2) {
         for(Match match: matches) {
-            if((match.getEmail1().equals(email1) || match.getEmail2().equals(email1)) && (match.getEmail1().equals(email2) || match.getEmail2().equals(email2))){
+            if((match.getUid1().equals(uid1) || match.getUid2().equals(uid1)) && (match.getUid1().equals(uid2) || match.getUid2().equals(uid2))){
                 return match;
             }
         }
         Match match = new Match();
-        match.setEmail1(email1);
-        match.setEmail2(email2);
+        match.setUid1(uid1);
+        match.setUid2(uid2);
         DatabaseReference r = myRef.push();
         r.setValue(match);
         match.setId(r.getKey());

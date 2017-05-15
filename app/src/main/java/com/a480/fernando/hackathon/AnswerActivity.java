@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class AnswerActivity extends BaseActivity {
     private ArrayList<Comment> commentsList;
     private ImageView questionLike;
     private TextView likes;
+    private FloatingActionButton commentAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class AnswerActivity extends BaseActivity {
         WebView title = (WebView) findViewById(R.id.question_title);
         WebView answer = (WebView) findViewById(R.id.question_answer);
         questionLike = (ImageView) findViewById(R.id.like_icon);
+        commentAnswer = (FloatingActionButton) findViewById(R.id.comment_answer);
 
         time.setText(getTime(question.getTime()));
         likes.setText(question.getLikes().size() + "");
@@ -56,8 +59,27 @@ public class AnswerActivity extends BaseActivity {
         setJustifiedText(title, question.getTitle(), BLACK_HEX);
         setJustifiedText(answer, question.getAnswer(), GREY_HEX);
 
-        checkLike();
-        setLikeListener();
+        if(user.isSpeaker()) {
+            questionLike.setImageResource(R.drawable.grey_like);
+            commentAnswer.setImageResource(R.drawable.answer_to_speaker_icon);
+            commentAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    answer(question.getId());
+                }
+            });
+        } else {
+            checkLike();
+            setLikeListener();
+
+            commentAnswer.setImageResource(R.drawable.comment_white_icon);
+            commentAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    comment();
+                }
+            });
+        }
 
         commentsList = question.getComments();
 
@@ -72,7 +94,16 @@ public class AnswerActivity extends BaseActivity {
 
     }
 
-    public void comment(View view) {
+    private void answer(long id) {
+        Intent intent = new Intent(AnswerActivity.this, AnswerQuestionActivity.class);
+        intent.putExtra(AppConstant.SPEAKER_NAME, speakerName);
+        intent.putExtra(AppConstant.QUESTION_TITLE, questionTitle);
+        intent.putExtra(AppConstant.QUESTION_ID, id);
+        startActivity(intent);
+        finish();
+    }
+
+    private void comment() {
         Intent intent = new Intent(AnswerActivity.this, CreateCommentActivity.class);
         intent.putExtra(AppConstant.SPEAKER_NAME, speakerName);
         intent.putExtra(AppConstant.QUESTION_TITLE, questionTitle);
@@ -81,8 +112,13 @@ public class AnswerActivity extends BaseActivity {
     }
 
     public void close(View view) {
-        Intent intent = new Intent(AnswerActivity.this, QuestionsActivity.class);
-        intent.putExtra(AppConstant.SPEAKER_NAME, speakerName);
+        Intent intent;
+        if(user.isSpeaker()) {
+            intent = new Intent(AnswerActivity.this, MyQuestionsActivity.class);
+        } else {
+            intent = new Intent(AnswerActivity.this, QuestionsActivity.class);
+            intent.putExtra(AppConstant.SPEAKER_NAME, speakerName);
+        }
         startActivity(intent);
         finish();
     }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.a480.fernando.hackathon.adapter.ChatAdapter;
 import com.a480.fernando.hackathon.model.ChatMessage;
+import com.a480.fernando.hackathon.model.Notification;
 import com.a480.fernando.hackathon.model.User;
 import com.bumptech.glide.Glide;
 
@@ -20,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends BaseActivity implements ICallbackActivity {
 
-    private User reveiverUser;
+    private User receiverUser;
     private String chatId;
     private ArrayList<ChatMessage> messages;
     private EditText sendMessage;
@@ -32,7 +33,7 @@ public class ChatActivity extends BaseActivity implements ICallbackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        reveiverUser = userDao.getUserUid(getIntent().getStringExtra(AppConstant.UID));
+        receiverUser = userDao.getUserUid(getIntent().getStringExtra(AppConstant.UID));
         chatId = getIntent().getStringExtra(AppConstant.CHAT_ID);
 
         chatDao.setCallbackActivity(this);
@@ -43,8 +44,8 @@ public class ChatActivity extends BaseActivity implements ICallbackActivity {
         TextView name = (TextView) findViewById(R.id.chat_name);
         CircleImageView profile = (CircleImageView) findViewById(R.id.chat_profile_image);
 
-        name.setText(reveiverUser.getName() + " " + reveiverUser.getSurname());
-        Glide.with(getApplicationContext()).load(reveiverUser.getImage()).into(profile);
+        name.setText(receiverUser.getName() + " " + receiverUser.getSurname());
+        Glide.with(getApplicationContext()).load(receiverUser.getImage()).into(profile);
     }
 
     public void sendMessage(View view) {
@@ -55,6 +56,10 @@ public class ChatActivity extends BaseActivity implements ICallbackActivity {
             message.setSenderUid(user.getUid());
             chatDao.saveMessage(chatId, message);
             sendMessage.setText("");
+            Notification notification = new Notification();
+            notification.setMessage("¡" + user.getName() + " " + user.getSurname() + " te ha hablado!");
+            notification.setTime(Calendar.getInstance());
+            notificationsDao.addNotification(receiverUser.getUid(), notification);
         }
     }
 

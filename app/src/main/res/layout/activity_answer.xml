@@ -120,12 +120,12 @@
         android:onClick="close"/>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/comment_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="10dp"
         android:src="@drawable/comment_white_icon"
-        app:backgroundTint="@color/colorPrimary"
-        android:onClick="comment"/>
+        app:backgroundTint="@color/colorPrimary"/>
 
 </android.support.design.widget.CoordinatorLayout>

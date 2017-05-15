@@ -83,4 +83,7 @@
     <string name="forgot_pwd"><u>¿Has olvidado tu contraseña?</u></string>
     <string name="check_connection">COMPROBAR CONEXIÓN</string>
     <string name="connect">No hay conexión. Para poder usar la aplicación debes estar conectado a una red WiFi o de tráfico de datos. Conéctate y pulsa el botón \'COMPROBAR CONEXIÓN\'</string>
+    <string name="my_questions">Mis preguntas</string>
+    <string name="answer_hint">Contestación...</string>
+    <string name="answer">CONTESTAR</string>
 </resources>
